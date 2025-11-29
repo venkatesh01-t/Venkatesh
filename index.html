@@ -7,18 +7,37 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
+   <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        html{
-            scroll-behavior:smooth;
+         html {
+            scroll-behavior: smooth;
         }
+
         body { 
             font-family: 'Inter', sans-serif; 
-            /* Fallback background if canvas fails */
             background-color: #f8fafc; 
             color: #1f2937;
             overflow-x: hidden;
             
+            /* --- CUSTOM CURSOR CSS --- */
+            /* This attempts to load your file. If not found, it falls back to default arrow */
+            cursor: url('ns.cur'), auto; 
+        }
+
+        /* Ensure links also show the custom cursor (or change to 'pointer' if you prefer the hand) */
+        a, button, .filter-btn {
+            cursor: url('lk.cur'), pointer; 
+        }
+ /* --- SCROLL REVEAL ANIMATION --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px); /* Start 50px lower */
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1); /* Smooth ease-out */
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Animated Background Canvas */
@@ -51,7 +70,7 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
-        /* Glassmorphism for cards to let animation peek through subtly */
+        /* Glassmorphism */
         .glass-card {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(8px);
@@ -87,7 +106,7 @@
             opacity: 0;
             transform: scale(0.95);
             pointer-events: none;
-            display: block; /* Override display:none to animate opacity, but use visibility hidden logic via class removal/add usually better, keeping simple here */
+            display: block; 
             visibility: hidden;
         }
         #resumeDropdown:not(.hidden) {
@@ -618,4 +637,5 @@
     </script>
 </body>
 </html>
+
 
