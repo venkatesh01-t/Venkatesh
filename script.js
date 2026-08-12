@@ -1,12 +1,7 @@
 /* ============================================
    script.js — Venkatesh Babu Portfolio
-   Loaded with defer: runs after HTML is parsed,
-   never blocks rendering.
+   Interactive logic & section hooks
 ============================================ */
-
-// ─── DARK MODE (runs immediately via inline script in <head>) ───
-// The theme init is kept inline in HTML for flash prevention.
-// This file handles the interactive toggle only.
 
 // ─── CINEMATIC PRELOADER SYSTEM ─────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
@@ -31,7 +26,7 @@ window.addEventListener('DOMContentLoaded', () => {
         progress += Math.floor(Math.random() * 8) + 2;
         if (progress >= 100) { progress = 100; clearInterval(interval); }
 
-        bar.style.width = `${progress}%`;
+        if (bar) bar.style.width = `${progress}%`;
         if (pct) pct.innerText = `${progress}%`;
 
         for (const stage of stages) {
@@ -51,15 +46,17 @@ window.addEventListener('DOMContentLoaded', () => {
             if (logs[3]) logs[3].classList.add('active');
             if (text) text.innerText = 'SYSTEM ONLINE — WELCOME.';
             setTimeout(() => {
-                preloader.style.transition = 'opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1)';
-                preloader.style.opacity    = '0';
-                preloader.style.transform  = 'scale(1.04)';
-                preloader.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    initTypingEffect();
-                    initStatsCounter();
-                }, 720);
+                if (preloader) {
+                    preloader.style.transition = 'opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1)';
+                    preloader.style.opacity    = '0';
+                    preloader.style.transform  = 'scale(1.04)';
+                    preloader.style.pointerEvents = 'none';
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                        initTypingEffect();
+                        initStatsCounter();
+                    }, 720);
+                }
             }, 600);
         }
     }, 60);
@@ -92,55 +89,64 @@ function initTypingEffect() {
     }
     setTimeout(initTypingEffect, typeSpeed);
 }
+window.initTypingEffect = initTypingEffect;
 
 // ─── DARK MODE TOGGLE ────────────────────────────────────────────
 const themeToggleBtn = document.getElementById('themeToggle');
-themeToggleBtn.addEventListener('click', () => {
-    if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark');
-        localStorage.setItem('color-theme', 'light');
-    } else {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('color-theme', 'dark');
-    }
-    if (window.Chart) renderRadarChart();
-});
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('color-theme', 'dark');
+        }
+        if (window.Chart) renderRadarChart();
+    });
+}
 
 // ─── MOBILE MENU ─────────────────────────────────────────────────
 const mobileMenuBtn   = document.getElementById('mobileMenuBtn');
 const mobileMenuPanel = document.getElementById('mobileMenuPanel');
 const menuIcon        = document.getElementById('menu-icon');
 
-mobileMenuBtn.addEventListener('click', () => {
-    const isHidden = mobileMenuPanel.classList.contains('hidden');
-    if (isHidden) {
-        mobileMenuPanel.classList.remove('hidden');
-        menuIcon.className = 'fas fa-times text-sm';
-        mobileMenuBtn.setAttribute('aria-expanded', 'true');
-    } else {
-        mobileMenuPanel.classList.add('hidden');
-        menuIcon.className = 'fas fa-bars text-sm';
-        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-    }
-});
-
-function closeMobileMenu() {
-    mobileMenuPanel.classList.add('hidden');
-    menuIcon.className = 'fas fa-bars text-sm';
-    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenuPanel.classList.contains('hidden');
+        if (isHidden) {
+            mobileMenuPanel.classList.remove('hidden');
+            menuIcon.className = 'fas fa-times text-sm';
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        } else {
+            mobileMenuPanel.classList.add('hidden');
+            menuIcon.className = 'fas fa-bars text-sm';
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        }
+    });
 }
 
-// ─── SCROLL PROGRESS + HEADER ─────────────────────────────────────
+function closeMobileMenu() {
+    if (mobileMenuPanel) mobileMenuPanel.classList.add('hidden');
+    if (menuIcon) menuIcon.className = 'fas fa-bars text-sm';
+    if (mobileMenuBtn) mobileMenuBtn.setAttribute('aria-expanded', 'false');
+}
+window.closeMobileMenu = closeMobileMenu;
+
+// ─── SCROLL PROGRESS & HEADER ─────────────────────────────────────
 window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    document.getElementById('scroll-progress').style.width = ((winScroll / height) * 100) + '%';
+    const progressEl = document.getElementById('scroll-progress');
+    if (progressEl) progressEl.style.width = ((winScroll / height) * 100) + '%';
 
     const header = document.getElementById('main-header');
-    if (window.scrollY > 20) {
-        header.classList.add('py-1'); header.classList.remove('py-3');
-    } else {
-        header.classList.add('py-3'); header.classList.remove('py-1');
+    if (header) {
+        if (window.scrollY > 20) {
+            header.classList.add('py-1'); header.classList.remove('py-3');
+        } else {
+            header.classList.add('py-3'); header.classList.remove('py-1');
+        }
     }
 }, { passive: true });
 
@@ -160,6 +166,7 @@ function initStatsCounter() {
         update();
     });
 }
+window.initStatsCounter = initStatsCounter;
 
 // ─── SKILL TAB SWITCHING ─────────────────────────────────────────
 function switchSkillCategory(category) {
@@ -176,6 +183,7 @@ function switchSkillCategory(category) {
         content.classList.toggle('hidden', content.id !== `cat-${category}`);
     });
 }
+window.switchSkillCategory = switchSkillCategory;
 
 // ─── RESUME DROPDOWN ─────────────────────────────────────────────
 function toggleResumeMenu(event) {
@@ -183,20 +191,23 @@ function toggleResumeMenu(event) {
     const dropdown = document.getElementById('resumeDropdown');
     const arrow    = document.getElementById('resume-arrow');
     const btn      = document.getElementById('resumeBtn');
+    if (!dropdown) return;
     const isHidden = dropdown.classList.contains('hidden');
     if (isHidden) {
         dropdown.classList.remove('hidden');
         setTimeout(() => { dropdown.classList.remove('scale-95','opacity-0'); dropdown.classList.add('scale-100','opacity-100'); }, 10);
-        arrow.classList.add('rotate-180');
-        btn.setAttribute('aria-expanded', 'true');
+        if (arrow) arrow.classList.add('rotate-180');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
     } else {
         dropdown.classList.remove('scale-100','opacity-100');
         dropdown.classList.add('scale-95','opacity-0');
         setTimeout(() => dropdown.classList.add('hidden'), 150);
-        arrow.classList.remove('rotate-180');
-        btn.setAttribute('aria-expanded', 'false');
+        if (arrow) arrow.classList.remove('rotate-180');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
     }
 }
+window.toggleResumeMenu = toggleResumeMenu;
+
 window.addEventListener('click', () => {
     const dropdown = document.getElementById('resumeDropdown');
     const arrow    = document.getElementById('resume-arrow');
@@ -204,13 +215,14 @@ window.addEventListener('click', () => {
         dropdown.classList.remove('scale-100','opacity-100');
         dropdown.classList.add('scale-95','opacity-0');
         setTimeout(() => dropdown.classList.add('hidden'), 150);
-        arrow.classList.remove('rotate-180');
+        if (arrow) arrow.classList.remove('rotate-180');
     }
 });
 
 // ─── BACKGROUND CANVAS ANIMATION ────────────────────────────────
 const initCanvasAnimation = () => {
     const canvas = document.getElementById('bgCanvas');
+    if (!canvas) return;
     const ctx    = canvas.getContext('2d');
     let width, height, animationId = null, isRunning = true;
 
@@ -261,7 +273,9 @@ initCanvasAnimation();
 let radarChartInstance = null;
 function renderRadarChart() {
     if (!window.Chart) return;
-    const ctx    = document.getElementById('skillsRadar').getContext('2d');
+    const canvasEl = document.getElementById('skillsRadar');
+    if (!canvasEl) return;
+    const ctx    = canvasEl.getContext('2d');
     const isDark = document.documentElement.classList.contains('dark');
     if (radarChartInstance) radarChartInstance.destroy();
 
@@ -283,13 +297,28 @@ function renderRadarChart() {
         }
     });
 }
+window.renderRadarChart = renderRadarChart;
 if (window.Chart) { renderRadarChart(); } else { window.addEventListener('load', renderRadarChart); }
 
 // ─── SCROLL REVEAL ───────────────────────────────────────────────
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+let revealObserver = null;
+function initScrollAnimations() {
+    const revealElements = document.querySelectorAll('.reveal');
+    if (!revealElements.length) return;
+    
+    if (revealObserver) {
+        revealElements.forEach(el => revealObserver.observe(el));
+        return;
+    }
+
+    revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+}
+window.initScrollAnimations = initScrollAnimations;
+initScrollAnimations();
 
 // ─── PROJECTS DATA + RENDERING ───────────────────────────────────
 const projectsData = [
@@ -351,9 +380,11 @@ function filterProjects(category) {
     });
     renderProjects(category);
 }
+window.filterProjects = filterProjects;
 
 function renderProjects(category) {
     const grid = document.getElementById('projectsGrid');
+    if (!grid) return;
     grid.innerHTML = '';
     const filtered = category === 'all' ? projectsData : projectsData.filter(p => p.category === category);
     filtered.forEach(project => {
@@ -383,6 +414,7 @@ function renderProjects(category) {
         grid.appendChild(card);
     });
 }
+window.renderProjects = renderProjects;
 renderProjects('all');
 
 // ─── CONTACT FORM ────────────────────────────────────────────────
@@ -393,16 +425,22 @@ function handleContactSubmit(event) {
     const email   = document.getElementById('form-email').value;
     const subject = document.getElementById('form-subject').value;
     const msg     = document.getElementById('form-message').value;
-    status.innerText   = "Processing...";
-    status.className   = "text-xs font-semibold text-slate-400";
+    if (status) {
+        status.innerText   = "Processing...";
+        status.className   = "text-xs font-semibold text-slate-400";
+    }
     const mailtoUrl = `mailto:babuvenkatesh093@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Hello Venkatesh,\n\nName: " + name + "\nEmail: " + email + "\n\nMessage:\n" + msg)}`;
     setTimeout(() => {
         window.location.href = mailtoUrl;
-        status.innerText  = "Email Client Opened!";
-        status.className  = "text-xs font-semibold text-green-500 dark:text-green-400";
+        if (status) {
+            status.innerText  = "Email Client Opened!";
+            status.className  = "text-xs font-semibold text-green-500 dark:text-green-400";
+        }
         event.target.reset();
     }, 800);
 }
+window.handleContactSubmit = handleContactSubmit;
 
 // ─── FOOTER DYNAMIC YEAR ─────────────────────────────────────────
-document.getElementById('current-year').innerText = new Date().getFullYear();
+const yr = document.getElementById('current-year');
+if (yr) yr.innerText = new Date().getFullYear();

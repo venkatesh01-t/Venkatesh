@@ -100,8 +100,8 @@
     </script>
 
     <!-- ===== RESOURCE HINTS ===== -->
-    <!-- Preload the LCP hero image — critical for Largest Contentful Paint -->
-    <link rel="preload" href="./1.png" as="image" fetchpriority="high">
+    <!-- Preload the LCP hero image in WebP format — critical for Fastest Contentful Paint -->
+    <link rel="preload" href="./1.webp" as="image" type="image/webp" fetchpriority="high">
 
     <!-- DNS + connection warmup for CDN hosts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,24 +110,21 @@
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
     <!-- ===== GOOGLE FONTS (optimized: only 2 weights per family, preloaded) ===== -->
-    <!-- Preload the most critical font file (Inter latin subset) -->
     <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2" as="font" type="font/woff2" crossorigin>
-    <!-- Load Inter + Outfit (critical UI fonts). Fira Code loaded lazily below. -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
-    <!-- Fira Code: only used in canvas bg — loaded non-blocking -->
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 
-    <!-- ===== FONT AWESOME (lazy-loaded — not needed for FCP) ===== -->
+    <!-- ===== FONT AWESOME (lazy-loaded — non-blocking) ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" crossorigin="anonymous">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"></noscript>
 
     <!-- ===== TAILWIND CSS CDN ===== -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- ===== CHART.JS (deferred — only needed for Skills section) ===== -->
+    <!-- ===== CHART.JS (deferred) ===== -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 
-    <!-- ===== TAILWIND CONFIG (must run after Tailwind CDN, before render) ===== -->
+    <!-- ===== TAILWIND CONFIG ===== -->
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -159,13 +156,11 @@
         }
     </script>
 
-    <!-- ===== EXTERNAL STYLESHEET (cacheable) ===== -->
+    <!-- ===== EXTERNAL STYLESHEET (cacheable master bundle) ===== -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- ===== DARK MODE FLASH PREVENTION (must be inline, before body renders) ===== -->
+    <!-- ===== DARK MODE FLASH PREVENTION ===== -->
     <script>
-        // This tiny snippet runs synchronously to set dark/light class before paint.
-        // Prevents white flash on dark-mode preference users.
         (function() {
             try {
                 var stored = localStorage.getItem('color-theme');
@@ -221,7 +216,10 @@
             <div class="preloader-avatar-glow relative w-24 h-24 rounded-full p-[3px] flex items-center justify-center"
                  style="background: linear-gradient(135deg, #14b8a6, #06b6d4, #8b5cf6, #14b8a6); background-size: 300% 300%; animation: gradientShift 4s ease infinite, avatarGlow 2.5s ease-in-out infinite alternate;">
                 <div class="w-full h-full rounded-full overflow-hidden bg-slate-950 border-2 border-slate-950">
-                    <img src="./1.png" alt="Venkatesh Babu — Python Developer" class="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-500" width="96" height="96" fetchpriority="high">
+                    <picture>
+                        <source srcset="./1.webp" type="image/webp">
+                        <img src="./1.png" alt="Venkatesh Babu — Python Developer" class="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-500" width="96" height="96" fetchpriority="high">
+                    </picture>
                 </div>
             </div>
         </div>
@@ -250,24 +248,12 @@
                 <span class="text-[9px] font-mono font-bold text-teal-500" id="preloader-percent">0%</span>
             </div>
 
-            <!-- Terminal logs -->
-            <div class="mt-4 space-y-1 font-mono" id="preloader-logs">
-                <div class="preloader-log flex items-center gap-2" id="log-1">
-                    <span class="text-teal-500 text-[8px]">✔</span>
-                    <span class="text-[8px] text-slate-600">sys.kernel.boot() &mdash; OK</span>
-                </div>
-                <div class="preloader-log flex items-center gap-2" id="log-2">
-                    <span class="text-teal-500 text-[8px]">✔</span>
-                    <span class="text-[8px] text-slate-600">assets.resolve("1.png", "resume.pdf") &mdash; OK</span>
-                </div>
-                <div class="preloader-log flex items-center gap-2" id="log-3">
-                    <span class="text-teal-500 text-[8px]">✔</span>
-                    <span class="text-[8px] text-slate-600">portfolio.schema.load() &mdash; OK</span>
-                </div>
-                <div class="preloader-log flex items-center gap-2" id="log-4">
-                    <span class="text-purple-400 text-[8px]">✔</span>
-                    <span class="text-[8px] text-slate-600">ui.render("dark", canvas=true) &mdash; OK</span>
-                </div>
+            <!-- Terminal logs stream -->
+            <div class="mt-4 font-mono text-[9px] text-slate-600 space-y-1 h-14 overflow-hidden border-t border-slate-900/80 pt-2">
+                <div class="preloader-log text-teal-500/80" id="log-1">[0.012s] CORE SYSTEM INITIALIZATION... PASSED</div>
+                <div class="preloader-log text-cyan-500/80" id="log-2">[0.045s] DYNAMIC MODULE RESOLUTION... OK</div>
+                <div class="preloader-log text-purple-400/80" id="log-3">[0.089s] LAZY SECTION SCHEMA BINDING... COMPLETED</div>
+                <div class="preloader-log text-emerald-400 font-bold" id="log-4">[0.120s] PORTFOLIO GRAPHICAL ENGINE... ONLINE</div>
             </div>
         </div>
     </div>
@@ -281,13 +267,16 @@
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="glass-nav rounded-full px-4 py-2 sm:px-6 flex justify-between items-center shadow-md">
-                    <!-- Column 1: Nav logo -->
+                <!-- Column 1: Nav logo -->
                 <a href="#hero" class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-teal-500 shadow-sm bg-slate-100 flex-shrink-0">
-                        <img src="./1.png" alt="Venkatesh Babu" class="w-full h-full object-cover" width="40" height="40" loading="lazy">
+                        <picture>
+                            <source srcset="./1.webp" type="image/webp">
+                            <img src="./1.png" alt="Venkatesh Babu" class="w-full h-full object-cover" width="40" height="40" loading="lazy">
+                        </picture>
                     </div>
                     <div class="leading-tight hidden sm:block">
-                        <span class="text-sm font-display font-bold text-slate-900 dark:text-white">Venkatesh Babu</span>
+                        <span class="text-sm font-display font-bold text-slate-950 dark:text-white">Venkatesh Babu</span>
                         <p class="text-[10px] font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wide">Python Developer</p>
                     </div>
                 </a>
@@ -324,8 +313,8 @@
 
                     <!-- Dark Mode Toggle Button -->
                     <button id="themeToggle" class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 text-slate-600 dark:text-slate-400 hover:text-teal-500 dark:hover:text-teal-400 transition-colors shadow-sm" aria-label="Toggle theme">
-                        <i class="fas fa-sun text-sm block dark:hidden"></i>
-                        <i class="fas fa-moon text-sm hidden dark:block"></i>
+                        <i class="fas fa-sun text-sm block dark:hidden" aria-hidden="true"></i>
+                        <i class="fas fa-moon text-sm hidden dark:block" aria-hidden="true"></i>
                     </button>
 
                     <!-- Mobile Menu Button -->
@@ -350,634 +339,667 @@
         </div>
     </header>
 
+
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16 space-y-24">
 
         <!-- 1. HERO SECTION -->
         <section id="hero" class="min-h-[85vh] flex flex-col justify-center items-center text-center relative py-12 md:py-20">
-            <!-- Decorative blur background items -->
-            <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-teal-400/20 dark:bg-teal-500/10 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/20 dark:bg-purple-500/10 rounded-full blur-3xl -z-10 animate-float"></div>
+    <!-- Decorative blur background items -->
+    <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-teal-400/20 dark:bg-teal-500/10 rounded-full blur-3xl -z-10 animate-pulse-slow"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-400/20 dark:bg-purple-500/10 rounded-full blur-3xl -z-10 animate-float"></div>
 
-            <div class="max-w-3xl space-y-6">
-                <!-- Status Badge -->
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 dark:bg-teal-400/10 border border-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-semibold tracking-wider uppercase mb-2 animate-bounce">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
-                    </span>
-                    Open to Work / Fresh Opportunities
-                </div>
+    <div class="max-w-3xl space-y-6">
+        <!-- Status Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 dark:bg-teal-400/10 border border-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-semibold tracking-wider uppercase mb-2 animate-bounce">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+            </span>
+            Open to Work / Fresh Opportunities
+        </div>
 
-                <!-- Main Greeting -->
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight">
-                    Hello, I'm <span class="text-gradient">Venkatesh Babu</span>
-                </h1>
+        <!-- Main Greeting -->
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight">
+            Hello, I'm <span class="text-gradient">Venkatesh Babu</span>
+        </h1>
 
-                <!-- Subtitle: h2-level keyword anchor for Google -->
-                <p class="text-sm font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-widest -mb-2">Python Developer &amp; AI Developer</p>
+        <!-- Subtitle: h2-level keyword anchor for Google -->
+        <p class="text-sm font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-widest -mb-2">Python Developer &amp; AI Developer</p>
 
-                <!-- Typing Animation Role -->
-                <div class="text-xl sm:text-2xl font-mono text-slate-600 dark:text-slate-400 h-8 flex items-center justify-center gap-1.5">
-                    <span>I build </span>
-                    <span id="typing-text" class="text-teal-600 dark:text-teal-400 font-semibold border-r-2 border-teal-500 pr-1"></span>
-                </div>
+        <!-- Typing Animation Role -->
+        <div class="text-xl sm:text-2xl font-mono text-slate-600 dark:text-slate-400 h-8 flex items-center justify-center gap-1.5">
+            <span>I build </span>
+            <span id="typing-text" class="text-teal-600 dark:text-teal-400 font-semibold border-r-2 border-teal-500 pr-1"></span>
+        </div>
 
-                <!-- Mini Objective — natural keyword integration -->
-                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-                    I am <strong class="text-slate-900 dark:text-white font-semibold">Venkatesh Babu</strong>, a <strong class="text-slate-900 dark:text-white font-semibold">Python Developer and AI Developer</strong> specializing in <strong class="text-slate-900 dark:text-white font-semibold">Django</strong>, REST APIs, Machine Learning, and Computer Vision.
-                </p>
+        <!-- Mini Objective — natural keyword integration -->
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+            I am <strong class="text-slate-900 dark:text-white font-semibold">Venkatesh Babu</strong>, a <strong class="text-slate-900 dark:text-white font-semibold">Python Developer and AI Developer</strong> specializing in <strong class="text-slate-900 dark:text-white font-semibold">Django</strong>, REST APIs, Machine Learning, and Computer Vision.
+        </p>
 
-                <!-- Hero CTAs -->
-                <div class="flex flex-wrap gap-4 justify-center pt-4">
-                    <a href="#projects" class="group px-6 py-3 rounded-full bg-teal-600 hover:bg-teal-500 text-white font-semibold shadow-lg shadow-teal-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
-                        View Projects
-                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
-                    </a>
-                    <a href="resume.pdf" download="Venkatesh_Babu_Resume.pdf" class="px-6 py-3 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-400 dark:hover:border-teal-600 text-slate-800 dark:text-slate-200 font-semibold shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
-                        <i class="fas fa-download text-teal-500" aria-hidden="true"></i>
-                        Download Resume
-                    </a>
-                    <a href="#contact" class="px-6 py-3 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold shadow-sm hover:scale-105 active:scale-95 transition-all">
-                        Let's Talk
-                    </a>
-                </div>
+        <!-- Hero CTAs -->
+        <div class="flex flex-wrap gap-4 justify-center pt-4">
+            <a href="#projects" class="group px-6 py-3 rounded-full bg-teal-600 hover:bg-teal-500 text-white font-semibold shadow-lg shadow-teal-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                View Projects
+                <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform" aria-hidden="true"></i>
+            </a>
+            <a href="resume.pdf" download="Venkatesh_Babu_Resume.pdf" class="px-6 py-3 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-400 dark:hover:border-teal-600 text-slate-800 dark:text-slate-200 font-semibold shadow-sm hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                <i class="fas fa-download text-teal-500" aria-hidden="true"></i>
+                Download Resume
+            </a>
+            <a href="#contact" class="px-6 py-3 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 text-slate-800 dark:text-slate-200 font-semibold shadow-sm hover:scale-105 active:scale-95 transition-all">
+                Let's Talk
+            </a>
+        </div>
 
-                <!-- Floating Social Badges -->
-                <div class="flex items-center justify-center gap-4 pt-8">
-                    <a href="https://github.com/venkatesh01-t" target="_blank" rel="noopener noreferrer" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="GitHub Profile — venkatesh01-t">
-                        <i class="fab fa-github fa-lg" aria-hidden="true"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/venkatesh-babu-208891392" target="_blank" rel="noopener noreferrer" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="LinkedIn — Venkatesh Babu">
-                        <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
-                    </a>
-                    <a href="https://www.instagram.com/jerry_._boy_7/" target="_blank" rel="noopener noreferrer" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-pink-500 dark:hover:text-pink-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="Instagram — jerry_._boy_7">
-                        <i class="fab fa-instagram fa-lg" aria-hidden="true"></i>
-                    </a>
-                    <a href="mailto:babuvenkatesh093@gmail.com" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="Send Email to Venkatesh Babu">
-                        <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
+        <!-- Floating Social Badges -->
+        <div class="flex items-center justify-center gap-4 pt-8">
+            <a href="https://github.com/venkatesh01-t" target="_blank" rel="noopener noreferrer" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="GitHub Profile — venkatesh01-t">
+                <i class="fab fa-github fa-lg" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/venkatesh-babu-208891392" target="_blank" rel="noopener noreferrer" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="LinkedIn — Venkatesh Babu">
+                <i class="fab fa-linkedin fa-lg" aria-hidden="true"></i>
+            </a>
+            <a href="https://www.instagram.com/jerry_._boy_7/" target="_blank" rel="noopener noreferrer" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-pink-500 dark:hover:text-pink-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="Instagram — jerry_._boy_7">
+                <i class="fab fa-instagram fa-lg" aria-hidden="true"></i>
+            </a>
+            <a href="mailto:babuvenkatesh093@gmail.com" class="w-11 h-11 flex items-center justify-center rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:border-slate-300 dark:hover:border-slate-700 hover:scale-110 shadow-sm transition-all" aria-label="Send Email to Venkatesh Babu">
+                <i class="fas fa-envelope fa-lg" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</section>
 
         <!-- 2. ABOUT ME SECTION -->
         <section id="about" class="reveal scroll-mt-24">
-            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-200/50 dark:border-slate-800/50 shadow-sm relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 dark:bg-teal-500/2 rounded-bl-full -z-10"></div>
-                
-                <div class="flex flex-col lg:flex-row gap-10 items-center">
-                    <!-- Column 1: Img Frame -->
-                    <div class="flex-shrink-0 w-full sm:w-auto relative group">
-                        <div class="absolute inset-0 bg-gradient-to-tr from-teal-500 to-purple-600 rounded-2xl blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
-                        <div class="shimmer-container w-48 h-48 md:w-56 md:h-56 rounded-2xl border-4 border-white dark:border-slate-900 shadow-xl overflow-hidden relative mx-auto z-10 transform group-hover:scale-102 transition duration-300">
-                            <img src="./1.png" alt="Venkatesh Babu — Python & Django Developer from Madurai, Tamil Nadu" class="w-full h-full object-cover" width="224" height="224" loading="lazy">
-                        </div>
-                        <div class="absolute -bottom-3 -right-3 w-12 h-12 bg-white dark:bg-slate-900 shadow-lg rounded-full flex items-center justify-center text-teal-600 dark:text-teal-400 border border-slate-100 dark:border-slate-800 z-20">
-                            <i class="fas fa-user-graduate"></i>
-                        </div>
-                    </div>
+<!-- 2. ABOUT ME SECTION -->
+<div class="glass-card rounded-3xl p-6 sm:p-10 border border-slate-200/50 dark:border-slate-800/50 shadow-sm relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-32 h-32 bg-teal-500/5 dark:bg-teal-500/2 rounded-bl-full -z-10"></div>
+    
+    <div class="flex flex-col lg:flex-row gap-10 items-center">
+        <!-- Column 1: Img Frame -->
+        <div class="flex-shrink-0 w-full sm:w-auto relative group">
+            <div class="absolute inset-0 bg-gradient-to-tr from-teal-500 to-purple-600 rounded-2xl blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+            <div class="shimmer-container w-48 h-48 md:w-56 md:h-56 rounded-2xl border-4 border-white dark:border-slate-900 shadow-xl overflow-hidden relative mx-auto z-10 transform group-hover:scale-102 transition duration-300">
+                <picture>
+                    <source srcset="./1.webp" type="image/webp">
+                    <img src="./1.png" alt="Venkatesh Babu — Python & Django Developer from Madurai, Tamil Nadu" class="w-full h-full object-cover" width="224" height="224" loading="lazy" decoding="async">
+                </picture>
+            </div>
+            <div class="absolute -bottom-3 -right-3 w-12 h-12 bg-white dark:bg-slate-900 shadow-lg rounded-full flex items-center justify-center text-teal-600 dark:text-teal-400 border border-slate-100 dark:border-slate-800 z-20">
+                <i class="fas fa-user-graduate" aria-hidden="true"></i>
+            </div>
+        </div>
 
-                    <!-- Column 2: Content -->
-                    <div class="flex-grow space-y-6">
-                        <div>
-                            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block mb-1">Who I Am</span>
-                            <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">About Venkatesh Babu</h2>
-                        </div>
-                        
-                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
-                            Venkatesh Babu is a <strong class="text-slate-800 dark:text-slate-100 font-semibold">Python Developer and Django Developer</strong> focused on building backend applications, REST APIs, and AI-powered solutions. Experienced in Machine Learning, Computer Vision (OpenCV/MediaPipe), and full-stack web development using Django, React, and HTMX. MCA candidate at Madurai Kamaraj University, Tamil Nadu.
-                        </p>
+        <!-- Column 2: Content -->
+        <div class="flex-grow space-y-6">
+            <div>
+                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block mb-1">Who I Am</span>
+                <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">About Venkatesh Babu</h2>
+            </div>
+            
+            <p class="text-slate-600 dark:text-slate-300 leading-relaxed text-sm sm:text-base">
+                Venkatesh Babu is a <strong class="text-slate-800 dark:text-slate-100 font-semibold">Python Developer and Django Developer</strong> focused on building backend applications, REST APIs, and AI-powered solutions. Experienced in Machine Learning, Computer Vision (OpenCV/MediaPipe), and full-stack web development using Django, React, and HTMX. MCA candidate at Madurai Kamaraj University, Tamil Nadu.
+            </p>
 
-                        <!-- Highlights Grid -->
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
-                            <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
-                                <i class="fas fa-graduation-cap text-teal-500 text-lg w-5"></i>
-                                <span>MCA Candidate (2024 - 2026)</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
-                                <i class="fas fa-code-branch text-teal-500 text-lg w-5"></i>
-                                <span>Python & Django Specialist</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
-                                <i class="fas fa-map-marker-alt text-teal-500 text-lg w-5"></i>
-                                <span>Madurai, Tamil Nadu, India</span>
-                            </div>
-                            <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
-                                <i class="fas fa-envelope text-teal-500 text-lg w-5"></i>
-                                <span class="truncate">babuvenkatesh093@gmail.com</span>
-                            </div>
-                        </div>
-
-                        <!-- Stats Block -->
-                        <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200/50 dark:border-slate-800/50">
-                            <div>
-                                <span class="text-2xl sm:text-3xl font-display font-extrabold text-teal-600 dark:text-teal-400 block" id="stat-projects" data-val="4">0</span>
-                                <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Completed Projects</span>
-                            </div>
-                            <div>
-                                <span class="text-2xl sm:text-3xl font-display font-extrabold text-teal-600 dark:text-teal-400 block" id="stat-exp" data-val="2">0</span>
-                                <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Internship Exps</span>
-                            </div>
-                            <div>
-                                <span class="text-2xl sm:text-3xl font-display font-extrabold text-teal-600 dark:text-teal-400 block" id="stat-certs" data-val="3">0</span>
-                                <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Certifications</span>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Highlights Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
+                    <i class="fas fa-graduation-cap text-teal-500 text-lg w-5" aria-hidden="true"></i>
+                    <span>MCA Candidate (2024 - 2026)</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
+                    <i class="fas fa-code-branch text-teal-500 text-lg w-5" aria-hidden="true"></i>
+                    <span>Python & Django Specialist</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
+                    <i class="fas fa-map-marker-alt text-teal-500 text-lg w-5" aria-hidden="true"></i>
+                    <span>Madurai, Tamil Nadu, India</span>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-white/40 dark:bg-slate-900/40 rounded-xl border border-slate-200/30 dark:border-slate-800/30">
+                    <i class="fas fa-envelope text-teal-500 text-lg w-5" aria-hidden="true"></i>
+                    <span class="truncate">babuvenkatesh093@gmail.com</span>
                 </div>
             </div>
-        </section>
+
+            <!-- Stats Block -->
+            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200/50 dark:border-slate-800/50">
+                <div>
+                    <span class="text-2xl sm:text-3xl font-display font-extrabold text-teal-600 dark:text-teal-400 block" id="stat-projects" data-val="4">0</span>
+                    <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Completed Projects</span>
+                </div>
+                <div>
+                    <span class="text-2xl sm:text-3xl font-display font-extrabold text-teal-600 dark:text-teal-400 block" id="stat-exp" data-val="2">0</span>
+                    <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Internship Exps</span>
+                </div>
+                <div>
+                    <span class="text-2xl sm:text-3xl font-display font-extrabold text-teal-600 dark:text-teal-400 block" id="stat-certs" data-val="3">0</span>
+                    <span class="text-[10px] sm:text-xs font-semibold text-slate-500 uppercase tracking-wider">Certifications</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
 
         <!-- 3. SKILLS SECTION -->
         <section id="skills" class="reveal scroll-mt-24 space-y-8">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">My Toolbox</span>
-                <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Technical Proficiency</h2>
-                <p class="text-sm text-slate-500">I combine logic structures, backend APIs, and frontend logic to craft high-quality developer assets.</p>
+<!-- 3. SKILLS SECTION -->
+<div class="space-y-8">
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">My Toolbox</span>
+        <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Technical Proficiency</h2>
+        <p class="text-sm text-slate-500">I combine logic structures, backend APIs, and frontend logic to craft high-quality developer assets.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        <!-- Skill Bars & Categories -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between space-y-6">
+            <!-- Categories Tabs buttons -->
+            <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
+                <button onclick="switchSkillCategory('languages')" class="skill-tab-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400" data-cat="languages">Languages</button>
+                <button onclick="switchSkillCategory('backend')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="backend">Web & Backend</button>
+                <button onclick="switchSkillCategory('ai')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="ai">Data Science / ML</button>
+                <button onclick="switchSkillCategory('tools')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="tools">Tools & DBs</button>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-                <!-- Skill Bars & Categories -->
-                <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between space-y-6">
-                    <!-- Categories Tabs buttons -->
-                    <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
-                        <button onclick="switchSkillCategory('languages')" class="skill-tab-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400" data-cat="languages">Languages</button>
-                        <button onclick="switchSkillCategory('backend')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="backend">Web & Backend</button>
-                        <button onclick="switchSkillCategory('ai')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="ai">Data Science / ML</button>
-                        <button onclick="switchSkillCategory('tools')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="tools">Tools & DBs</button>
-                    </div>
-
-                    <!-- Category Lists -->
-                    <div class="space-y-4 flex-grow py-2">
-                        <!-- Languages Tab Content -->
-                        <div id="cat-languages" class="skill-cat-content space-y-4">
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fab fa-python text-blue-500" aria-hidden="true"></i> Python (Core & Advanced)</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Python skill level: 90%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 90%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fab fa-js text-yellow-500" aria-hidden="true"></i> JavaScript / ES6</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript skill level: 75%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 75%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fab fa-java text-red-500" aria-hidden="true"></i> Java Fundamentals</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Familiar</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Java skill level: 65%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 65%"></div>
-                                </div>
-                            </div>
+            <!-- Category Lists -->
+            <div class="space-y-4 flex-grow py-2">
+                <!-- Languages Tab Content -->
+                <div id="cat-languages" class="skill-cat-content space-y-4">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fab fa-python text-blue-500" aria-hidden="true"></i> Python (Core & Advanced)</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
                         </div>
-
-                        <!-- Backend Tab Content (Hidden by default) -->
-                        <div id="cat-backend" class="skill-cat-content space-y-4 hidden">
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fas fa-server text-green-500" aria-hidden="true"></i> Django / Django REST Framework</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Django skill level: 85%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fas fa-fire text-orange-500" aria-hidden="true"></i> Flask / FastAPI</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Flask/FastAPI skill level: 70%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 70%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fab fa-react text-blue-400" aria-hidden="true"></i> HTML, CSS, Tailwind & React</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Frontend skill level: 80%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- AI/ML Tab Content (Hidden by default) -->
-                        <div id="cat-ai" class="skill-cat-content space-y-4 hidden">
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fas fa-chart-line text-purple-500" aria-hidden="true"></i> OpenCV & Facial Landmarks (MediaPipe)</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="OpenCV/MediaPipe skill level: 80%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fas fa-brain text-pink-500" aria-hidden="true"></i> ML Models (KNN, SVM, Pandas, Scikit-Learn)</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="ML Models skill level: 75%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 75%"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tools & DB Tab Content (Hidden by default) -->
-                        <div id="cat-tools" class="skill-cat-content space-y-4 hidden">
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fas fa-database text-blue-600" aria-hidden="true"></i> PostgreSQL / MySQL / MongoDB</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Database skill level: 80%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 80%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fab fa-git-alt text-orange-600" aria-hidden="true"></i> Git, GitHub & Docker CI/CD</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Git/Docker skill level: 75%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 75%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between text-xs font-semibold mb-1">
-                                    <span class="flex items-center gap-2"><i class="fas fa-network-wired text-purple-600" aria-hidden="true"></i> n8n Workflows & WebSockets</span>
-                                    <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Familiar</span>
-                                </div>
-                                <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="n8n/WebSockets skill level: 70%">
-                                    <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 70%"></div>
-                                </div>
-                            </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Python skill level: 90%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 90%"></div>
                         </div>
                     </div>
-
-                    <!-- Additional Badges -->
-                    <div class="pt-4 border-t border-slate-200/50 dark:border-slate-800/50">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Familiar Tech & Methodologies</span>
-                        <div class="flex flex-wrap gap-1.5">
-                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Linux</span>
-                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">JWT/OAuth2</span>
-                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">RESTful API Design</span>
-                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Data Structures</span>
-                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">HTMX</span>
-                            <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Pytest & Selenium</span>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fab fa-js text-yellow-500" aria-hidden="true"></i> JavaScript / ES6</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="JavaScript skill level: 75%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fab fa-java text-red-500" aria-hidden="true"></i> Java Fundamentals</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Familiar</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Java skill level: 65%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 65%"></div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Radar Chart Container -->
-                <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/50 dark:border-slate-800/50 flex items-center justify-center min-h-[350px]">
-                    <div class="chart-container w-full h-full relative">
-                        <canvas id="skillsRadar" role="img" aria-label="Skill radar chart: Python 90% (Expert), Django API 85% (Expert), SQL/NoSQL 80% (Proficient), ML Models 75% (Proficient), Computer Vision 80% (Proficient), Dev Tools 75% (Proficient)"></canvas>
+                <!-- Backend Tab Content (Hidden by default) -->
+                <div id="cat-backend" class="skill-cat-content space-y-4 hidden">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-server text-green-500" aria-hidden="true"></i> Django / Django REST Framework</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Django skill level: 85%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-fire text-orange-500" aria-hidden="true"></i> Flask / FastAPI</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="Flask/FastAPI skill level: 70%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fab fa-react text-blue-400" aria-hidden="true"></i> HTML, CSS, Tailwind & React</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Frontend skill level: 80%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI/ML Tab Content (Hidden by default) -->
+                <div id="cat-ai" class="skill-cat-content space-y-4 hidden">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-chart-line text-purple-500" aria-hidden="true"></i> OpenCV & Facial Landmarks (MediaPipe)</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="OpenCV/MediaPipe skill level: 80%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-brain text-pink-500" aria-hidden="true"></i> ML Models (KNN, SVM, Pandas, Scikit-Learn)</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="ML Models skill level: 75%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & DB Tab Content (Hidden by default) -->
+                <div id="cat-tools" class="skill-cat-content space-y-4 hidden">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-database text-blue-600" aria-hidden="true"></i> PostgreSQL / MySQL / MongoDB</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Database skill level: 80%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fab fa-git-alt text-orange-600" aria-hidden="true"></i> Git, GitHub & Docker CI/CD</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Git/Docker skill level: 75%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-network-wired text-purple-600" aria-hidden="true"></i> n8n Workflows & WebSockets</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Familiar</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="n8n/WebSockets skill level: 70%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 70%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <!-- Additional Badges -->
+            <div class="pt-4 border-t border-slate-200/50 dark:border-slate-800/50">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Familiar Tech & Methodologies</span>
+                <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Linux</span>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">JWT/OAuth2</span>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">RESTful API Design</span>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Data Structures</span>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">HTMX</span>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Pytest & Selenium</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Radar Chart Container -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/50 dark:border-slate-800/50 flex items-center justify-center min-h-[350px]">
+            <div class="chart-container w-full h-full relative">
+                <canvas id="skillsRadar" role="img" aria-label="Skill radar chart: Python 90% (Expert), Django API 85% (Expert), SQL/NoSQL 80% (Proficient), ML Models 75% (Proficient), Computer Vision 80% (Proficient), Dev Tools 75% (Proficient)"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
 
         <!-- 4. INTERNSHIP / EXPERIENCE TIMELINE -->
         <section id="experience" class="reveal scroll-mt-24 space-y-8">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">My Journey</span>
-                <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Internship Experience</h2>
-                <p class="text-sm text-slate-500">Practical development and software engineering roles I've held during my academic studies.</p>
-            </div>
+<!-- 4. INTERNSHIP / EXPERIENCE TIMELINE -->
+<div class="space-y-8">
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">My Journey</span>
+        <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Internship Experience</h2>
+        <p class="text-sm text-slate-500">Practical development and software engineering roles I've held during my academic studies.</p>
+    </div>
 
-            <div class="max-w-4xl mx-auto ml-4 md:ml-auto relative border-l-2 border-slate-200 dark:border-slate-800 space-y-12">
+    <div class="max-w-4xl mx-auto ml-4 md:ml-auto relative border-l-2 border-slate-200 dark:border-slate-800 space-y-12">
+        
+        <!-- Card 1 -->
+        <div class="relative pl-8 md:pl-12">
+            <!-- Dot icon indicator -->
+            <div class="absolute -left-3.5 top-0 w-7 h-7 bg-teal-500 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
+                <i class="fas fa-briefcase" aria-hidden="true"></i>
+            </div>
+            
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-4 hover:shadow-md transition-shadow">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Python Developer Intern</h3>
+                        <span class="text-xs font-semibold text-teal-600 dark:text-teal-400">Sharpenmind Technologies</span>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 text-xs font-medium self-start">
+                        <i class="far fa-calendar-alt" aria-hidden="true"></i> Sep 2025 - Dec 2025
+                    </span>
+                </div>
                 
-                <!-- Card 1 -->
-                <div class="relative pl-8 md:pl-12">
-                    <!-- Dot icon indicator -->
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-teal-500 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    
-                    <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-4 hover:shadow-md transition-shadow">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Python Developer Intern</h3>
-                                <span class="text-xs font-semibold text-teal-600 dark:text-teal-400">Sharpenmind Technologies</span>
-                            </div>
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 text-xs font-medium self-start">
-                                <i class="far fa-calendar-alt"></i> Sep 2025 - Dec 2025
-                            </span>
-                        </div>
-                        
-                        <p class="text-xs font-mono text-slate-500 flex items-center gap-1">
-                            <i class="fas fa-map-marker-alt"></i> Madurai, India
-                        </p>
+                <p class="text-xs font-mono text-slate-500 flex items-center gap-1">
+                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Madurai, India
+                </p>
 
-                        <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-350 list-disc list-inside">
-                            <li>Built a real-time driver drowsiness detection application using Python, OpenCV, and MediaPipe, tracking 468 facial landmark coordinates to compute Eye Aspect Ratio (EAR) with &lt;50ms latency.</li>
-                            <li>Engineered facial landmark pipelines with MediaPipe to detect blink rates and eye closure patterns, triggering audio SOS alerts when eye closure exceeded a 5-second threshold.</li>
-                            <li>Designed a configurable GUI using Tkinter to adjust EAR sensitivity thresholds, enabling threshold testing without hardware IoT integration.</li>
-                            <li>Maintained codebase with Git/GitHub version control, applying structured documentation and code review audits across all module contributions.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="relative pl-8 md:pl-12">
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-purple-500 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    
-                    <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-4 hover:shadow-md transition-shadow">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Machine Learning Engineer Intern</h3>
-                                <span class="text-xs font-semibold text-purple-600 dark:text-purple-400">Elysium Technologies</span>
-                            </div>
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-300 text-xs font-medium self-start">
-                                <i class="far fa-calendar-alt"></i> Sep 2023 - Dec 2023
-                            </span>
-                        </div>
-                        
-                        <p class="text-xs font-mono text-slate-500 flex items-center gap-1">
-                            <i class="fas fa-map-marker-alt"></i> Madurai, India
-                        </p>
-
-                        <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-350 list-disc list-inside">
-                            <li>Constructed end-to-end data processing pipelines using Python (NumPy, Pandas, Matplotlib) to clean, scale, and visualize multi-dimensional datasets for predictive analysis.</li>
-                            <li>Applied feature engineering techniques including normalization, dimensionality reduction, and outlier removal to prepare datasets for supervised learning models.</li>
-                            <li>Implemented and evaluated classification models (KNN and SVM) using Scikit-Learn, achieving measurable improvements in prediction accuracy through hyperparameter tuning.</li>
-                            <li>Designed modular, Object-Oriented Python components for reusable data preprocessing and model evaluation workflows.</li>
-                            <li>Practiced test-driven development using PyTest, validating script correctness and edge case handling across all ML pipeline stages.</li>
-                        </ul>
-                    </div>
-                </div>
-
+                <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-350 list-disc list-inside">
+                    <li>Built a real-time driver drowsiness detection application using Python, OpenCV, and MediaPipe, tracking 468 facial landmark coordinates to compute Eye Aspect Ratio (EAR) with &lt;50ms latency.</li>
+                    <li>Engineered facial landmark pipelines with MediaPipe to detect blink rates and eye closure patterns, triggering audio SOS alerts when eye closure exceeded a 5-second threshold.</li>
+                    <li>Designed a configurable GUI using Tkinter to adjust EAR sensitivity thresholds, enabling threshold testing without hardware IoT integration.</li>
+                    <li>Maintained codebase with Git/GitHub version control, applying structured documentation and code review audits across all module contributions.</li>
+                </ul>
             </div>
-        </section>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="relative pl-8 md:pl-12">
+            <div class="absolute -left-3.5 top-0 w-7 h-7 bg-purple-500 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
+                <i class="fas fa-brain" aria-hidden="true"></i>
+            </div>
+            
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-4 hover:shadow-md transition-shadow">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Machine Learning Engineer Intern</h3>
+                        <span class="text-xs font-semibold text-purple-600 dark:text-purple-400">Elysium Technologies</span>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 text-purple-700 dark:text-purple-300 text-xs font-medium self-start">
+                        <i class="far fa-calendar-alt" aria-hidden="true"></i> Sep 2023 - Dec 2023
+                    </span>
+                </div>
+                
+                <p class="text-xs font-mono text-slate-500 flex items-center gap-1">
+                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Madurai, India
+                </p>
+
+                <ul class="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-350 list-disc list-inside">
+                    <li>Constructed end-to-end data processing pipelines using Python (NumPy, Pandas, Matplotlib) to clean, scale, and visualize multi-dimensional datasets for predictive analysis.</li>
+                    <li>Applied feature engineering techniques including normalization, dimensionality reduction, and outlier removal to prepare datasets for supervised learning models.</li>
+                    <li>Implemented and evaluated classification models (KNN and SVM) using Scikit-Learn, achieving measurable improvements in prediction accuracy through hyperparameter tuning.</li>
+                    <li>Designed modular, Object-Oriented Python components for reusable data preprocessing and model evaluation workflows.</li>
+                    <li>Practiced test-driven development using PyTest, validating script correctness and edge case handling across all ML pipeline stages.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</section>
 
         <!-- 5. PROJECT ECOSYSTEM SECTION -->
         <section id="projects" class="reveal scroll-mt-24 space-y-8">
-            <div class="flex flex-col md:flex-row justify-between items-end gap-4">
-                <div class="space-y-2">
-                    <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block">My Work</span>
-                    <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Featured Projects</h2>
-                    <p class="text-sm text-slate-500 max-w-xl">A gallery of full-stack implementations and AI applications highlighting architecture configurations.</p>
-                </div>
-                
-                <!-- Category Filter Buttons -->
-                <div class="glass-card p-1 rounded-xl border border-slate-200 dark:border-slate-800 inline-flex shadow-sm">
-                    <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-700 dark:text-teal-300" data-filter="all">All</button>
-                    <button onclick="filterProjects('ai')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="ai">AI / ML</button>
-                    <button onclick="filterProjects('web')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="web">Web Dev</button>
-                </div>
-            </div>
+<!-- 5. PROJECT ECOSYSTEM SECTION -->
+<div class="space-y-8">
+    <div class="flex flex-col md:flex-row justify-between items-end gap-4">
+        <div class="space-y-2">
+            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block">My Work</span>
+            <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Featured Projects</h2>
+            <p class="text-sm text-slate-500 max-w-xl">A gallery of full-stack implementations and AI applications highlighting architecture configurations.</p>
+        </div>
+        
+        <!-- Category Filter Buttons -->
+        <div class="glass-card p-1 rounded-xl border border-slate-200 dark:border-slate-800 inline-flex shadow-sm">
+            <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-700 dark:text-teal-300" data-filter="all">All</button>
+            <button onclick="filterProjects('ai')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="ai">AI / ML</button>
+            <button onclick="filterProjects('web')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="web">Web Dev</button>
+        </div>
+    </div>
 
-            <!-- Dynamic Projects Grid -->
-            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-                <!-- Content generated via Javascript below -->
-            </div>
-        </section>
+    <!-- Dynamic Projects Grid -->
+    <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <!-- Content generated via Javascript in script.js -->
+    </div>
+</div>
+
+</section>
 
         <!-- 6. EDUCATION TIMELINE -->
         <section id="education" class="reveal scroll-mt-24 space-y-8">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">Credentials</span>
-                <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Academic Journey</h2>
-                <p class="text-sm text-slate-500">Theoretical fundamentals driving my practical coding engineering practices.</p>
+<!-- 6. EDUCATION TIMELINE -->
+<div class="space-y-8">
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">Credentials</span>
+        <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Academic Journey</h2>
+        <p class="text-sm text-slate-500">Theoretical fundamentals driving my practical coding engineering practices.</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto ml-4 md:ml-auto relative border-l-2 border-slate-200 dark:border-slate-800 space-y-12">
+        
+        <!-- Degree 1 -->
+        <div class="relative pl-8 md:pl-12">
+            <div class="absolute -left-3.5 top-0 w-7 h-7 bg-teal-600 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
+                <i class="fas fa-graduation-cap" aria-hidden="true"></i>
             </div>
-
-            <div class="max-w-4xl mx-auto ml-4 md:ml-auto relative border-l-2 border-slate-200 dark:border-slate-800 space-y-12">
-                
-                <!-- Degree 1 -->
-                <div class="relative pl-8 md:pl-12">
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-teal-600 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
-                        <i class="fas fa-graduation-cap"></i>
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Master of Computer Applications (MCA)</h3>
+                        <p class="text-sm text-slate-500">Madurai Kamaraj University, Madurai</p>
                     </div>
-                    <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">Master of Computer Applications (MCA)</h3>
-                                <p class="text-sm text-slate-500">Madurai Kamaraj University, Madurai</p>
-                            </div>
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 text-xs font-medium self-start">
-                                2024 - 2026 
-                            </span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-350">
-                            Deepening foundational expertise in advanced data structures, logic modeling, secure API integrations, web architectures, and collaborative project workflows.
-                        </p>
-                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-500/10 text-teal-700 dark:text-teal-300 text-xs font-medium self-start">
+                        2024 - 2026 
+                    </span>
                 </div>
-
-                <!-- Degree 2 -->
-                <div class="relative pl-8 md:pl-12">
-                    <div class="absolute -left-3.5 top-0 w-7 h-7 bg-slate-400 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
-                        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
-                            <div>
-                                <h3 class="text-lg font-bold text-slate-900 dark:text-white">B.Sc. Information Technology</h3>
-                                <p class="text-sm text-slate-500">Sourashtra College, Madurai</p>
-                            </div>
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium self-start">
-                                2021 - 2024 
-                            </span>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-350">
-                            Acquired strong fundamentals in structural programming logic, database administration, SQL querying patterns, software engineering basics, and responsive markup frameworks.
-                        </p>
-                    </div>
-                </div>
-
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-350">
+                    Deepening foundational expertise in advanced data structures, logic modeling, secure API integrations, web architectures, and collaborative project workflows.
+                </p>
             </div>
-        </section>
+        </div>
+
+        <!-- Degree 2 -->
+        <div class="relative pl-8 md:pl-12">
+            <div class="absolute -left-3.5 top-0 w-7 h-7 bg-slate-400 rounded-full border-4 border-white dark:border-slate-950 shadow-md flex items-center justify-center text-white text-[10px]">
+                <i class="fas fa-university" aria-hidden="true"></i>
+            </div>
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
+                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">B.Sc. Information Technology</h3>
+                        <p class="text-sm text-slate-500">Sourashtra College, Madurai</p>
+                    </div>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs font-medium self-start">
+                        2021 - 2024 
+                    </span>
+                </div>
+                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-350">
+                    Acquired strong fundamentals in structural programming logic, database administration, SQL querying patterns, software engineering basics, and responsive markup frameworks.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</section>
 
         <!-- 7. CERTIFICATIONS SECTION -->
         <section id="certifications" class="reveal scroll-mt-24 space-y-8">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">Achievements</span>
-                <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Certifications</h2>
-                <p class="text-sm text-slate-500">Verified credentials highlighting specialization in key technical sectors.</p>
+<!-- 7. CERTIFICATIONS SECTION -->
+<div class="space-y-8">
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">Achievements</span>
+        <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Certifications</h2>
+        <p class="text-sm text-slate-500">Verified credentials highlighting specialization in key technical sectors.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <!-- Cert 1 -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
+            <div class="space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-xl">
+                    <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block">Credential</span>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mt-0.5">AI-Powered Cybersecurity Fundamentals</h3>
+                </div>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Study of basic threat modeling, AI vectors in defensive coding patterns, and authentication security guidelines.
+                </p>
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                <!-- Cert 1 -->
-                <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-xl">
-                            <i class="fas fa-shield-halved"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider block">Credential</span>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white mt-0.5">AI-Powered Cybersecurity Fundamentals</h3>
-                        </div>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            Study of basic threat modeling, AI vectors in defensive coding patterns, and authentication security guidelines.
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-400">
-                        <span>Issued: 2025</span>
-                        <span class="text-teal-500 font-semibold"><i class="fas fa-check-circle"></i> Verified</span>
-                    </div>
-                </div>
-
-                <!-- Cert 2 -->
-                <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider block">Credential</span>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white mt-0.5">Python with Machine Learning</h3>
-                        </div>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            Practical application of Pandas, NumPy, visualization mapping, model fitting architectures, and evaluation standards.
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-400">
-                        <span>Issued: 2024</span>
-                        <span class="text-purple-500 font-semibold"><i class="fas fa-check-circle"></i> Verified</span>
-                    </div>
-                </div>
-
-                <!-- Cert 3 -->
-                <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
-                    <div class="space-y-4">
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <div>
-                            <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider block">Credential</span>
-                            <h3 class="text-base font-bold text-slate-900 dark:text-white mt-0.5">Django REST API (WebSocket)</h3>
-                        </div>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            Structuring serializable object models, REST endpoints, JWT authorization systems, and live WebSocket logic.
-                        </p>
-                    </div>
-                    <div class="pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-400">
-                        <span>Issued: 2023</span>
-                        <span class="text-blue-500 font-semibold"><i class="fas fa-check-circle"></i> Verified</span>
-                    </div>
-                </div>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-400">
+                <span>Issued: 2025</span>
+                <span class="text-teal-500 font-semibold"><i class="fas fa-check-circle" aria-hidden="true"></i> Verified</span>
             </div>
-        </section>
+        </div>
+
+        <!-- Cert 2 -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
+            <div class="space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl">
+                    <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-purple-600 dark:text-purple-400 uppercase tracking-wider block">Credential</span>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mt-0.5">Python with Machine Learning</h3>
+                </div>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Practical application of Pandas, NumPy, visualization mapping, model fitting architectures, and evaluation standards.
+                </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-400">
+                <span>Issued: 2024</span>
+                <span class="text-purple-500 font-semibold"><i class="fas fa-check-circle" aria-hidden="true"></i> Verified</span>
+            </div>
+        </div>
+
+        <!-- Cert 3 -->
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 flex flex-col justify-between hover:-translate-y-1 transition-all duration-300">
+            <div class="space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl">
+                    <i class="fas fa-network-wired" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider block">Credential</span>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-white mt-0.5">Django REST API (WebSocket)</h3>
+                </div>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Structuring serializable object models, REST endpoints, JWT authorization systems, and live WebSocket logic.
+                </p>
+            </div>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800/50 mt-4 flex items-center justify-between text-xs text-slate-400">
+                <span>Issued: 2023</span>
+                <span class="text-blue-500 font-semibold"><i class="fas fa-check-circle" aria-hidden="true"></i> Verified</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+</section>
 
         <!-- 8. CONTACT ME SECTION -->
         <section id="contact" class="reveal scroll-mt-24 space-y-8">
-            <div class="text-center max-w-2xl mx-auto space-y-2">
-                <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">Connect</span>
-                <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Get In Touch</h2>
-                <p class="text-sm text-slate-500">Have a proposal or want to collaborate on Python or AI applications? Write me a message.</p>
-            </div>
+<!-- 8. CONTACT ME SECTION -->
+<div class="space-y-8">
+    <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">Connect</span>
+        <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Get In Touch</h2>
+        <p class="text-sm text-slate-500">Have a proposal or want to collaborate on Python or AI applications? Write me a message.</p>
+    </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
-                <!-- Info cards column -->
-                <div class="space-y-4 lg:col-span-1">
-                    <div class="glass-card rounded-2xl p-5 border border-slate-200/50 dark:border-slate-800/50 flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-lg flex-shrink-0">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="leading-tight overflow-hidden">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Email Address</span>
-                            <a href="mailto:babuvenkatesh093@gmail.com" class="text-xs sm:text-sm font-semibold hover:text-teal-500 truncate block">babuvenkatesh093@gmail.com</a>
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-2xl p-5 border border-slate-200/50 dark:border-slate-800/50 flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-lg flex-shrink-0">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="leading-tight">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Phone Contact</span>
-                            <a href="tel:+919952142302" class="text-xs sm:text-sm font-semibold hover:text-teal-500">+91 99521 42302</a>
-                        </div>
-                    </div>
-
-                    <div class="glass-card rounded-2xl p-5 border border-slate-200/50 dark:border-slate-800/50 flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-lg flex-shrink-0">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="leading-tight">
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Location Info</span>
-                            <span class="text-xs sm:text-sm font-semibold">Madurai, Tamil Nadu, India</span>
-                        </div>
-                    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
+        <!-- Info cards column -->
+        <div class="space-y-4 lg:col-span-1">
+            <div class="glass-card rounded-2xl p-5 border border-slate-200/50 dark:border-slate-800/50 flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-lg flex-shrink-0">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
                 </div>
-
-                <!-- Form Card -->
-                <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/50 dark:border-slate-800/50 lg:col-span-2">
-                    <form onsubmit="handleContactSubmit(event)" class="space-y-4">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div class="space-y-1.5">
-                                <label for="form-name" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Full Name</label>
-                                <input type="text" id="form-name" name="name" required placeholder="John Doe" autocomplete="name" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm">
-                            </div>
-                            <div class="space-y-1.5">
-                                <label for="form-email" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Email Address</label>
-                                <input type="email" id="form-email" name="email" required placeholder="john@example.com" autocomplete="email" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm">
-                            </div>
-                        </div>
-                        <div class="space-y-1.5">
-                            <label for="form-subject" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Subject</label>
-                            <input type="text" id="form-subject" name="subject" required placeholder="Project Proposal / Consultation" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm">
-                        </div>
-                        <div class="space-y-1.5">
-                            <label for="form-message" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Message Details</label>
-                            <textarea id="form-message" name="message" required rows="4" placeholder="Hello Venkatesh, I would love to discuss..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm resize-none"></textarea>
-                        </div>
-                        
-                        <div class="flex items-center justify-between pt-2">
-                            <span id="form-status" class="text-xs font-semibold text-slate-400 transition-colors"></span>
-                            <button type="submit" class="group px-6 py-2.5 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold shadow-lg shadow-teal-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5">
-                                Send Message <i class="fas fa-paper-plane group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[10px]"></i>
-                            </button>
-                        </div>
-                    </form>
+                <div class="leading-tight overflow-hidden">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Email Address</span>
+                    <a href="mailto:babuvenkatesh093@gmail.com" class="text-xs sm:text-sm font-semibold hover:text-teal-500 truncate block">babuvenkatesh093@gmail.com</a>
                 </div>
             </div>
-        </section>
+
+            <div class="glass-card rounded-2xl p-5 border border-slate-200/50 dark:border-slate-800/50 flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-lg flex-shrink-0">
+                    <i class="fas fa-phone-alt" aria-hidden="true"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Phone Contact</span>
+                    <a href="tel:+919952142302" class="text-xs sm:text-sm font-semibold hover:text-teal-500">+91 99521 42302</a>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-5 border border-slate-200/50 dark:border-slate-800/50 flex items-center gap-4">
+                <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-lg flex-shrink-0">
+                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                </div>
+                <div class="leading-tight">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Location Info</span>
+                    <span class="text-xs sm:text-sm font-semibold">Madurai, Tamil Nadu, India</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Card -->
+        <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/50 dark:border-slate-800/50 lg:col-span-2">
+            <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1.5">
+                        <label for="form-name" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Full Name</label>
+                        <input type="text" id="form-name" name="name" required placeholder="John Doe" autocomplete="name" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm">
+                    </div>
+                    <div class="space-y-1.5">
+                        <label for="form-email" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Email Address</label>
+                        <input type="email" id="form-email" name="email" required placeholder="john@example.com" autocomplete="email" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm">
+                    </div>
+                </div>
+                <div class="space-y-1.5">
+                    <label for="form-subject" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Subject</label>
+                    <input type="text" id="form-subject" name="subject" required placeholder="Project Proposal / Consultation" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm">
+                </div>
+                <div class="space-y-1.5">
+                    <label for="form-message" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Message Details</label>
+                    <textarea id="form-message" name="message" required rows="4" placeholder="Hello Venkatesh, I would love to discuss..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white/40 dark:bg-slate-900/45 focus:outline-none focus:ring-2 focus:ring-teal-500 text-xs sm:text-sm resize-none"></textarea>
+                </div>
+                
+                <div class="flex items-center justify-between pt-2">
+                    <span id="form-status" class="text-xs font-semibold text-slate-400 transition-colors"></span>
+                    <button type="submit" class="group px-6 py-2.5 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold shadow-lg shadow-teal-500/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-1.5">
+                        Send Message <i class="fas fa-paper-plane group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[10px]" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</section>
 
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 py-12 mt-20 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 text-center space-y-6">
-            <div class="flex items-center justify-center gap-2">
-                <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold">
-                    VB
-                </div>
-                <span class="text-sm font-display font-bold text-white">Venkatesh Babu</span>
-            </div>
-            
-            <p class="text-xs max-w-sm mx-auto leading-relaxed text-slate-500">
-                Venkatesh Babu — Python Developer &amp; AI Developer building Django REST APIs, Machine Learning models, and Computer Vision applications.
-            </p>
-
-            <div class="flex justify-center gap-6 text-sm">
-                <a href="https://www.linkedin.com/in/venkatesh-babu-208891392" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="LinkedIn — Venkatesh Babu"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
-                <a href="https://github.com/venkatesh01-t" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="GitHub — venkatesh01-t"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
-                <a href="https://www.instagram.com/jerry_._boy_7/" target="_blank" rel="noopener noreferrer" class="hover:text-pink-400 transition-colors" aria-label="Instagram — jerry_._boy_7"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
-                <a href="mailto:babuvenkatesh093@gmail.com" class="hover:text-white transition-colors" aria-label="Email Venkatesh Babu"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a>
-                <a href="tel:+919952142302" class="hover:text-white transition-colors" aria-label="Call Venkatesh Babu"><i class="fas fa-phone fa-lg" aria-hidden="true"></i></a>
-            </div>
-
-            <div class="pt-6 border-t border-slate-800 max-w-xs mx-auto text-[10px] text-slate-600">
-                &copy; <span id="current-year">2026</span> Venkatesh Babu. All Rights Reserved.
-            </div>
+    <footer id="footer" class="bg-slate-900 text-slate-400 border-t border-slate-800 py-12 mt-20 relative z-10">
+<!-- FOOTER -->
+<div class="max-w-7xl mx-auto px-4 text-center space-y-6">
+    <div class="flex items-center justify-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white text-sm font-bold">
+            VB
         </div>
-    </footer>
+        <span class="text-sm font-display font-bold text-white">Venkatesh Babu</span>
+    </div>
+    
+    <p class="text-xs max-w-sm mx-auto leading-relaxed text-slate-500">
+        Venkatesh Babu — Python Developer &amp; AI Developer building Django REST APIs, Machine Learning models, and Computer Vision applications.
+    </p>
 
-    <!-- ===== DEFERRED SCRIPTS (non-blocking, run after HTML parsed) ===== -->
+    <div class="flex justify-center gap-6 text-sm">
+        <a href="https://www.linkedin.com/in/venkatesh-babu-208891392" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="LinkedIn — Venkatesh Babu"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a>
+        <a href="https://github.com/venkatesh01-t" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors" aria-label="GitHub — venkatesh01-t"><i class="fab fa-github fa-lg" aria-hidden="true"></i></a>
+        <a href="https://www.instagram.com/jerry_._boy_7/" target="_blank" rel="noopener noreferrer" class="hover:text-pink-400 transition-colors" aria-label="Instagram — jerry_._boy_7"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+        <a href="mailto:babuvenkatesh093@gmail.com" class="hover:text-white transition-colors" aria-label="Email Venkatesh Babu"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a>
+        <a href="tel:+919952142302" class="hover:text-white transition-colors" aria-label="Call Venkatesh Babu"><i class="fas fa-phone fa-lg" aria-hidden="true"></i></a>
+    </div>
+
+    <div class="pt-6 border-t border-slate-800 max-w-xs mx-auto text-[10px] text-slate-600">
+        &copy; <span id="current-year">2026</span> Venkatesh Babu. All Rights Reserved.
+    </div>
+</div>
+
+</footer>
+
+    <!-- ===== DEFERRED SCRIPTS ===== -->
     <script src="script.js" defer></script>
 </body>
 </html>
+

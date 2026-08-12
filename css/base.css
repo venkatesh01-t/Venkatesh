@@ -1,0 +1,36 @@
+/* ============================================
+   css/base.css — Venkatesh Babu Portfolio
+   Base layout, scrollbar, cursors, and grid
+============================================ */
+
+/* ─── Custom Scrollbar ─────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+.dark ::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.dark ::-webkit-scrollbar-thumb { background: #334155; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ─── Custom Cursors ────────────────────────── */
+body { cursor: url('../ns.cur'), auto; }
+a, button, [role="button"], .filter-btn { cursor: url('../lk.cur'), pointer; }
+
+/* ─── Blur Grid Background ──────────────────── */
+.blur-grid {
+    background-image: radial-gradient(rgba(20, 184, 166, 0.05) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+}
+.dark .blur-grid {
+    background-image: radial-gradient(rgba(20, 184, 166, 0.1) 1.5px, transparent 1.5px);
+}
+
+/* ─── Background Canvas ─────────────────────── */
+#bgCanvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.85;
+    transition: opacity 0.5s ease;
+}

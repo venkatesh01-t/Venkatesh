@@ -1,0 +1,22 @@
+<!-- 5. PROJECT ECOSYSTEM SECTION -->
+<div class="space-y-8">
+    <div class="flex flex-col md:flex-row justify-between items-end gap-4">
+        <div class="space-y-2">
+            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block">My Work</span>
+            <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Featured Projects</h2>
+            <p class="text-sm text-slate-500 max-w-xl">A gallery of full-stack implementations and AI applications highlighting architecture configurations.</p>
+        </div>
+        
+        <!-- Category Filter Buttons -->
+        <div class="glass-card p-1 rounded-xl border border-slate-200 dark:border-slate-800 inline-flex shadow-sm">
+            <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-700 dark:text-teal-300" data-filter="all">All</button>
+            <button onclick="filterProjects('ai')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="ai">AI / ML</button>
+            <button onclick="filterProjects('web')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="web">Web Dev</button>
+        </div>
+    </div>
+
+    <!-- Dynamic Projects Grid -->
+    <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <!-- Content generated via Javascript in script.js -->
+    </div>
+</div>
