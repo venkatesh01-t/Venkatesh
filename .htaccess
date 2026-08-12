@@ -1,19 +1,43 @@
-# Enable browser caching for static assets
+# ─── 301 REDIRECTS FOR WWW & HTTPS CANONICALIZATION ───
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  # Redirect www to non-www
+  RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+  RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+</IfModule>
+
+# ─── EXPIRES HEADERS FOR IMAGES & ASSETS ───
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 1 month"
+
+  # Images
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpg "access plus 1 year"
   ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/gif "access plus 1 year"
   ExpiresByType image/svg+xml "access plus 1 year"
-  ExpiresByType text/css "access plus 1 month"
-  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType image/x-icon "access plus 1 year"
+
+  # Fonts
   ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType font/woff "access plus 1 year"
+  ExpiresByType font/ttf "access plus 1 year"
+  ExpiresByType application/font-woff "access plus 1 year"
+
+  # CSS and JavaScript
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+
+  # Documents
   ExpiresByType application/pdf "access plus 1 month"
 </IfModule>
 
+# ─── CACHE CONTROL HEADERS ───
 <IfModule mod_headers.c>
-  <FilesMatch "\.(webp|png|jpg|jpeg|svg|css|js|woff2|pdf)$">
+  <FilesMatch "\.(webp|png|jpg|jpeg|gif|svg|ico|css|js|woff2|woff|ttf|pdf)$">
     Header set Cache-Control "max-age=31536000, public"
   </FilesMatch>
 </IfModule>
