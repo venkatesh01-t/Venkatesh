@@ -55,17 +55,18 @@
 .shimmer-container::after {
     content: '';
     position: absolute;
-    top: 0; left: -150%;
+    top: 0; left: 0;
     width: 50%; height: 100%;
     background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
-    transform: skewX(-20deg);
+    will-change: transform;
     animation: shimmer 5s infinite;
 }
 @keyframes shimmer {
-    0%   { left: -150%; }
-    50%  { left: 150%; }
-    100% { left: 150%; }
+    0%   { transform: translateX(-150%) skewX(-20deg); }
+    50%  { transform: translateX(350%) skewX(-20deg); }
+    100% { transform: translateX(350%) skewX(-20deg); }
 }
+
 
 /* ─── Preloader ─────────────────────────────── */
 #preloader {
@@ -147,9 +148,15 @@
 /* ─── Chart Container ───────────────────────── */
 .chart-container { position: relative; height: 300px; }
 
-/* ─── Lazy Section Loading Placeholder ─────── */
+/* ─── Content Visibility & Rendering Isolation ─────── */
+#about, #skills, #experience, #projects, #education, #certifications, #contact, #footer {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 400px;
+}
+
 .lazy-section-placeholder {
     min-height: 250px;
     content-visibility: auto;
     contain-intrinsic-size: 1px 300px;
 }
+

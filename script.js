@@ -225,27 +225,40 @@ const initCanvasAnimation = () => {
     if (!canvas) return;
     const ctx    = canvas.getContext('2d');
     let width, height, animationId = null, isRunning = true;
+    let lastDraw = 0;
+    const targetFpsInterval = 1000 / 24; // 24 FPS throttle to free main-thread CPU
 
-    const resize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; };
-    window.addEventListener('resize', resize, { passive: true });
-    resize();
-
-    const fontSize = 12;
-    const columns  = [];
+    let fontSize = window.innerWidth < 768 ? 16 : 12;
+    let columns  = [];
     const keywords = ['def','class','import','return','if','else','try','except',
                       'django','flask','api','json','sql','html','css','js',
                       'self','print','None','True','await','async','{}','[]','<>','//','#'];
 
     const initColumns = () => {
+        fontSize = window.innerWidth < 768 ? 16 : 12;
         const colCount = Math.floor(width / fontSize);
+        columns = [];
         for (let i = 0; i < colCount; i++) {
             columns[i] = { x: i * fontSize, y: Math.random() * height, speed: Math.random() * 1.5 + 0.5, text: keywords[Math.floor(Math.random() * keywords.length)] };
         }
     };
-    initColumns();
 
-    const animate = () => {
+    const resize = () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        initColumns();
+    };
+    window.addEventListener('resize', resize, { passive: true });
+    resize();
+
+    const animate = (timestamp) => {
         if (!isRunning) return;
+        animationId = requestAnimationFrame(animate);
+
+        const elapsed = timestamp - lastDraw;
+        if (elapsed < targetFpsInterval) return;
+        lastDraw = timestamp - (elapsed % targetFpsInterval);
+
         const isDark = document.documentElement.classList.contains('dark');
         ctx.fillStyle = isDark ? 'rgba(15,23,42,0.08)' : 'rgba(248,250,252,0.08)';
         ctx.fillRect(0, 0, width, height);
@@ -258,16 +271,16 @@ const initCanvasAnimation = () => {
             col.y += col.speed;
             if (col.y > height && Math.random() > 0.98) { col.y = -20; col.speed = Math.random() * 1.5 + 0.5; }
         });
-        animationId = requestAnimationFrame(animate);
     };
 
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) { isRunning = false; if (animationId) { cancelAnimationFrame(animationId); animationId = null; } }
-        else { isRunning = true; animate(); }
+        else { isRunning = true; lastDraw = performance.now(); animate(performance.now()); }
     });
-    animate();
+    animate(performance.now());
 };
 initCanvasAnimation();
+
 
 // ─── RADAR CHART ─────────────────────────────────────────────────
 let radarChartInstance = null;
