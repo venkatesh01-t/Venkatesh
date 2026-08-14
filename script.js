@@ -65,9 +65,10 @@ window.addEventListener('DOMContentLoaded', () => {
 // ─── TYPING ANIMATION ───────────────────────────────────────────
 const typingRoles = [
     'Python Developer.',
-    'AI Developer.',
-    'Django Developer.',
+    'AI & ML Developer.',
+    'Django & API Developer.',
     'Machine Learning Engineer.',
+    'Technical SEO Specialist.',
     'Computer Vision Developer.'
 ];
 let roleIndex = 0, charIndex = 0, isDeleting = false;
