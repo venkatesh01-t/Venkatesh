@@ -3,7 +3,7 @@
     <div class="text-center max-w-2xl mx-auto space-y-2">
         <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">My Toolbox</span>
         <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Technical Proficiency</h2>
-        <p class="text-sm text-slate-500">I combine logic structures, backend APIs, and frontend logic to craft high-quality developer assets.</p>
+        <p class="text-sm text-slate-500">I combine logic structures, Python automation pipelines, backend APIs, and frontend logic to craft high-quality software assets.</p>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
@@ -12,9 +12,10 @@
             <!-- Categories Tabs buttons -->
             <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-4">
                 <button onclick="switchSkillCategory('languages')" class="skill-tab-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400" data-cat="languages">Languages</button>
-                <button onclick="switchSkillCategory('backend')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="backend">Web & Backend</button>
+                <button onclick="switchSkillCategory('automation')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="automation">Python Automation</button>
+                <button onclick="switchSkillCategory('backend')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="backend">Web &amp; Backend</button>
                 <button onclick="switchSkillCategory('ai')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="ai">Data Science / ML</button>
-                <button onclick="switchSkillCategory('tools')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="tools">Tools & DBs</button>
+                <button onclick="switchSkillCategory('tools')" class="skill-tab-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-cat="tools">Tools &amp; DBs</button>
             </div>
 
             <!-- Category Lists -->
@@ -23,11 +24,11 @@
                 <div id="cat-languages" class="skill-cat-content space-y-4">
                     <div>
                         <div class="flex justify-between text-xs font-semibold mb-1">
-                            <span class="flex items-center gap-2"><i class="fab fa-python text-blue-500" aria-hidden="true"></i> Python (Core & Advanced)</span>
+                            <span class="flex items-center gap-2"><i class="fab fa-python text-blue-500" aria-hidden="true"></i> Python (Core, OOP &amp; Advanced)</span>
                             <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
                         </div>
-                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Python skill level: 90%">
-                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 90%"></div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-label="Python skill level: 92%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 92%"></div>
                         </div>
                     </div>
                     <div>
@@ -46,6 +47,46 @@
                         </div>
                         <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100" aria-label="Java skill level: 65%">
                             <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Automation Tab Content (Hidden by default) -->
+                <div id="cat-automation" class="skill-cat-content space-y-4 hidden">
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-robot text-teal-500" aria-hidden="true"></i> Python Automation (Scripting, Bots &amp; Workflows)</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Python Automation skill level: 90%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-vial-circle-check text-green-500" aria-hidden="true"></i> Selenium WebDriver (Browser Automation &amp; E2E Testing)</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Selenium skill level: 88%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-masks-theater text-purple-500" aria-hidden="true"></i> Playwright Python (Fast Headless Automation &amp; Scraping)</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Playwright skill level: 85%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-xs font-semibold mb-1">
+                            <span class="flex items-center gap-2"><i class="fas fa-spider text-amber-500" aria-hidden="true"></i> Web Scraping &amp; Data Extraction (BeautifulSoup, Scrapy, PyTest)</span>
+                            <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Expert</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="88" aria-valuemin="0" aria-valuemax="100" aria-label="Web Scraping skill level: 88%">
+                            <div class="bg-gradient-to-r from-teal-500 to-cyan-500 h-2 rounded-full" style="width: 88%"></div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +113,7 @@
                     </div>
                     <div>
                         <div class="flex justify-between text-xs font-semibold mb-1">
-                            <span class="flex items-center gap-2"><i class="fab fa-react text-blue-400" aria-hidden="true"></i> HTML, CSS, Tailwind & React</span>
+                            <span class="flex items-center gap-2"><i class="fab fa-react text-blue-400" aria-hidden="true"></i> HTML, CSS, Tailwind &amp; React</span>
                             <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
                         </div>
                         <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="Frontend skill level: 80%">
@@ -85,7 +126,7 @@
                 <div id="cat-ai" class="skill-cat-content space-y-4 hidden">
                     <div>
                         <div class="flex justify-between text-xs font-semibold mb-1">
-                            <span class="flex items-center gap-2"><i class="fas fa-chart-line text-purple-500" aria-hidden="true"></i> OpenCV & Facial Landmarks (MediaPipe)</span>
+                            <span class="flex items-center gap-2"><i class="fas fa-chart-line text-purple-500" aria-hidden="true"></i> OpenCV &amp; Facial Landmarks (MediaPipe)</span>
                             <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
                         </div>
                         <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" aria-label="OpenCV/MediaPipe skill level: 80%">
@@ -116,7 +157,7 @@
                     </div>
                     <div>
                         <div class="flex justify-between text-xs font-semibold mb-1">
-                            <span class="flex items-center gap-2"><i class="fab fa-git-alt text-orange-600" aria-hidden="true"></i> Git, GitHub & Docker CI/CD</span>
+                            <span class="flex items-center gap-2"><i class="fab fa-git-alt text-orange-600" aria-hidden="true"></i> Git, GitHub &amp; Docker CI/CD</span>
                             <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Proficient</span>
                         </div>
                         <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="Git/Docker skill level: 75%">
@@ -125,7 +166,7 @@
                     </div>
                     <div>
                         <div class="flex justify-between text-xs font-semibold mb-1">
-                            <span class="flex items-center gap-2"><i class="fas fa-network-wired text-purple-600" aria-hidden="true"></i> n8n Workflows & WebSockets</span>
+                            <span class="flex items-center gap-2"><i class="fas fa-network-wired text-purple-600" aria-hidden="true"></i> n8n Workflows &amp; WebSockets</span>
                             <span class="text-teal-600 dark:text-teal-400 font-mono text-[10px] uppercase tracking-wide">Familiar</span>
                         </div>
                         <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-2" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" aria-label="n8n/WebSockets skill level: 70%">
@@ -139,6 +180,11 @@
             <div class="pt-4 border-t border-slate-200/50 dark:border-slate-800/50">
                 <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-2">Familiar Tech &amp; Methodologies</span>
                 <div class="flex flex-wrap gap-1.5">
+                    <span class="px-2 py-1 bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 border border-teal-500/30 rounded-md text-[10px] font-mono font-semibold">Python Automation</span>
+                    <span class="px-2 py-1 bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 border border-teal-500/30 rounded-md text-[10px] font-mono font-semibold">Selenium WebDriver</span>
+                    <span class="px-2 py-1 bg-teal-500/10 dark:bg-teal-500/20 text-teal-700 dark:text-teal-300 border border-teal-500/30 rounded-md text-[10px] font-mono font-semibold">Playwright Python</span>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Automated Web Scraping</span>
+                    <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">E2E Browser Testing</span>
                     <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Technical SEO</span>
                     <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">RESTful API Design</span>
                     <span class="px-2 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">FastAPI &amp; Django REST</span>
@@ -154,7 +200,7 @@
         <!-- Radar Chart Container -->
         <div class="glass-card rounded-2xl p-6 sm:p-8 border border-slate-200/50 dark:border-slate-800/50 flex items-center justify-center min-h-[350px]">
             <div class="chart-container w-full h-full relative">
-                <canvas id="skillsRadar" role="img" aria-label="Skill radar chart: Python 90% (Expert), Django API 85% (Expert), SQL/NoSQL 80% (Proficient), ML Models 75% (Proficient), Computer Vision 80% (Proficient), Dev Tools 75% (Proficient)"></canvas>
+                <canvas id="skillsRadar" role="img" aria-label="Skill radar chart: Python 92% (Expert), Python Automation 88% (Expert), Django API 85% (Expert), SQL/NoSQL 80% (Proficient), ML Models 75% (Proficient), Computer Vision 80% (Proficient), Dev Tools 75% (Proficient)"></canvas>
             </div>
         </div>
     </div>

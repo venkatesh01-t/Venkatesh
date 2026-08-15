@@ -60,11 +60,13 @@ window.addEventListener('DOMContentLoaded', () => {
 // ─── TYPING ANIMATION ───────────────────────────────────────────
 const typingRoles = [
     'Python Developer.',
+    'Python Automation Engineer.',
+    'Selenium & Playwright Specialist.',
     'AI & ML Developer.',
-    'Django & API Developer.',
-    'Machine Learning Engineer.',
-    'Technical SEO Specialist.',
-    'Computer Vision Developer.'
+    'Django & REST API Developer.',
+    'Web Scraping & Automation Expert.',
+    'Computer Vision Developer.',
+    'Technical SEO Specialist.'
 ];
 let roleIndex = 0, charIndex = 0, isDeleting = false;
 
@@ -129,7 +131,12 @@ function closeMobileMenu() {
 }
 window.closeMobileMenu = closeMobileMenu;
 
-// ─── SCROLL PROGRESS & HEADER ─────────────────────────────────────
+// ─── SCROLL PROGRESS, HEADER & FLOATING BACK-TO-TOP ───────────────
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.scrollToTop = scrollToTop;
+
 window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -142,6 +149,17 @@ window.addEventListener('scroll', () => {
             header.classList.add('py-1'); header.classList.remove('py-3');
         } else {
             header.classList.add('py-3'); header.classList.remove('py-1');
+        }
+    }
+
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (backToTopBtn) {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+            backToTopBtn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+        } else {
+            backToTopBtn.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+            backToTopBtn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
         }
     }
 }, { passive: true });
@@ -298,8 +316,8 @@ function renderRadarChart() {
     radarChartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Python Dev','Django API','SQL / NoSQL','ML Models','Facial Vision','Dev Tools'],
-            datasets: [{ label: 'Skill Vectors', data: [90,85,80,75,80,75], backgroundColor: fillColor, borderColor: borderCol, borderWidth: 2, pointBackgroundColor: borderCol, pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: borderCol }]
+            labels: ['Python Dev','Python Automation (Selenium/Playwright)','Django API','SQL / NoSQL','AI & ML','Dev Tools'],
+            datasets: [{ label: 'Skill Vectors', data: [92,88,85,80,80,75], backgroundColor: fillColor, borderColor: borderCol, borderWidth: 2, pointBackgroundColor: borderCol, pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: borderCol }]
         },
         options: {
             responsive: true, maintainAspectRatio: false,
@@ -367,15 +385,15 @@ const projectsData = [
                 { step:"Result",  text:"FastAPI JSON / Plot Outputs",  icon:"fa-share-alt" }]
     },
     {
-        id: 4, title: "Google Lens Web Scraping", category: "web",
-        tech: ["Python","Flask","BeautifulSoup","Scrapy","lxml"],
+        id: 4, title: "Google Lens Web Scraping & Python Automation", category: "web",
+        tech: ["Python Automation","Selenium","Playwright","BeautifulSoup","Flask","Scrapy"],
         repo: "#",
-        desc: "An automated web indexing system parsing specific image structures, descriptions, and linked sources simulating Google Lens endpoints.",
-        icon: "fa-magnifying-glass",
-        logic: [{ step:"Request", text:"Simulated Lens Target Agent",  icon:"fa-globe" },
-                { step:"Parse",   text:"BeautifulSoup DOM Scraping",   icon:"fa-code" },
-                { step:"Clean",   text:"JSON formatting exports",      icon:"fa-file-code" },
-                { step:"Output",  text:"Flask API query response",     icon:"fa-desktop" }]
+        desc: "An automated web scraping & browser automation system simulating Google Lens endpoints to extract image meta, text structures, and source indexing with headless browser pipelines.",
+        icon: "fa-robot",
+        logic: [{ step:"Automate", text:"Selenium / Playwright Agent", icon:"fa-robot" },
+                { step:"Extract",  text:"DOM & Image Parsing",         icon:"fa-code" },
+                { step:"Clean",    text:"JSON / DB Storage Pipeline",  icon:"fa-file-code" },
+                { step:"Deliver",  text:"REST API Fast Response",      icon:"fa-desktop" }]
     }
 ];
 
@@ -428,29 +446,110 @@ function renderProjects(category) {
 window.renderProjects = renderProjects;
 renderProjects('all');
 
-// ─── CONTACT FORM ────────────────────────────────────────────────
+// ─── EMAILJS CONFIGURATION & CONTACT HANDLER ─────────────────────
+const EMAILJS_PUBLIC_KEY  = "Uh7e1sjaaJIpxa_Jp";
+const EMAILJS_SERVICE_ID  = "service_mbwmxns";
+const EMAILJS_TEMPLATE_ID = "template_j32gpzh";
+
+// Initialize EmailJS
+function initEmailJS() {
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init({
+            publicKey: EMAILJS_PUBLIC_KEY
+        });
+        console.log("EmailJS initialized successfully.");
+    }
+}
+// Run on script load or DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initEmailJS);
+} else {
+    initEmailJS();
+}
+
 function handleContactSubmit(event) {
     event.preventDefault();
-    const status  = document.getElementById('form-status');
-    const name    = document.getElementById('form-name').value;
-    const email   = document.getElementById('form-email').value;
-    const subject = document.getElementById('form-subject').value;
-    const msg     = document.getElementById('form-message').value;
+    const form      = event.target;
+    const status    = document.getElementById('form-status');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    const name    = form.elements['name'] ? form.elements['name'].value.trim() : '';
+    const email   = form.elements['email'] ? form.elements['email'].value.trim() : '';
+    const subject = form.elements['subject'] ? form.elements['subject'].value.trim() : 'Portfolio Contact';
+    const message = form.elements['message'] ? form.elements['message'].value.trim() : '';
+
     if (status) {
-        status.innerText   = "Processing...";
-        status.className   = "text-xs font-semibold text-slate-400";
+        status.innerHTML = '<i class="fas fa-spinner fa-spin text-teal-400 mr-1.5"></i> Sending message...';
+        status.className = "text-xs font-semibold text-teal-500 flex items-center";
     }
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+    }
+
+    // Comprehensive template parameters matching any EmailJS template mapping
+    const templateParams = {
+        name: name,
+        from_name: name,
+        user_name: name,
+        email: email,
+        from_email: email,
+        user_email: email,
+        reply_to: email,
+        subject: subject,
+        message: message
+    };
+
+    if (typeof emailjs !== 'undefined') {
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
+            .then(function(response) {
+                console.log("EmailJS Success:", response.status, response.text);
+                if (status) {
+                    status.innerHTML = '<i class="fas fa-check-circle text-emerald-400 mr-1.5"></i> Message sent successfully!';
+                    status.className = "text-xs font-semibold text-emerald-500 dark:text-emerald-400 flex items-center";
+                }
+                form.reset();
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                }
+                setTimeout(() => {
+                    if (status && status.innerText.includes('successfully')) {
+                        status.innerText = '';
+                    }
+                }, 6000);
+            })
+            .catch(function(error) {
+                console.error("EmailJS Send Error:", error);
+                if (status) {
+                    status.innerHTML = '<i class="fas fa-exclamation-triangle text-amber-400 mr-1.5"></i> Direct send failed. Opening email app...';
+                    status.className = "text-xs font-semibold text-amber-500 flex items-center";
+                }
+                fallbackMailto(name, email, subject, message, form, status, submitBtn);
+            });
+    } else {
+        fallbackMailto(name, email, subject, message, form, status, submitBtn);
+    }
+}
+window.handleContactSubmit = handleContactSubmit;
+
+function fallbackMailto(name, email, subject, msg, form, status, submitBtn) {
     const mailtoUrl = `mailto:babuvenkatesh093@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Hello Venkatesh,\n\nName: " + name + "\nEmail: " + email + "\n\nMessage:\n" + msg)}`;
+    
     setTimeout(() => {
         window.location.href = mailtoUrl;
         if (status) {
-            status.innerText  = "Email Client Opened!";
-            status.className  = "text-xs font-semibold text-green-500 dark:text-green-400";
+            status.innerHTML = '<i class="fas fa-envelope-open-text text-teal-400 mr-1.5"></i> Email client opened!';
+            status.className = "text-xs font-semibold text-teal-500 dark:text-teal-400 flex items-center";
         }
-        event.target.reset();
-    }, 800);
+        form.reset();
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+        }
+        setTimeout(() => { if (status) status.innerText = ''; }, 6000);
+    }, 600);
 }
-window.handleContactSubmit = handleContactSubmit;
 
 // ─── FOOTER DYNAMIC YEAR ─────────────────────────────────────────
 const yr = document.getElementById('current-year');
