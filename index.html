@@ -222,8 +222,8 @@
     <!-- background dynamic canvas -->
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-    <!-- CINEMATIC PRELOADER -->
-    <div id="preloader" class="fixed inset-0 z-[9999] flex flex-col justify-center items-center overflow-hidden" role="status" aria-label="Loading portfolio">
+    <!-- CINEMATIC PRELOADER (Desktop Only, zero-block on Mobile) -->
+    <div id="preloader" class="hidden md:flex fixed inset-0 z-[9999] flex-col justify-center items-center overflow-hidden" role="status" aria-label="Loading portfolio">
         
         <!-- Scanline overlay -->
         <div class="preloader-scanline absolute inset-0 z-10"></div>
