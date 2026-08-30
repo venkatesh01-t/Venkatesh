@@ -1,5 +1,57 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/sections/about",
+      "destination": "/#about",
+      "permanent": false
+    },
+    {
+      "source": "/sections/hero",
+      "destination": "/#home",
+      "permanent": false
+    },
+    {
+      "source": "/sections/skills",
+      "destination": "/#skills",
+      "permanent": false
+    },
+    {
+      "source": "/sections/projects",
+      "destination": "/#projects",
+      "permanent": false
+    },
+    {
+      "source": "/sections/experience",
+      "destination": "/#experience",
+      "permanent": false
+    },
+    {
+      "source": "/sections/education",
+      "destination": "/#education",
+      "permanent": false
+    },
+    {
+      "source": "/sections/certifications",
+      "destination": "/#certifications",
+      "permanent": false
+    },
+    {
+      "source": "/sections/contact",
+      "destination": "/#contact",
+      "permanent": false
+    },
+    {
+      "source": "/sections/footer",
+      "destination": "/#contact",
+      "permanent": false
+    },
+    {
+      "source": "/sections/:slug*",
+      "destination": "/#:slug*",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

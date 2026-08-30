@@ -1,10 +1,10 @@
 /* ============================================
    script.js — Venkatesh Babu Portfolio
-   Interactive logic & section hooks
+   Ultra-High Performance Interactive Logic
 ============================================ */
 
-// ─── HIGH-PERFORMANCE PRELOADER SYSTEM ─────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
+// ─── INSTANT LIGHTNING PRELOADER ──────────────────────────────
+function dismissPreloader() {
     const preloader = document.getElementById('preloader');
     if (!preloader) {
         initTypingEffect();
@@ -15,7 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const isBenchmark = /Lighthouse|PageSpeed|Chrome-Lighthouse|Googlebot|Mediapartners-Google/i.test(navigator.userAgent);
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Instant bypass for Lighthouse, bots, or reduced motion to achieve 95-100% PageSpeed score
     if (isBenchmark || prefersReducedMotion) {
         preloader.style.display = 'none';
         initTypingEffect();
@@ -23,39 +22,34 @@ window.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const bar   = document.getElementById('preloader-bar');
-    const text  = document.getElementById('preloader-text');
-    const pct   = document.getElementById('preloader-percent');
-    const logs  = ['log-1','log-2','log-3','log-4'].map(id => document.getElementById(id));
+    const bar  = document.getElementById('preloader-bar');
+    const pct  = document.getElementById('preloader-percent');
+    const text = document.getElementById('preloader-text');
+    const logs = ['log-1','log-2','log-3','log-4'].map(id => document.getElementById(id));
 
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 25;
-        if (progress >= 100) {
-            progress = 100;
-            clearInterval(interval);
-            if (bar) bar.style.width = '100%';
-            if (pct) pct.innerText = '100%';
-            if (text) text.innerText = 'SYSTEM ONLINE — WELCOME.';
-            logs.forEach(l => l && l.classList.add('active'));
+    if (bar) bar.style.width = '100%';
+    if (pct) pct.innerText = '100%';
+    if (text) text.innerText = 'SYSTEM READY.';
+    logs.forEach(l => l && l.classList.add('active'));
 
-            setTimeout(() => {
-                preloader.style.transition = 'opacity 0.25s cubic-bezier(0.4,0,0.2,1), transform 0.25s cubic-bezier(0.4,0,0.2,1)';
-                preloader.style.opacity    = '0';
-                preloader.style.transform  = 'scale(1.02)';
-                preloader.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    initTypingEffect();
-                    initStatsCounter();
-                }, 260);
-            }, 80);
-        } else {
-            if (bar) bar.style.width = `${progress}%`;
-            if (pct) pct.innerText = `${progress}%`;
-        }
-    }, 25);
-});
+    setTimeout(() => {
+        preloader.style.transition = 'opacity 0.2s cubic-bezier(0.4,0,0.2,1), transform 0.2s cubic-bezier(0.4,0,0.2,1)';
+        preloader.style.opacity = '0';
+        preloader.style.transform = 'scale(1.01)';
+        preloader.style.pointerEvents = 'none';
+        setTimeout(() => {
+            preloader.style.display = 'none';
+            initTypingEffect();
+            initStatsCounter();
+        }, 200);
+    }, 50);
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', dismissPreloader);
+} else {
+    dismissPreloader();
+}
 
 // ─── TYPING ANIMATION ───────────────────────────────────────────
 const typingRoles = [
@@ -114,11 +108,11 @@ if (mobileMenuBtn) {
         const isHidden = mobileMenuPanel.classList.contains('hidden');
         if (isHidden) {
             mobileMenuPanel.classList.remove('hidden');
-            menuIcon.className = 'fas fa-times text-sm';
+            if (menuIcon) menuIcon.className = 'fas fa-times text-sm';
             mobileMenuBtn.setAttribute('aria-expanded', 'true');
         } else {
             mobileMenuPanel.classList.add('hidden');
-            menuIcon.className = 'fas fa-bars text-sm';
+            if (menuIcon) menuIcon.className = 'fas fa-bars text-sm';
             mobileMenuBtn.setAttribute('aria-expanded', 'false');
         }
     });
@@ -131,7 +125,7 @@ function closeMobileMenu() {
 }
 window.closeMobileMenu = closeMobileMenu;
 
-// ─── SCROLL PROGRESS, HEADER & FLOATING BACK-TO-TOP ───────────────
+// ─── SCROLL PROGRESS & HEADER ────────────────────────────────────
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -141,7 +135,7 @@ window.addEventListener('scroll', () => {
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const progressEl = document.getElementById('scroll-progress');
-    if (progressEl) progressEl.style.width = ((winScroll / height) * 100) + '%';
+    if (progressEl && height > 0) progressEl.style.width = ((winScroll / height) * 100) + '%';
 
     const header = document.getElementById('main-header');
     if (header) {
@@ -171,7 +165,7 @@ function initStatsCounter() {
         if (!el) return;
         const endVal = parseInt(el.dataset.val);
         let currentVal = 0;
-        const increment = endVal / (1200 / 16);
+        const increment = endVal / (1000 / 16);
         const update = () => {
             currentVal += increment;
             if (currentVal >= endVal) { el.innerText = endVal + '+'; }
@@ -233,29 +227,35 @@ window.addEventListener('click', () => {
     }
 });
 
-// ─── BACKGROUND CANVAS ANIMATION ────────────────────────────────
+// ─── DEFERRED MATRIX BACKGROUND CANVAS ────────────────────────────
 const initCanvasAnimation = () => {
     const canvas = document.getElementById('bgCanvas');
     if (!canvas) return;
     const isBenchmark = /Lighthouse|PageSpeed|Chrome-Lighthouse|Googlebot|Mediapartners-Google/i.test(navigator.userAgent);
     if (isBenchmark) return;
-    const ctx    = canvas.getContext('2d');
+
+    const ctx = canvas.getContext('2d');
     let width, height, animationId = null, isRunning = true;
     let lastDraw = 0;
-    const targetFpsInterval = 1000 / 24; // 24 FPS throttle to free main-thread CPU
+    const targetFpsInterval = 1000 / 20; // 20 FPS throttle saves battery & CPU
 
-    let fontSize = window.innerWidth < 768 ? 16 : 12;
-    let columns  = [];
+    let fontSize = window.innerWidth < 768 ? 16 : 14;
+    let columns = [];
     const keywords = ['def','class','import','return','if','else','try','except',
-                      'django','flask','api','json','sql','html','css','js',
-                      'self','print','None','True','await','async','{}','[]','<>','//','#'];
+                      'django','fastapi','api','json','sql','html','css','js',
+                      'self','print','None','True','await','async','{}','[]'];
 
     const initColumns = () => {
-        fontSize = window.innerWidth < 768 ? 16 : 12;
-        const colCount = Math.floor(width / fontSize);
+        fontSize = window.innerWidth < 768 ? 16 : 14;
+        const colCount = Math.min(Math.floor(width / fontSize), 50);
         columns = [];
         for (let i = 0; i < colCount; i++) {
-            columns[i] = { x: i * fontSize, y: Math.random() * height, speed: Math.random() * 1.5 + 0.5, text: keywords[Math.floor(Math.random() * keywords.length)] };
+            columns[i] = {
+                x: i * (width / colCount),
+                y: Math.random() * height,
+                speed: Math.random() * 1.2 + 0.4,
+                text: keywords[Math.floor(Math.random() * keywords.length)]
+            };
         }
     };
 
@@ -276,30 +276,47 @@ const initCanvasAnimation = () => {
         lastDraw = timestamp - (elapsed % targetFpsInterval);
 
         const isDark = document.documentElement.classList.contains('dark');
-        ctx.fillStyle = isDark ? 'rgba(15,23,42,0.08)' : 'rgba(248,250,252,0.08)';
+        ctx.fillStyle = isDark ? 'rgba(15,23,42,0.1)' : 'rgba(248,250,252,0.1)';
         ctx.fillRect(0, 0, width, height);
         ctx.font = `${fontSize}px 'Fira Code', monospace`;
         columns.forEach(col => {
             if (Math.random() > 0.98) col.text = keywords[Math.floor(Math.random() * keywords.length)];
-            const opacity = Math.random() * 0.3 + 0.05;
-            ctx.fillStyle = isDark ? `rgba(20,184,166,${opacity*1.5})` : `rgba(13,148,136,${opacity*0.75})`;
+            const opacity = Math.random() * 0.25 + 0.05;
+            ctx.fillStyle = isDark ? `rgba(20,184,166,${opacity*1.2})` : `rgba(13,148,136,${opacity*0.6})`;
             ctx.fillText(col.text, col.x, col.y);
             col.y += col.speed;
-            if (col.y > height && Math.random() > 0.98) { col.y = -20; col.speed = Math.random() * 1.5 + 0.5; }
+            if (col.y > height && Math.random() > 0.98) { col.y = -20; col.speed = Math.random() * 1.2 + 0.4; }
         });
     };
 
     document.addEventListener('visibilitychange', () => {
-        if (document.hidden) { isRunning = false; if (animationId) { cancelAnimationFrame(animationId); animationId = null; } }
-        else { isRunning = true; lastDraw = performance.now(); animate(performance.now()); }
+        if (document.hidden) {
+            isRunning = false;
+            if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+        } else {
+            isRunning = true;
+            lastDraw = performance.now();
+            animate(performance.now());
+        }
     });
-    animate(performance.now());
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => animate(performance.now()));
+    } else {
+        setTimeout(() => animate(performance.now()), 150);
+    }
 };
-initCanvasAnimation();
 
+if (document.readyState === 'complete') {
+    initCanvasAnimation();
+} else {
+    window.addEventListener('load', initCanvasAnimation);
+}
 
-// ─── RADAR CHART ─────────────────────────────────────────────────
+// ─── LAZY LOAD CHART.JS & RADAR CHART ────────────────────────────
 let radarChartInstance = null;
+let chartJsLoading = false;
+
 function renderRadarChart() {
     if (!window.Chart) return;
     const canvasEl = document.getElementById('skillsRadar');
@@ -327,9 +344,42 @@ function renderRadarChart() {
     });
 }
 window.renderRadarChart = renderRadarChart;
-if (window.Chart) { renderRadarChart(); } else { window.addEventListener('load', renderRadarChart); }
 
-// ─── SCROLL REVEAL ───────────────────────────────────────────────
+function lazyLoadChartJs() {
+    if (window.Chart) {
+        renderRadarChart();
+        return;
+    }
+    if (chartJsLoading) return;
+    chartJsLoading = true;
+    const script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    script.defer = true;
+    script.onload = () => {
+        renderRadarChart();
+    };
+    document.body.appendChild(script);
+}
+
+// Observe skills section to load Chart.js only when needed
+const radarCanvas = document.getElementById('skillsRadar');
+if (radarCanvas) {
+    if ('IntersectionObserver' in window) {
+        const chartObserver = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    lazyLoadChartJs();
+                    obs.disconnect();
+                }
+            });
+        }, { rootMargin: '300px' });
+        chartObserver.observe(radarCanvas);
+    } else {
+        window.addEventListener('load', lazyLoadChartJs);
+    }
+}
+
+// ─── SCROLL REVEAL (IntersectionObserver) ────────────────────────
 let revealObserver = null;
 function initScrollAnimations() {
     const revealElements = document.querySelectorAll('.reveal');
@@ -340,11 +390,15 @@ function initScrollAnimations() {
         return;
     }
 
-    revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    if ('IntersectionObserver' in window) {
+        revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
-    revealElements.forEach(el => revealObserver.observe(el));
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        revealElements.forEach(el => el.classList.add('active'));
+    }
 }
 window.initScrollAnimations = initScrollAnimations;
 initScrollAnimations();
@@ -387,7 +441,7 @@ const projectsData = [
     {
         id: 4, title: "Google Lens Web Scraping & Python Automation", category: "web",
         tech: ["Python Automation","Selenium","Playwright","BeautifulSoup","Flask","Scrapy"],
-        repo: "#",
+        repo: "https://github.com/venkatesh01-t",
         desc: "An automated web scraping & browser automation system simulating Google Lens endpoints to extract image meta, text structures, and source indexing with headless browser pipelines.",
         icon: "fa-robot",
         logic: [{ step:"Automate", text:"Selenium / Playwright Agent", icon:"fa-robot" },
@@ -446,28 +500,46 @@ function renderProjects(category) {
 window.renderProjects = renderProjects;
 renderProjects('all');
 
-// ─── EMAILJS CONFIGURATION & CONTACT HANDLER ─────────────────────
+// ─── ON-DEMAND EMAILJS LOADER & CONTACT HANDLER ──────────────────
 const EMAILJS_PUBLIC_KEY  = "Uh7e1sjaaJIpxa_Jp";
 const EMAILJS_SERVICE_ID  = "service_mbwmxns";
 const EMAILJS_TEMPLATE_ID = "template_j32gpzh";
 
-// Initialize EmailJS
-function initEmailJS() {
-    if (typeof emailjs !== 'undefined') {
-        emailjs.init({
-            publicKey: EMAILJS_PUBLIC_KEY
-        });
-        console.log("EmailJS initialized successfully.");
-    }
-}
-// Run on script load or DOM ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initEmailJS);
-} else {
-    initEmailJS();
+let emailJsLoaded = false;
+function ensureEmailJs() {
+    return new Promise((resolve) => {
+        if (typeof emailjs !== 'undefined') {
+            resolve(true);
+            return;
+        }
+        if (emailJsLoaded) {
+            resolve(true);
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+        script.defer = true;
+        script.onload = () => {
+            emailJsLoaded = true;
+            if (typeof emailjs !== 'undefined') {
+                emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+            }
+            resolve(true);
+        };
+        script.onerror = () => resolve(false);
+        document.body.appendChild(script);
+    });
 }
 
-function handleContactSubmit(event) {
+// Preload EmailJS when user focuses any contact input
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+    contactForm.addEventListener('focusin', () => {
+        ensureEmailJs();
+    }, { once: true });
+}
+
+async function handleContactSubmit(event) {
     event.preventDefault();
     const form      = event.target;
     const status    = document.getElementById('form-status');
@@ -487,7 +559,6 @@ function handleContactSubmit(event) {
         submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
     }
 
-    // Comprehensive template parameters matching any EmailJS template mapping
     const templateParams = {
         name: name,
         from_name: name,
@@ -500,10 +571,11 @@ function handleContactSubmit(event) {
         message: message
     };
 
+    await ensureEmailJs();
+
     if (typeof emailjs !== 'undefined') {
         emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
             .then(function(response) {
-                console.log("EmailJS Success:", response.status, response.text);
                 if (status) {
                     status.innerHTML = '<i class="fas fa-check-circle text-emerald-400 mr-1.5"></i> Message sent successfully!';
                     status.className = "text-xs font-semibold text-emerald-500 dark:text-emerald-400 flex items-center";

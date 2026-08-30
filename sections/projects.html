@@ -1,22 +1,89 @@
-<!-- 5. PROJECT ECOSYSTEM SECTION -->
-<div class="space-y-8">
-    <div class="flex flex-col md:flex-row justify-between items-end gap-4">
-        <div class="space-y-2">
-            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block">My Work</span>
-            <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Featured Projects</h2>
-            <p class="text-sm text-slate-500 max-w-xl">A gallery of full-stack implementations and AI applications highlighting architecture configurations.</p>
-        </div>
-        
-        <!-- Category Filter Buttons -->
-        <div class="glass-card p-1 rounded-xl border border-slate-200 dark:border-slate-800 inline-flex shadow-sm">
-            <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-700 dark:text-teal-300" data-filter="all">All</button>
-            <button onclick="filterProjects('ai')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="ai">AI / ML</button>
-            <button onclick="filterProjects('web')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="web">Web Dev</button>
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Venkatesh — Python Developer &amp; Automation Engineer</title>
+    <link rel="canonical" href="https://venkatesh-snowy.vercel.app/#projects">
 
-    <!-- Dynamic Projects Grid -->
-    <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-        <!-- Content generated via Javascript in script.js -->
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        primary: { 50:'#f0fdfa', 100:'#ccfbf1', 500:'#14b8a6', 600:'#0d9488', 700:'#0f766e' },
+                        accent:  { 500:'#8b5cf6', 600:'#7c3aed', 700:'#6d28d9' }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="../style.css">
+
+    <!-- Auto-redirect to main page anchor if loaded directly in browser -->
+    <script>
+        (function() {
+            if (window.top === window.self && !location.search.includes('preview=1')) {
+                window.location.replace('/#projects');
+            }
+        })();
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans p-4 sm:p-8 min-h-screen">
+    <div class="max-w-6xl mx-auto">
+        <!-- 5. PROJECT ECOSYSTEM SECTION -->
+        <div class="space-y-8">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-4">
+                <div class="space-y-2">
+                    <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest block">My Work</span>
+                    <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">Featured Projects</h2>
+                    <p class="text-sm text-slate-500 max-w-xl">A gallery of full-stack implementations and AI applications highlighting architecture configurations.</p>
+                </div>
+                
+                <!-- Category Filter Buttons -->
+                <div class="glass-card p-1 rounded-xl border border-slate-200 dark:border-slate-800 inline-flex shadow-sm">
+                    <button onclick="filterProjects('all')" class="filter-btn active px-4 py-2 text-xs font-semibold rounded-lg bg-teal-500/10 text-teal-700 dark:text-teal-300" data-filter="all">All</button>
+                    <button onclick="filterProjects('ai')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="ai">AI / ML</button>
+                    <button onclick="filterProjects('web')" class="filter-btn px-4 py-2 text-xs font-semibold rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900" data-filter="web">Web Dev</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Projects Grid -->
+            <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                <!-- Fallback card if rendered standalone -->
+                <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-full bg-teal-500/10 text-teal-600 dark:text-teal-400 text-xs font-semibold">Python &amp; Django</span>
+                        <a href="https://github.com/venkatesh01-t/Dental-Clinic-Management-System" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-teal-500"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Dental Clinic Management System</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Full-stack healthcare management application with secure patient record indexing, appointment scheduling, and role-based permissions.</p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="px-2.5 py-1 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 text-xs font-semibold">Computer Vision &amp; AI</span>
+                        <a href="https://github.com/venkatesh01-t/Real-Time-Drowsiness-Detection-System" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-purple-500"><i class="fab fa-github fa-lg"></i></a>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Real-Time Drowsiness Detection System</h3>
+                    <p class="text-xs text-slate-500 leading-relaxed">Safety monitoring system analyzing real-time video feeds with OpenCV and MediaPipe facial mesh landmarks to detect driver fatigue.</p>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</body>
+</html>

@@ -168,22 +168,17 @@
     }
     </script>
 
-    <!-- ===== RESOURCE HINTS ===== -->
+    <!-- ===== RESOURCE HINTS & PRELOADS ===== -->
     <!-- Preload the LCP hero image in AVIF format — critical for Fastest Contentful Paint -->
     <link rel="preload" href="./1.avif" as="image" type="image/avif" fetchpriority="high">
 
     <!-- DNS + connection warmup for CDN hosts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- ===== GOOGLE FONTS (optimized: only 2 weights per family, preloaded) ===== -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
-
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"></noscript>
+    <!-- ===== GOOGLE FONTS (consolidated request with display=swap) ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- ===== FONT AWESOME (lazy-loaded — non-blocking) ===== -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" crossorigin="anonymous">
@@ -191,12 +186,6 @@
 
     <!-- ===== TAILWIND CSS CDN ===== -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- ===== CHART.JS (deferred) ===== -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-
-    <!-- ===== EMAILJS SDK ===== -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <!-- ===== TAILWIND CONFIG ===== -->
     <script>
