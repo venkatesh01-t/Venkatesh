@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- ===== AUTOMATIC REDIRECT FROM GITHUB PAGES TO NEW VERCEL DOMAIN ===== -->
+    <script>
+        (function() {
+            var host = window.location.hostname;
+            if (host.indexOf('github.io') !== -1 || host.indexOf('venkatesh01-t') !== -1) {
+                var newPath = window.location.pathname.replace(/^\/Venkatesh(\/|$)/i, '/');
+                var target = 'https://venkatesh-snowy.vercel.app' + (newPath.startsWith('/') ? newPath : '/' + newPath) + window.location.search + window.location.hash;
+                window.location.replace(target);
+            }
+        })();
+    </script>
+
     <!-- ===== PRIMARY SEO ===== -->
     <title>Venkatesh | Python Developer &amp; Automation Engineer (Selenium &amp; Playwright) | AI &amp; Django Specialist | API &amp; SEO Engineer</title>
     <meta name="description" content="Portfolio of Venkatesh (Venkatesh Babu) — Python Developer &amp; Python Automation Specialist (Selenium, Playwright), AI &amp; Machine Learning Developer, Django &amp; REST API Engineer, and Technical SEO Expert.">
