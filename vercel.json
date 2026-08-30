@@ -23,7 +23,7 @@
       ]
     },
     {
-      "source": "/(robots.txt|sitemap.xml)",
+      "source": "/robots.txt",
       "headers": [
         {
           "key": "Content-Type",
@@ -31,7 +31,7 @@
         },
         {
           "key": "Cache-Control",
-          "value": "public, max-age=3600, stale-while-revalidate=86400"
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     },
@@ -44,7 +44,7 @@
         },
         {
           "key": "Cache-Control",
-          "value": "public, max-age=3600, stale-while-revalidate=86400"
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     }
