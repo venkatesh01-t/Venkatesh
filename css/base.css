@@ -11,9 +11,11 @@
 .dark ::-webkit-scrollbar-thumb { background: #334155; }
 ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-/* ─── Custom Cursors ────────────────────────── */
-body { cursor: url('../ns.cur'), auto; }
-a, button, [role="button"], .filter-btn { cursor: url('../lk.cur'), pointer; }
+/* ─── Custom Cursors (Desktop Only) ────────── */
+@media (hover: hover) and (pointer: fine) {
+    body { cursor: url('../ns.cur'), auto; }
+    a, button, [role="button"], .filter-btn { cursor: url('../lk.cur'), pointer; }
+}
 
 /* ─── Blur Grid Background ──────────────────── */
 .blur-grid {
@@ -33,4 +35,10 @@ a, button, [role="button"], .filter-btn { cursor: url('../lk.cur'), pointer; }
     pointer-events: none;
     opacity: 0.85;
     transition: opacity 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    #bgCanvas {
+        display: none !important;
+    }
 }

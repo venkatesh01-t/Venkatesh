@@ -1,8 +1,15 @@
 import subprocess
 import os
 
+# Ensure tw-input.css exists
+tw_input_content = """@tailwind base;
+@tailwind components;
+@tailwind utilities;
+"""
+with open('css/tw-input.css', 'w', encoding='utf-8') as f:
+    f.write(tw_input_content)
+
 print("Running Tailwind CSS compiler with full content scanning...")
-# Run tailwindcss with explicit content and config
 cmd = [
     'npx', '-y', 'tailwindcss@3',
     '--content', 'index.html,404.html,sections/*.html,script.js,js/*.js',
@@ -52,3 +59,8 @@ print("Contains min-h-[85vh]:", "min-h-[85vh]" in master_css or "min-h-" in mast
 print("Contains text-gradient:", "text-gradient" in master_css)
 print("Contains fa-brands:", "fa-brands" in master_css)
 print("Contains Inter font:", "Inter" in master_css)
+
+# Clean up temp files
+for tmp in ['css/tw-input.css', 'css/tailwind.gen.css']:
+    if os.path.exists(tmp):
+        os.remove(tmp)

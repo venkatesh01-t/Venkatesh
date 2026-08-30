@@ -1,62 +1,68 @@
 /* ============================================
    css/components.css — Venkatesh Babu Portfolio
-   UI Component styles, glassmorphism, preloader, animations
+   Component styles, glassmorphism, animations
 ============================================ */
 
-/* ─── Glassmorphism ─────────────────────────── */
-.glass-nav {
+/* ─── Glassmorphism Cards ───────────────────── */
+.glass-card {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
-.dark .glass-nav {
-    background: rgba(15, 23, 42, 0.7);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-.glass-card {
-    background: rgba(255, 255, 255, 0.65);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-}
+
 .dark .glass-card {
-    background: rgba(30, 41, 59, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(30, 41, 59, 0.7);
 }
 
-/* ─── Gradient Text ─────────────────────────── */
+@media (max-width: 768px) {
+    .glass-card {
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+    }
+}
+
+.glass-card:hover {
+    box-shadow: 0 10px 25px -5px rgba(20, 184, 166, 0.1), 0 8px 10px -6px rgba(20, 184, 166, 0.05);
+}
+
+/* ─── Text Gradients ────────────────────────── */
 .text-gradient {
-    background: linear-gradient(135deg, #0d9488 0%, #06b6d4 50%, #7c3aed 100%);
+    background: linear-gradient(135deg, #0d9488 0%, #7c3aed 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
-.text-gradient-accent {
-    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+.dark .text-gradient {
+    background: linear-gradient(135deg, #2dd4bf 0%, #a78bfa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-/* ─── Scroll Reveal ─────────────────────────── */
+/* ─── Scroll Reveal Animations ──────────────── */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
 }
-.reveal.active { opacity: 1; transform: translateY(0); }
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-/* ─── Shimmer Profile Image ─────────────────── */
+/* ─── Shimmer Effect ────────────────────────── */
 .shimmer-container { position: relative; overflow: hidden; }
 .shimmer-container::after {
     content: '';
     position: absolute;
     top: 0; left: 0;
-    width: 50%; height: 100%;
+    width: 60%; height: 100%;
     background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
     will-change: transform;
     animation: shimmer 5s infinite;
@@ -67,11 +73,24 @@
     100% { transform: translateX(350%) skewX(-20deg); }
 }
 
-
 /* ─── Preloader ─────────────────────────────── */
 #preloader {
     background: radial-gradient(ellipse at center, #0d1117 0%, #020617 100%);
+    transition: opacity 0.25s ease, visibility 0.25s ease;
 }
+
+@media (max-width: 768px) {
+    #preloader {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #preloader {
+        display: none !important;
+    }
+}
+
 .preloader-avatar-glow {
     animation: avatarGlow 2.5s ease-in-out infinite alternate;
 }
@@ -146,17 +165,26 @@
 }
 
 /* ─── Chart Container ───────────────────────── */
-.chart-container { position: relative; height: 300px; }
+.chart-container { position: relative; height: 280px; max-width: 100%; }
 
 /* ─── Content Visibility & Rendering Isolation ─────── */
 #about, #skills, #experience, #projects, #education, #certifications, #contact, #footer {
     content-visibility: auto;
-    contain-intrinsic-size: 1px 400px;
+    contain-intrinsic-size: 1px 350px;
 }
 
 .lazy-section-placeholder {
-    min-height: 250px;
+    min-height: 200px;
     content-visibility: auto;
-    contain-intrinsic-size: 1px 300px;
+    contain-intrinsic-size: 1px 250px;
 }
 
+/* ─── Mobile Responsiveness Enhancements ─────── */
+@media (max-width: 640px) {
+    .chart-container {
+        height: 240px;
+    }
+    .glass-card {
+        padding: 1.25rem !important;
+    }
+}

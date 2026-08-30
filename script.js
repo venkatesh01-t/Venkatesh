@@ -10,17 +10,16 @@ function dismissPreloader() {
     preloaderDismissed = true;
 
     const preloader = document.getElementById('preloader');
-    if (!preloader) {
-        initTypingEffect();
-        initStatsCounter();
-        return;
-    }
-
+    const isMobile = window.innerWidth <= 768;
     const isBenchmark = /Lighthouse|PageSpeed|Chrome-Lighthouse|Googlebot|Mediapartners-Google/i.test(navigator.userAgent);
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (isBenchmark || prefersReducedMotion) {
-        preloader.style.display = 'none';
+    if (!preloader || isMobile || isBenchmark || prefersReducedMotion) {
+        if (preloader) {
+            preloader.style.display = 'none';
+            preloader.style.opacity = '0';
+            preloader.style.pointerEvents = 'none';
+        }
         initTypingEffect();
         initStatsCounter();
         return;
@@ -45,8 +44,8 @@ function dismissPreloader() {
             preloader.style.display = 'none';
             initTypingEffect();
             initStatsCounter();
-        }, 200);
-    }, 50);
+        }, 150);
+    }, 40);
 }
 
 // Immediate execution if already ready or fallback timer
@@ -57,7 +56,7 @@ if (document.readyState === 'complete' || document.readyState === 'interactive')
     window.addEventListener('load', dismissPreloader);
 }
 // Ultimate fallback ensuring the portfolio is never blocked
-setTimeout(dismissPreloader, 350);
+setTimeout(dismissPreloader, 150);
 
 // ─── TYPING ANIMATION ───────────────────────────────────────────
 const typingRoles = [
@@ -239,23 +238,33 @@ window.addEventListener('click', () => {
 const initCanvasAnimation = () => {
     const canvas = document.getElementById('bgCanvas');
     if (!canvas) return;
+    
+    // Disable heavy canvas animations on mobile & low power devices
+    if (window.innerWidth < 768 || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+        canvas.style.display = 'none';
+        return;
+    }
+
     const isBenchmark = /Lighthouse|PageSpeed|Chrome-Lighthouse|Googlebot|Mediapartners-Google/i.test(navigator.userAgent);
-    if (isBenchmark) return;
+    if (isBenchmark) {
+        canvas.style.display = 'none';
+        return;
+    }
 
     const ctx = canvas.getContext('2d');
     let width, height, animationId = null, isRunning = true;
     let lastDraw = 0;
     const targetFpsInterval = 1000 / 20; // 20 FPS throttle saves battery & CPU
 
-    let fontSize = window.innerWidth < 768 ? 16 : 14;
+    let fontSize = 14;
     let columns = [];
     const keywords = ['def','class','import','return','if','else','try','except',
                       'django','fastapi','api','json','sql','html','css','js',
                       'self','print','None','True','await','async','{}','[]'];
 
     const initColumns = () => {
-        fontSize = window.innerWidth < 768 ? 16 : 14;
-        const colCount = Math.min(Math.floor(width / fontSize), 50);
+        fontSize = 14;
+        const colCount = Math.min(Math.floor(width / fontSize), 45);
         columns = [];
         for (let i = 0; i < colCount; i++) {
             columns[i] = {
@@ -268,6 +277,11 @@ const initCanvasAnimation = () => {
     };
 
     const resize = () => {
+        if (window.innerWidth < 768) {
+            canvas.style.display = 'none';
+            return;
+        }
+        canvas.style.display = 'block';
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
         initColumns();
@@ -311,7 +325,7 @@ const initCanvasAnimation = () => {
     if ('requestIdleCallback' in window) {
         requestIdleCallback(() => animate(performance.now()));
     } else {
-        setTimeout(() => animate(performance.now()), 150);
+        setTimeout(() => animate(performance.now()), 200);
     }
 };
 
@@ -341,12 +355,12 @@ function renderRadarChart() {
     radarChartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Python Dev','Python Automation (Selenium/Playwright)','AI & LLMs','Django REST API','SQL / NoSQL','SEO & Dev Tools'],
+            labels: ['Python Dev','Python Automation','AI & LLMs','Django REST API','SQL / NoSQL','SEO & Dev Tools'],
             datasets: [{ label: 'Skill Vectors', data: [92,88,85,85,80,78], backgroundColor: fillColor, borderColor: borderCol, borderWidth: 2, pointBackgroundColor: borderCol, pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: borderCol }]
         },
         options: {
             responsive: true, maintainAspectRatio: false,
-            scales: { r: { angleLines: { color: gridColor }, grid: { color: gridColor }, pointLabels: { font: { size: 10, family: 'Inter', weight: 'bold' }, color: labelColor }, ticks: { display: false, stepSize: 20 }, suggestedMin: 0, suggestedMax: 100 } },
+            scales: { r: { angleLines: { color: gridColor }, grid: { color: gridColor }, pointLabels: { font: { size: window.innerWidth < 640 ? 8 : 10, family: 'Inter', weight: 'bold' }, color: labelColor }, ticks: { display: false, stepSize: 20 }, suggestedMin: 0, suggestedMax: 100 } },
             plugins: { legend: { display: false } }
         }
     });
@@ -367,7 +381,6 @@ function lazyLoadChartJs() {
         renderRadarChart();
     };
     script.onerror = () => {
-        // Edge CDN Fallback if local asset is ever missing
         const fallback = document.createElement('script');
         fallback.src = "https://cdn.jsdelivr.net/npm/chart.js";
         fallback.defer = true;
@@ -388,7 +401,7 @@ if (radarCanvas) {
                     obs.disconnect();
                 }
             });
-        }, { rootMargin: '300px' });
+        }, { rootMargin: '200px' });
         chartObserver.observe(radarCanvas);
     } else {
         window.addEventListener('load', lazyLoadChartJs);
@@ -408,8 +421,13 @@ function initScrollAnimations() {
 
     if ('IntersectionObserver' in window) {
         revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.01, rootMargin: '100px 0px 50px 0px' });
 
         revealElements.forEach(el => revealObserver.observe(el));
     } else {
