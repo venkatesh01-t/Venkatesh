@@ -194,58 +194,15 @@
     </script>
 
     <!-- ===== RESOURCE HINTS & PRELOADS ===== -->
-    <!-- Preload the LCP hero image in AVIF format — critical for Fastest Contentful Paint -->
+    <!-- Preload LCP hero image in AVIF format -->
     <link rel="preload" href="./1.avif" as="image" type="image/avif" fetchpriority="high">
+    <!-- Preload critical Inter Latin font -->
+    <link rel="preload" href="./fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Preload production stylesheet -->
+    <link rel="preload" href="css/style.min.css" as="style">
 
-    <!-- DNS + connection warmup for CDN hosts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-
-    <!-- ===== GOOGLE FONTS (consolidated request with display=swap) ===== -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-
-    <!-- ===== FONT AWESOME (lazy-loaded — non-blocking) ===== -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" crossorigin="anonymous">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"></noscript>
-
-    <!-- ===== TAILWIND CSS CDN ===== -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- ===== TAILWIND CONFIG ===== -->
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                        mono: ['Fira Code', 'monospace'],
-                    },
-                    colors: {
-                        primary: { 50:'#f0fdfa', 100:'#ccfbf1', 500:'#14b8a6', 600:'#0d9488', 700:'#0f766e' },
-                        accent:  { 500:'#8b5cf6', 600:'#7c3aed', 700:'#6d28d9' }
-                    },
-                    animation: {
-                        'float':        'float 6s ease-in-out infinite',
-                        'pulse-slow':   'pulse 4s cubic-bezier(0.4,0,0.6,1) infinite',
-                        'spin-slow':    'spin 8s linear infinite',
-                        'spin-reverse': 'spin-reverse 12s linear infinite',
-                        'orbit':        'orbit 6s linear infinite',
-                    },
-                    keyframes: {
-                        float:         { '0%,100%': { transform: 'translateY(0)' },     '50%': { transform: 'translateY(-10px)' } },
-                        'spin-reverse':{ '0%':      { transform: 'rotate(360deg)' },   '100%':{ transform: 'rotate(0deg)' } },
-                        'orbit':       { '0%':      { transform: 'rotate(0deg) translateX(60px) rotate(0deg)' },  '100%': { transform: 'rotate(360deg) translateX(60px) rotate(-360deg)' } },
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- ===== EXTERNAL STYLESHEET (cacheable master bundle) ===== -->
-    <link rel="stylesheet" href="style.css">
+    <!-- ===== SELF-HOSTED PRODUCTION MASTER STYLESHEET ===== -->
+    <link rel="stylesheet" href="css/style.min.css">
 
     <!-- ===== DARK MODE FLASH PREVENTION ===== -->
     <script>
@@ -1288,7 +1245,7 @@
     </button>
 
     <!-- ===== DEFERRED SCRIPTS ===== -->
-    <script src="script.js" defer></script>
+    <script src="js/script.min.js" defer></script>
 </body>
 </html>
 

@@ -1,0 +1,12 @@
+@import "../fonts/fonts.css";
+@import "../fonts/fontawesome.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+@import "./base.css";
+
+/* Component styles */
+@import "./components.css";

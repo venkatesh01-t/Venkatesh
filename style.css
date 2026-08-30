@@ -1,7 +1,9 @@
 /* ============================================
    style.css — Venkatesh Babu Portfolio
-   Master bundle importing modular stylesheets
+   Master bundle (pointing to optimized style.min.css)
 ============================================ */
+@import "css/style.min.css";
+
 
 /* ─── Custom Scrollbar ─────────────────────── */
 ::-webkit-scrollbar { width: 8px; }
