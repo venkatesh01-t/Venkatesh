@@ -54,13 +54,13 @@ if (document.readyState === 'loading') {
 // ─── TYPING ANIMATION ───────────────────────────────────────────
 const typingRoles = [
     'Python Developer.',
+    'AI & LLM Developer.',
     'Python Automation Engineer.',
     'Selenium & Playwright Specialist.',
-    'AI & ML Developer.',
-    'Django & REST API Developer.',
+    'Technical SEO Developer.',
+    'Django & REST API Specialist.',
     'Web Scraping & Automation Expert.',
-    'Computer Vision Developer.',
-    'Technical SEO Specialist.'
+    'Machine Learning & Computer Vision.'
 ];
 let roleIndex = 0, charIndex = 0, isDeleting = false;
 
@@ -333,8 +333,8 @@ function renderRadarChart() {
     radarChartInstance = new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: ['Python Dev','Python Automation (Selenium/Playwright)','Django API','SQL / NoSQL','AI & ML','Dev Tools'],
-            datasets: [{ label: 'Skill Vectors', data: [92,88,85,80,80,75], backgroundColor: fillColor, borderColor: borderCol, borderWidth: 2, pointBackgroundColor: borderCol, pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: borderCol }]
+            labels: ['Python Dev','Python Automation (Selenium/Playwright)','AI & LLMs','Django REST API','SQL / NoSQL','SEO & Dev Tools'],
+            datasets: [{ label: 'Skill Vectors', data: [92,88,85,85,80,78], backgroundColor: fillColor, borderColor: borderCol, borderWidth: 2, pointBackgroundColor: borderCol, pointBorderColor: '#fff', pointHoverBackgroundColor: '#fff', pointHoverBorderColor: borderCol }]
         },
         options: {
             responsive: true, maintainAspectRatio: false,
