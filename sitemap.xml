@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://venkatesh01-t.github.io/Venkatesh/</loc>
+  </url>
+</urlset>
+
+  <url>
+    <loc>https://venkatesh01-t.github.io/Venkatesh/</loc>
     <lastmod>2026-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
@@ -12,4 +17,4 @@
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
-</urlset>
+</urlset>
