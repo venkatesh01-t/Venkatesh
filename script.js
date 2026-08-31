@@ -17,11 +17,9 @@ function dismissPreloader() {
     if (!preloader || isMobile || isBenchmark || prefersReducedMotion) {
         if (preloader) {
             preloader.style.display = 'none';
-            preloader.style.opacity = '0';
-            preloader.style.pointerEvents = 'none';
+            preloader.remove();
         }
-        initTypingEffect();
-        initStatsCounter();
+        scheduleIdleInit();
         return;
     }
 
@@ -41,22 +39,34 @@ function dismissPreloader() {
         preloader.style.transform = 'scale(1.01)';
         preloader.style.pointerEvents = 'none';
         setTimeout(() => {
-            preloader.style.display = 'none';
-            initTypingEffect();
-            initStatsCounter();
+            preloader.remove();
+            scheduleIdleInit();
         }, 150);
     }, 40);
+}
+
+function scheduleIdleInit() {
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+            initTypingEffect();
+            initStatsObserver();
+        }, { timeout: 1000 });
+    } else {
+        setTimeout(() => {
+            initTypingEffect();
+            initStatsObserver();
+        }, 100);
+    }
 }
 
 // Immediate execution if already ready or fallback timer
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     dismissPreloader();
 } else {
-    document.addEventListener('DOMContentLoaded', dismissPreloader);
-    window.addEventListener('load', dismissPreloader);
+    document.addEventListener('DOMContentLoaded', dismissPreloader, { passive: true });
+    window.addEventListener('load', dismissPreloader, { passive: true });
 }
-// Ultimate fallback ensuring the portfolio is never blocked
-setTimeout(dismissPreloader, 150);
+setTimeout(dismissPreloader, 100);
 
 // ─── TYPING ANIMATION ───────────────────────────────────────────
 const typingRoles = [
@@ -165,23 +175,46 @@ window.addEventListener('scroll', () => {
     }
 }, { passive: true });
 
-// ─── STATS COUNTER ───────────────────────────────────────────────
+// ─── STATS COUNTER (IntersectionObserver) ────────────────────────
+let statsAnimated = false;
 function initStatsCounter() {
+    if (statsAnimated) return;
+    statsAnimated = true;
     ['stat-projects', 'stat-exp', 'stat-certs'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         const endVal = parseInt(el.dataset.val);
         let currentVal = 0;
-        const increment = endVal / (1000 / 16);
+        const increment = endVal / 40;
         const update = () => {
             currentVal += increment;
             if (currentVal >= endVal) { el.innerText = endVal + '+'; }
             else { el.innerText = Math.floor(currentVal) + '+'; requestAnimationFrame(update); }
         };
-        update();
+        requestAnimationFrame(update);
     });
 }
 window.initStatsCounter = initStatsCounter;
+
+function initStatsObserver() {
+    const statsContainer = document.getElementById('about');
+    if (!statsContainer) {
+        initStatsCounter();
+        return;
+    }
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            if (entries[0] && entries[0].isIntersecting) {
+                initStatsCounter();
+                obs.disconnect();
+            }
+        }, { threshold: 0.1 });
+        obs.observe(statsContainer);
+    } else {
+        initStatsCounter();
+    }
+}
+window.initStatsObserver = initStatsObserver;
 
 // ─── SKILL TAB SWITCHING ─────────────────────────────────────────
 function switchSkillCategory(category) {
@@ -532,7 +565,11 @@ function renderProjects(category) {
     });
 }
 window.renderProjects = renderProjects;
-renderProjects('all');
+if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => renderProjects('all'), { timeout: 1000 });
+} else {
+    setTimeout(() => renderProjects('all'), 50);
+}
 
 // ─── ON-DEMAND EMAILJS LOADER & CONTACT HANDLER ──────────────────
 const EMAILJS_PUBLIC_KEY  = "Uh7e1sjaaJIpxa_Jp";
