@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /sections/
 
 Sitemap: https://venkatesh-snowy.vercel.app/sitemap.xml

@@ -1,0 +1,7 @@
+# GSC Exported Reports
+*Coverage-Drilldown*
+*.csv
+
+# OS & Environment
+.DS_Store
+Thumbs.db

@@ -75,7 +75,7 @@
       ]
     },
     {
-      "source": "/robots.txt",
+      "source": "/(robots\\.txt|llms\\.txt)",
       "headers": [
         {
           "key": "Content-Type",

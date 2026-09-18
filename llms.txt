@@ -1,0 +1,20 @@
+# Venkatesh (Venkatesh Babu) — Developer Portfolio
+
+> Python Developer | AI & LLM Developer | Python Automation Engineer (Selenium & Playwright) | Django & REST API Specialist | Technical SEO Engineer
+
+## About
+- Name: Venkatesh (Venkatesh Babu)
+- Location: Madurai, Tamil Nadu, India
+- Role: Python Developer, Automation Engineer, AI/LLM Specialist, Full Stack Engineer
+- Portfolio: https://venkatesh-snowy.vercel.app/
+- GitHub: https://github.com/venkatesh01-t
+- LinkedIn: https://www.linkedin.com/in/venkatesh-babu-208891392
+- Email: babuvenkatesh093@gmail.com
+- Phone: +91 9952142302
+
+## Core Competencies
+- Python & Automation: Selenium WebDriver, Playwright Python, Automated Testing, Web Scraping, BeautifulSoup, Celery.
+- Artificial Intelligence & Machine Learning: Large Language Models (LLMs), Generative AI, OpenCV, MediaPipe, Scikit-Learn.
+- Backend & APIs: Django, Django REST Framework, FastAPI, PostgreSQL, MySQL, MongoDB.
+- Frontend & UI: JavaScript, React, Tailwind CSS, Responsive & Accessible Web Design.
+- Technical SEO: Schema.org structured data, Core Web Vitals optimization, site speed architecture.
