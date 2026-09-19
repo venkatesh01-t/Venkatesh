@@ -677,6 +677,7 @@ async function handleContactSubmit(event) {
     const email   = form.elements['email'] ? form.elements['email'].value.trim() : '';
     const subject = form.elements['subject'] ? form.elements['subject'].value.trim() : 'Portfolio Inquiry';
     const message = form.elements['message'] ? form.elements['message'].value.trim() : '';
+    const website_hp = form.elements['website_hp'] ? form.elements['website_hp'].value.trim() : '';
 
     if (!name || !email || !message) {
         if (status) {
@@ -684,6 +685,20 @@ async function handleContactSubmit(event) {
                 <div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-semibold animate-bounce">
                     <i class="fas fa-exclamation-circle text-rose-500 flex-shrink-0"></i>
                     <span>Please fill in all required fields.</span>
+                </div>
+            `;
+        }
+        return;
+    }
+
+    // Client-side email format regex check
+    const emailFormatRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    if (!emailFormatRegex.test(email)) {
+        if (status) {
+            status.innerHTML = `
+                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-semibold animate-bounce">
+                    <i class="fas fa-exclamation-circle text-rose-500 flex-shrink-0"></i>
+                    <span>Please provide a valid email address (e.g. name@domain.com).</span>
                 </div>
             `;
         }
@@ -717,7 +732,7 @@ async function handleContactSubmit(event) {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrfToken || '',
             },
-            body: JSON.stringify({ name, email, subject, message })
+            body: JSON.stringify({ name, email, subject, message, website_hp })
         });
 
         const data = await response.json();

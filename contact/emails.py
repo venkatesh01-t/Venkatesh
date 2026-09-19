@@ -16,62 +16,294 @@ def send_contact_emails(contact_message):
     return admin_success and visitor_success
 
 
+AVATAR_IMG_URL = "https://venkatesh-snowy.vercel.app/static/1.png"
+
 def _send_admin_alert(msg):
-    """Notify Venkatesh that a new contact message was received."""
-    subject = f"🔔 [Portfolio] New Message from {msg.name}: {msg.subject}"
+    """Notify Venkatesh with a luxury, animated VIP admin alert when a client reaches out."""
+    subject = f"🔔 [VIP Inquiry] {msg.name}: {msg.subject}"
     recipient = settings.ADMIN_NOTIFICATION_EMAIL
+
+    safe_message = msg.message.replace('"', '\\"')
 
     html_content = f"""
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="color-scheme" content="dark light">
+      <title>New VIP Inquiry • Venkatesh Babu</title>
       <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f172a; color: #e2e8f0; padding: 24px; margin: 0; }}
-        .container {{ max-width: 600px; margin: 0 auto; background: #1e293b; border-radius: 16px; border: 1px solid #334155; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }}
-        .header {{ background: linear-gradient(135deg, #14b8a6, #06b6d4, #8b5cf6); padding: 24px; text-align: center; color: white; }}
-        .header h2 {{ margin: 0; font-size: 20px; }}
-        .header p {{ margin: 4px 0 0; opacity: 0.9; font-size: 13px; }}
-        .content {{ padding: 24px; }}
-        .field {{ margin-bottom: 16px; }}
-        .field-label {{ font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #14b8a6; font-weight: 700; }}
-        .field-value {{ font-size: 15px; color: #f8fafc; margin-top: 4px; }}
-        .message-box {{ background: #0f172a; border-left: 4px solid #14b8a6; border-radius: 8px; padding: 16px; margin-top: 16px; font-size: 14px; line-height: 1.6; white-space: pre-wrap; color: #cbd5e1; }}
-        .footer {{ padding: 16px 24px; background: #0f172a; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #334155; }}
-        .btn {{ display: inline-block; background: #14b8a6; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; margin-top: 16px; }}
+        :root {{ color-scheme: dark light; }}
+        @keyframes auraSpin {{
+          0% {{ transform: rotate(0deg); }}
+          100% {{ transform: rotate(360deg); }}
+        }}
+        @keyframes auraPulse {{
+          0%, 100% {{ box-shadow: 0 0 20px rgba(20, 184, 166, 0.7), 0 0 40px rgba(99, 102, 241, 0.4); }}
+          50% {{ box-shadow: 0 0 32px rgba(20, 184, 166, 0.95), 0 0 55px rgba(99, 102, 241, 0.65); }}
+        }}
+        @keyframes radarPing {{
+          0% {{ transform: scale(0.9); opacity: 0.9; }}
+          70% {{ transform: scale(2.2); opacity: 0; }}
+          100% {{ transform: scale(2.2); opacity: 0; }}
+        }}
+        @keyframes holoMesh {{
+          0% {{ background-position: 0% 50%; }}
+          50% {{ background-position: 100% 50%; }}
+          100% {{ background-position: 0% 50%; }}
+        }}
+        body {{
+          margin: 0;
+          padding: 24px 12px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+          background-color: #07090e;
+          color: #e2e8f0;
+          -webkit-font-smoothing: antialiased;
+        }}
+        .card {{
+          max-width: 620px;
+          margin: 0 auto;
+          background-color: #0d121f;
+          border-radius: 20px;
+          border: 1px solid #1e293b;
+          overflow: hidden;
+          box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.5);
+        }}
+        .header {{
+          background: linear-gradient(135deg, #0d9488 0%, #0891b2 30%, #4f46e5 70%, #7c3aed 100%);
+          background-size: 250% 250%;
+          animation: holoMesh 8s ease infinite;
+          padding: 34px 26px 28px;
+          text-align: center;
+          color: #ffffff;
+        }}
+        .avatar-wrap {{
+          display: inline-block;
+          position: relative;
+          width: 78px;
+          height: 78px;
+          margin-bottom: 12px;
+        }}
+        .avatar-halo {{
+          position: absolute;
+          top: -3px;
+          left: -3px;
+          right: -3px;
+          bottom: -3px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #14b8a6, #06b6d4, #8b5cf6, #ec4899);
+          animation: auraSpin 6s linear infinite, auraPulse 3s ease-in-out infinite;
+        }}
+        .avatar-img {{
+          position: relative;
+          z-index: 2;
+          width: 78px;
+          height: 78px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: 50% 12%;
+          display: block;
+          border: 3px solid #ffffff;
+        }}
+        .badge-pill {{
+          display: inline-block;
+          padding: 5px 13px;
+          border-radius: 999px;
+          background-color: rgba(245, 158, 11, 0.15);
+          border: 1px solid rgba(245, 158, 11, 0.4);
+          color: #fbbf24;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.05em;
+          margin-bottom: 20px;
+        }}
+        .radar-box {{
+          position: relative;
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          margin-right: 6px;
+          vertical-align: middle;
+        }}
+        .radar-dot {{
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #f59e0b;
+        }}
+        .radar-wave {{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: rgba(245, 158, 11, 0.6);
+          animation: radarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }}
+        .content {{
+          padding: 28px 26px;
+        }}
+        .meta-table {{
+          width: 100%;
+          background-color: #111827;
+          border-radius: 12px;
+          border: 1px solid #1f2937;
+          border-collapse: separate;
+          border-spacing: 0;
+          overflow: hidden;
+          margin-bottom: 22px;
+        }}
+        .meta-table td {{
+          padding: 11px 16px;
+          border-bottom: 1px solid #1f2937;
+          font-size: 12.5px;
+        }}
+        .meta-table tr:last-child td {{
+          border-bottom: none;
+        }}
+        .meta-label {{
+          width: 28%;
+          color: #94a3b8;
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 11px;
+          letter-spacing: 0.04em;
+        }}
+        .meta-val {{
+          color: #f1f5f9;
+          font-weight: 500;
+        }}
+        .terminal-capsule {{
+          background-color: #080c14;
+          border-radius: 12px;
+          border: 1px solid #1e293b;
+          overflow: hidden;
+          margin: 22px 0;
+        }}
+        .terminal-bar {{
+          background-color: #0f172a;
+          padding: 8px 14px;
+          border-bottom: 1px solid #1e293b;
+          font-family: ui-monospace, monospace;
+          font-size: 11px;
+          color: #64748b;
+        }}
+        .terminal-body {{
+          padding: 16px;
+          font-family: ui-monospace, monospace;
+          font-size: 12.5px;
+          line-height: 1.6;
+          color: #e2e8f0;
+          white-space: pre-wrap;
+        }}
+        .btn-card {{
+          display: block;
+          padding: 13px 16px;
+          border-radius: 12px;
+          text-decoration: none;
+          font-size: 12px;
+          font-weight: 700;
+          text-align: center;
+          transition: all 0.2s;
+        }}
+        .footer {{
+          padding: 18px 24px;
+          background-color: #07090e;
+          border-top: 1px solid #1e293b;
+          text-align: center;
+          font-size: 11px;
+          color: #64748b;
+        }}
       </style>
     </head>
     <body>
-      <div class="container">
+      <div class="card">
         <div class="header">
-          <h2>New Contact Inquiry</h2>
-          <p>Received from your portfolio website</p>
+          <div class="avatar-wrap">
+            <div class="avatar-halo"></div>
+            <img src="{AVATAR_IMG_URL}" alt="Venkatesh Babu" class="avatar-img" width="78" height="78" />
+          </div>
+          <h1 style="margin:0; font-size:22px; font-weight:800; letter-spacing:-0.4px;">Incoming Client Inquiry</h1>
+          <p style="margin:4px 0 0; font-size:12.5px; opacity:0.92;">Portfolio Notification System • Priority Dispatch</p>
         </div>
+
         <div class="content">
-          <div class="field">
-            <div class="field-label">Sender Name</div>
-            <div class="field-value"><strong>{msg.name}</strong></div>
+          <div class="badge-pill">
+            <span class="radar-box"><span class="radar-wave"></span><span class="radar-dot"></span></span>
+            <span>ACTION REQUIRED &bull; NEW INBOX DISPATCH</span>
           </div>
-          <div class="field">
-            <div class="field-label">Sender Email</div>
-            <div class="field-value"><a href="mailto:{msg.email}" style="color: #38bdf8;">{msg.email}</a></div>
+
+          <table class="meta-table">
+            <tr>
+              <td class="meta-label">Client Name</td>
+              <td class="meta-val"><strong style="color:#ffffff; font-size:14px;">{msg.name}</strong></td>
+            </tr>
+            <tr>
+              <td class="meta-label">Verified Email</td>
+              <td class="meta-val"><a href="mailto:{msg.email}" style="color:#38bdf8; text-decoration:none; font-weight:600;">{msg.email}</a></td>
+            </tr>
+            <tr>
+              <td class="meta-label">Subject</td>
+              <td class="meta-val"><span style="color:#10b981; font-weight:700;">{msg.subject}</span></td>
+            </tr>
+            <tr>
+              <td class="meta-label">Received At</td>
+              <td class="meta-val">{msg.created_at.strftime('%B %d, %Y at %I:%M %p UTC')}</td>
+            </tr>
+            <tr>
+              <td class="meta-label">Client Network</td>
+              <td class="meta-val" style="font-family:ui-monospace, monospace; font-size:11.5px; color:#94a3b8;">
+                IP: {msg.ip_address or 'Unknown'}
+              </td>
+            </tr>
+          </table>
+
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#94a3b8; margin-bottom:8px;">
+            Submitted Message Content:
           </div>
-          <div class="field">
-            <div class="field-label">Subject</div>
-            <div class="field-value">{msg.subject}</div>
+
+          <div class="terminal-capsule">
+            <div class="terminal-bar">
+              <span style="color:#ef4444;">●</span> <span style="color:#f59e0b;">●</span> <span style="color:#10b981;">●</span>
+              <span style="margin-left:6px;">message_payload.txt</span>
+            </div>
+            <div class="terminal-body">{msg.message}</div>
           </div>
-          <div class="field">
-            <div class="field-label">Timestamp & IP</div>
-            <div class="field-value" style="font-size: 12px; color: #94a3b8;">{msg.created_at.strftime('%B %d, %Y at %I:%M %p')} • IP: {msg.ip_address or 'Unknown'}</div>
-          </div>
-          <div class="field-label" style="margin-top: 20px;">Message</div>
-          <div class="message-box">{msg.message}</div>
-          <div style="text-align: center;">
-            <a href="mailto:{msg.email}?subject=Re: {msg.subject}" class="btn">Reply to {msg.name}</a>
+
+          <!-- Quick Action Buttons Grid -->
+          <div style="margin-top:24px;">
+            <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#94a3b8; margin-bottom:12px;">
+              Immediate Actions for Venkatesh
+            </div>
+
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate; border-spacing:8px 8px; margin:0 -8px;">
+              <tr>
+                <td width="50%" valign="top">
+                  <a href="mailto:{msg.email}?subject=Re:%20{msg.subject}" class="btn-card" style="background:#0d9488; color:#ffffff;">
+                    ⚡ Direct Email Reply
+                  </a>
+                </td>
+                <td width="50%" valign="top">
+                  <a href="https://wa.me/919952142302" class="btn-card" style="background:#10b981; color:#ffffff;">
+                    💬 Open WhatsApp
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" valign="top">
+                  <a href="https://venkatesh-snowy-iota.vercel.app/dashboard/" class="btn-card" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155;">
+                    📊 View Full Metrics in Portfolio Dashboard
+                  </a>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
+
         <div class="footer">
-          Venkatesh Babu Portfolio System • Direct Contact Notification
+          Venkatesh Babu Portfolio System &bull; Secure Multi-Channel Email Relay
         </div>
       </div>
     </body>
@@ -79,17 +311,23 @@ def _send_admin_alert(msg):
     """
 
     plain_text = f"""
-New Portfolio Message:
-------------------------------------------
-From: {msg.name} <{msg.email}>
-Subject: {msg.subject}
-Date: {msg.created_at.strftime('%Y-%m-%d %H:%M:%S')}
-IP: {msg.ip_address or 'Unknown'}
+New Portfolio Message Received:
+==================================================
+From:       {msg.name} <{msg.email}>
+Subject:    {msg.subject}
+Date:       {msg.created_at.strftime('%Y-%m-%d %H:%M:%S UTC')}
+Client IP:  {msg.ip_address or 'Unknown'}
+User-Agent: {msg.user_agent or 'Unknown'}
 
 Message:
+--------------------------------------------------
 {msg.message}
-------------------------------------------
-Reply directly to: {msg.email}
+--------------------------------------------------
+
+Immediate Action:
+- Reply directly: mailto:{msg.email}?subject=Re:%20{msg.subject}
+- Dashboard: https://venkatesh-snowy-iota.vercel.app/dashboard/
+==================================================
     """.strip()
 
     try:
@@ -109,11 +347,10 @@ Reply directly to: {msg.email}
 
 
 def _send_visitor_autoreply(msg):
-    """Send an interactive, animated luxury auto-reply to the visitor."""
+    """Send an interactive, animated luxury auto-reply with Venkatesh's photo and trending animations."""
     subject = f"Thank you for contacting Venkatesh Babu — Received: {msg.subject}"
     recipient = msg.email
 
-    # Safe snippet of message for code capsule
     safe_message = msg.message.replace('"', '\\"')
 
     html_content = f"""
@@ -130,13 +367,27 @@ def _send_visitor_autoreply(msg):
           color-scheme: light dark;
           supported-color-schemes: light dark;
         }}
-        @keyframes shimmerGlow {{
-          0% {{ background-position: -200% 0; }}
-          100% {{ background-position: 200% 0; }}
+        @keyframes auraSpin {{
+          0% {{ transform: rotate(0deg); }}
+          100% {{ transform: rotate(360deg); }}
         }}
-        @keyframes pulseDot {{
-          0%, 100% {{ transform: scale(1); opacity: 1; }}
-          50% {{ transform: scale(1.2); opacity: 0.65; }}
+        @keyframes auraPulse {{
+          0%, 100% {{ box-shadow: 0 0 20px rgba(20, 184, 166, 0.7), 0 0 40px rgba(99, 102, 241, 0.4); }}
+          50% {{ box-shadow: 0 0 32px rgba(20, 184, 166, 0.95), 0 0 55px rgba(99, 102, 241, 0.65); }}
+        }}
+        @keyframes holoMesh {{
+          0% {{ background-position: 0% 50%; }}
+          50% {{ background-position: 100% 50%; }}
+          100% {{ background-position: 0% 50%; }}
+        }}
+        @keyframes radarPing {{
+          0% {{ transform: scale(0.9); opacity: 0.9; }}
+          70% {{ transform: scale(2.2); opacity: 0; }}
+          100% {{ transform: scale(2.2); opacity: 0; }}
+        }}
+        @keyframes blinkCursor {{
+          0%, 49% {{ opacity: 1; }}
+          50%, 100% {{ opacity: 0; }}
         }}
         body {{
           margin: 0;
@@ -156,46 +407,62 @@ def _send_visitor_autoreply(msg):
           box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
         }}
         .header-banner {{
-          background: linear-gradient(135deg, #0d9488 0%, #06b6d4 50%, #6366f1 100%);
-          padding: 36px 28px 30px;
+          background: linear-gradient(135deg, #0d9488 0%, #0891b2 25%, #4f46e5 60%, #7c3aed 100%);
+          background-size: 250% 250%;
+          animation: holoMesh 8s ease infinite;
+          padding: 38px 28px 30px;
           text-align: center;
           color: #ffffff;
           position: relative;
         }}
-        .avatar-ring {{
+        .avatar-wrap {{
           display: inline-block;
-          width: 58px;
-          height: 58px;
+          position: relative;
+          width: 82px;
+          height: 82px;
+          margin-bottom: 14px;
+        }}
+        .avatar-halo {{
+          position: absolute;
+          top: -3px;
+          left: -3px;
+          right: -3px;
+          bottom: -3px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #115e59, #14b8a6);
-          border: 3px solid rgba(255, 255, 255, 0.9);
-          line-height: 54px;
-          text-align: center;
-          font-size: 20px;
-          font-weight: 800;
-          color: #ffffff;
-          box-shadow: 0 8px 20px rgba(13, 148, 136, 0.4);
-          margin-bottom: 12px;
+          background: linear-gradient(135deg, #14b8a6, #06b6d4, #8b5cf6, #ec4899);
+          animation: auraSpin 6s linear infinite, auraPulse 3s ease-in-out infinite;
+        }}
+        .avatar-photo {{
+          position: relative;
+          z-index: 2;
+          width: 82px;
+          height: 82px;
+          border-radius: 50%;
+          object-fit: cover;
+          object-position: 50% 12%;
+          display: block;
+          border: 3px solid #ffffff;
+          box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
         }}
         .header-title {{
           margin: 0;
-          font-size: 23px;
+          font-size: 24px;
           font-weight: 800;
           letter-spacing: -0.4px;
           color: #ffffff;
         }}
         .header-sub {{
           margin: 6px 0 0;
-          font-size: 13px;
-          color: rgba(255, 255, 255, 0.92);
+          font-size: 13.5px;
+          color: rgba(255, 255, 255, 0.94);
           font-weight: 500;
         }}
         .content-area {{
-          padding: 30px 26px;
+          padding: 32px 26px;
         }}
         .status-pill {{
           display: inline-block;
-          padding: 6px 14px;
+          padding: 6px 15px;
           border-radius: 999px;
           background-color: #ecfdf5;
           border: 1px solid #a7f3d0;
@@ -203,18 +470,31 @@ def _send_visitor_autoreply(msg):
           font-weight: 700;
           color: #059669;
           letter-spacing: 0.04em;
-          margin-bottom: 20px;
+          margin-bottom: 22px;
         }}
-        .pulse-dot {{
+        .radar-box {{
+          position: relative;
           display: inline-block;
+          width: 8px;
+          height: 8px;
+          margin-right: 7px;
+          vertical-align: middle;
+        }}
+        .radar-dot {{
           width: 8px;
           height: 8px;
           border-radius: 50%;
           background-color: #10b981;
-          box-shadow: 0 0 8px #10b981;
-          margin-right: 6px;
-          vertical-align: middle;
-          animation: pulseDot 2s infinite ease-in-out;
+        }}
+        .radar-wave {{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: rgba(16, 185, 129, 0.6);
+          animation: radarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
         }}
         .text-lead {{
           font-size: 15px;
@@ -237,25 +517,32 @@ def _send_visitor_autoreply(msg):
           font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
           font-size: 11px;
           color: #94a3b8;
-          display: flex;
-          align-items: center;
         }}
         .term-dot {{
           display: inline-block;
           width: 10px;
           height: 10px;
           border-radius: 50%;
-          margin-right: 6px;
+          margin-right: 5px;
           vertical-align: middle;
         }}
         .term-dot-red {{ background-color: #ef4444; }}
         .term-dot-yellow {{ background-color: #f59e0b; }}
         .term-dot-green {{ background-color: #10b981; }}
+        .cursor-blink {{
+          display: inline-block;
+          width: 7px;
+          height: 13px;
+          background-color: #38bdf8;
+          vertical-align: middle;
+          margin-left: 4px;
+          animation: blinkCursor 0.9s infinite;
+        }}
         .terminal-body {{
           padding: 14px 16px;
           font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
           font-size: 12px;
-          line-height: 1.6;
+          line-height: 1.65;
           color: #cbd5e1;
           overflow-x: auto;
         }}
@@ -283,9 +570,10 @@ def _send_visitor_autoreply(msg):
         .action-card:hover {{
           background-color: #f1f5f9;
           border-color: #cbd5e1;
+          transform: translateY(-1px);
         }}
         .signature-card {{
-          margin-top: 28px;
+          margin-top: 30px;
           padding-top: 20px;
           border-top: 1px solid #f1f5f9;
         }}
@@ -343,9 +631,12 @@ def _send_visitor_autoreply(msg):
     <body>
       <div class="email-wrapper">
         
-        <!-- Header Banner with Glow Avatar -->
+        <!-- Animated Holographic Header Banner with Profile Avatar -->
         <div class="header-banner">
-          <div class="avatar-ring">VB</div>
+          <div class="avatar-wrap">
+            <div class="avatar-halo"></div>
+            <img src="{AVATAR_IMG_URL}" alt="Venkatesh Babu" class="avatar-photo" width="82" height="82" />
+          </div>
           <h1 class="header-title">Message Received</h1>
           <p class="header-sub">Thank you for reaching out to Venkatesh Babu</p>
         </div>
@@ -353,9 +644,9 @@ def _send_visitor_autoreply(msg):
         <!-- Main Content Area -->
         <div class="content-area">
           
-          <!-- Animated Status Pill -->
+          <!-- Live Radar SLA Indicator -->
           <div class="status-pill">
-            <span class="pulse-dot"></span>
+            <span class="radar-box"><span class="radar-wave"></span><span class="radar-dot"></span></span>
             <span>STATUS: QUEUED IN PRIORITY INBOX &bull; RESPONSE SLA: &lt; 24 HOURS</span>
           </div>
 
@@ -376,6 +667,7 @@ def _send_visitor_autoreply(msg):
               <span class="term-dot term-dot-yellow"></span>
               <span class="term-dot term-dot-green"></span>
               <span style="margin-left:6px; font-weight:600;">client_inquiry_transcript.py</span>
+              <span class="cursor-blink"></span>
             </div>
             <div class="terminal-body">
               <div><span class="line-num">01</span><span class="comment"># Submitted Inquiry Details</span></div>
@@ -426,12 +718,12 @@ def _send_visitor_autoreply(msg):
             </table>
           </div>
 
-          <!-- Signature Block -->
+          <!-- Verified Developer Signature Card -->
           <div class="signature-card">
             <table width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td width="48" valign="top" style="padding-right:14px;">
-                  <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0d9488, #6366f1); line-height:44px; text-align:center; color:#ffffff; font-weight:800; font-size:14px;">VB</div>
+                <td width="54" valign="top" style="padding-right:14px;">
+                  <img src="{AVATAR_IMG_URL}" alt="Venkatesh Babu" width="48" height="48" style="width:48px; height:48px; border-radius:50%; object-fit:cover; object-position:50% 12%; display:block; border:2px solid #0d9488;" />
                 </td>
                 <td valign="top">
                   <div style="font-size:14px; font-weight:800; color:#0f172a;" class="text-lead">

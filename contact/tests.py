@@ -85,6 +85,59 @@ class ContactAPITest(TestCase):
         self.assertIn('email', data['errors'])
 
 
+    def test_disposable_email_rejection(self):
+        payload = {
+            'name': 'Spam Tester',
+            'email': 'tempuser@10minutemail.com',
+            'subject': 'Spam subject',
+            'message': 'Testing disposable email blocking.'
+        }
+        response = self.client.post(
+            self.url,
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertFalse(data['success'])
+        self.assertIn('disposable', data['errors']['email'].lower())
+
+    def test_fake_dns_domain_rejection(self):
+        payload = {
+            'name': 'Fake Domain Tester',
+            'email': 'user@nonexistentfakexyzdomain9999.com',
+            'subject': 'Testing fake domain',
+            'message': 'Testing DNS verification.'
+        }
+        response = self.client.post(
+            self.url,
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertFalse(data['success'])
+        self.assertIn('does not exist', data['errors']['email'].lower())
+
+    def test_honeypot_bot_rejection(self):
+        payload = {
+            'name': 'Bot Scraper',
+            'email': 'bot@example.com',
+            'subject': 'Bot spam',
+            'message': 'Hello from automated bot scraper.',
+            'website_hp': 'bot_inserted_value'
+        }
+        response = self.client.post(
+            self.url,
+            data=json.dumps(payload),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, 400)
+        data = response.json()
+        self.assertFalse(data['success'])
+        self.assertIn('bot activity', data['error'].lower())
+
+
 class EmailNotificationTest(TestCase):
     def setUp(self):
         mail.outbox = []
@@ -107,6 +160,12 @@ class EmailNotificationTest(TestCase):
         admin_email = mail.outbox[0]
         self.assertIn("John Client", admin_email.subject)
         self.assertIn("babuvenkatesh093@gmail.com", admin_email.to[0])
+        self.assertEqual(len(admin_email.alternatives), 1)
+        admin_html = admin_email.alternatives[0][0]
+        self.assertIn("https://venkatesh-snowy.vercel.app/static/1.png", admin_html)
+        self.assertIn("auraSpin", admin_html)
+        self.assertIn("Incoming Client Inquiry", admin_html)
+        self.assertIn("Direct Email Reply", admin_html)
 
         # Verify Visitor Auto-Reply
         visitor_email = mail.outbox[1]
@@ -118,13 +177,16 @@ class EmailNotificationTest(TestCase):
         self.assertEqual(len(visitor_email.alternatives), 1)
         html_body, mime_type = visitor_email.alternatives[0]
         self.assertEqual(mime_type, "text/html")
+        self.assertIn("https://venkatesh-snowy.vercel.app/static/1.png", html_body)
+        self.assertIn("auraSpin", html_body)
+        self.assertIn("radarPing", html_body)
+        self.assertIn("cursor-blink", html_body)
         self.assertIn("STATUS: QUEUED IN PRIORITY INBOX", html_body)
         self.assertIn("client_inquiry_transcript.py", html_body)
         self.assertIn("Schedule 1:1 Discussion", html_body)
         self.assertIn("WhatsApp Direct Chat", html_body)
         self.assertIn("Explore GitHub Repos", html_body)
         self.assertIn("Live Portfolio", html_body)
-        self.assertIn("prefers-color-scheme: dark", html_body)
 
 
 class HomePageViewTest(TestCase):

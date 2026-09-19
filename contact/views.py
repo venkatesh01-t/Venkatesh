@@ -13,6 +13,7 @@ import os
 
 from .models import ContactMessage
 from .emails import send_contact_emails
+from .validators import validate_email_address, check_spam_signals
 
 
 @ensure_csrf_cookie
@@ -71,17 +72,22 @@ def contact_submit(request):
     subject = data.get('subject', '').strip()
     message = data.get('message', '').strip()
 
-    # Validation
+    # 1. Anti-spam & honeypot defense
+    is_spam, spam_reason = check_spam_signals(data)
+    if is_spam:
+        return JsonResponse({'success': False, 'error': spam_reason, 'errors': {'spam': spam_reason}}, status=400)
+
+    # 2. Comprehensive input validation
     errors = {}
     if not name:
         errors['name'] = 'Full name is required.'
     if not email:
         errors['email'] = 'Email address is required.'
     else:
-        try:
-            validate_email(email)
-        except ValidationError:
-            errors['email'] = 'Please enter a valid email address.'
+        is_valid_email, email_error = validate_email_address(email)
+        if not is_valid_email:
+            errors['email'] = email_error
+
     if not subject:
         errors['subject'] = 'Subject is required.'
     if not message:
