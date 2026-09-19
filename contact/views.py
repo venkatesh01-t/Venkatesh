@@ -108,12 +108,15 @@ def contact_submit(request):
         user_agent=user_agent
     )
 
-    # Send emails in background thread to avoid blocking client UI response
-    threading.Thread(
+    # Send emails (in background thread, with timeout join for serverless runtimes)
+    email_thread = threading.Thread(
         target=send_contact_emails,
         args=(contact_msg,),
         daemon=True
-    ).start()
+    )
+    email_thread.start()
+    if os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'):
+        email_thread.join(timeout=3.5)
 
     return JsonResponse({
         'success': True,
