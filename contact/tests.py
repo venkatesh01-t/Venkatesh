@@ -114,6 +114,18 @@ class EmailNotificationTest(TestCase):
         self.assertEqual(visitor_email.to, ["client@example.com"])
         self.assertIn("Website Development Inquiry", visitor_email.body)
 
+        # Verify Interactive HTML auto-reply features
+        self.assertEqual(len(visitor_email.alternatives), 1)
+        html_body, mime_type = visitor_email.alternatives[0]
+        self.assertEqual(mime_type, "text/html")
+        self.assertIn("STATUS: QUEUED IN PRIORITY INBOX", html_body)
+        self.assertIn("client_inquiry_transcript.py", html_body)
+        self.assertIn("Schedule 1:1 Discussion", html_body)
+        self.assertIn("WhatsApp Direct Chat", html_body)
+        self.assertIn("Explore GitHub Repos", html_body)
+        self.assertIn("Live Portfolio", html_body)
+        self.assertIn("prefers-color-scheme: dark", html_body)
+
 
 class HomePageViewTest(TestCase):
     def test_homepage_loads(self):

@@ -181,35 +181,119 @@ def dashboard_send_reply_api(request):
         # Build styled reply email
         html_content = f"""
         <!DOCTYPE html>
-        <html>
+        <html lang="en">
         <head>
           <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <meta name="color-scheme" content="light dark">
           <style>
-            body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f8fafc; color: #334155; padding: 24px; margin: 0; }}
-            .card {{ max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 14px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }}
-            .header {{ background: linear-gradient(135deg, #0d9488, #14b8a6, #8b5cf6); padding: 24px; color: white; }}
-            .body {{ padding: 24px; font-size: 14px; line-height: 1.7; color: #334155; white-space: pre-wrap; }}
-            .quote-box {{ background: #f1f5f9; border-left: 3px solid #14b8a6; padding: 12px 16px; margin: 20px 0; border-radius: 0 8px 8px 0; font-size: 12px; color: #64748b; }}
-            .footer {{ padding: 16px 24px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-size: 11px; color: #94a3b8; text-align: center; }}
+            :root {{ color-scheme: light dark; }}
+            body {{
+              font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+              background-color: #f1f5f9;
+              color: #1e293b;
+              padding: 24px 12px;
+              margin: 0;
+            }}
+            .card {{
+              max-width: 600px;
+              margin: 0 auto;
+              background: #ffffff;
+              border-radius: 18px;
+              border: 1px solid #e2e8f0;
+              overflow: hidden;
+              box-shadow: 0 10px 30px -5px rgba(0,0,0,0.07);
+            }}
+            .header {{
+              background: linear-gradient(135deg, #0d9488 0%, #06b6d4 50%, #6366f1 100%);
+              padding: 28px 24px;
+              color: white;
+              display: flex;
+              align-items: center;
+            }}
+            .avatar-badge {{
+              width: 46px;
+              height: 46px;
+              border-radius: 50%;
+              background: linear-gradient(135deg, #115e59, #14b8a6);
+              border: 2px solid rgba(255,255,255,0.85);
+              line-height: 44px;
+              text-align: center;
+              font-size: 16px;
+              font-weight: 800;
+              color: white;
+              margin-right: 14px;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            }}
+            .body {{
+              padding: 28px 24px;
+              font-size: 14.5px;
+              line-height: 1.7;
+              color: #334155;
+              white-space: pre-wrap;
+            }}
+            .quote-box {{
+              background: #0b0f19;
+              border: 1px solid #1e293b;
+              padding: 14px 18px;
+              margin: 24px 0 16px;
+              border-radius: 12px;
+              font-size: 12px;
+              color: #94a3b8;
+              white-space: normal;
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+            }}
+            .footer {{
+              padding: 18px 24px;
+              background: #f8fafc;
+              border-top: 1px solid #e2e8f0;
+              font-size: 11px;
+              color: #94a3b8;
+              text-align: center;
+              line-height: 1.6;
+            }}
+            .footer a {{ color: #0d9488; text-decoration: none; font-weight: 600; margin: 0 6px; }}
+
+            @media (prefers-color-scheme: dark) {{
+              body {{ background-color: #040711 !important; color: #e2e8f0 !important; }}
+              .card {{ background-color: #0b0f19 !important; border-color: #1e293b !important; }}
+              .body {{ color: #cbd5e1 !important; }}
+              .footer {{ background-color: #07090e !important; border-top-color: #1e293b !important; color: #64748b !important; }}
+            }}
           </style>
         </head>
         <body>
           <div class="card">
             <div class="header">
-              <h2 style="margin:0; font-size:18px;">Venkatesh Babu</h2>
-              <p style="margin:4px 0 0; font-size:12px; opacity:0.9;">Python Developer • AI & Automation Engineer</p>
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td width="52" valign="middle">
+                    <div class="avatar-badge">VB</div>
+                  </td>
+                  <td valign="middle">
+                    <h2 style="margin:0; font-size:18px; font-weight:800; color:#ffffff;">Venkatesh Babu</h2>
+                    <p style="margin:3px 0 0; font-size:12px; opacity:0.92; color:#e0f2fe;">Python Developer • AI &amp; LLM Specialist • Automation Engineer</p>
+                  </td>
+                </tr>
+              </table>
             </div>
+            
             <div class="body">
 {reply_body}
 
               <div class="quote-box">
-                <strong>Regarding your inquiry:</strong><br>
-                <em>"{msg.subject}"</em><br>
-                Received on: {msg.created_at.strftime('%B %d, %Y')}
+                <div style="color:#38bdf8; font-weight:700; margin-bottom:4px;"># Regarding your original inquiry:</div>
+                <div style="color:#f1f5f9; font-weight:600;">"{msg.subject}"</div>
+                <div style="color:#64748b; font-size:11px; margin-top:4px;">Received on: {msg.created_at.strftime('%B %d, %Y at %I:%M %p UTC')}</div>
               </div>
             </div>
+
             <div class="footer">
-              Venkatesh Babu • Madurai, Tamil Nadu, India • <a href="https://venkatesh-snowy.vercel.app" style="color:#0d9488;">Portfolio</a> • <a href="https://github.com/venkatesh01-t" style="color:#0d9488;">GitHub</a>
+              <strong>Venkatesh Babu</strong> &bull; Madurai, Tamil Nadu, India &bull; <a href="tel:+919952142302">+91 99521 42302</a><br>
+              <a href="https://venkatesh-snowy.vercel.app">Portfolio</a> &bull;
+              <a href="https://github.com/venkatesh01-t">GitHub</a> &bull;
+              <a href="https://wa.me/919952142302">WhatsApp</a> &bull;
+              <a href="https://www.linkedin.com/in/venkatesh-babu-208891392">LinkedIn</a>
             </div>
           </div>
         </body>
@@ -219,18 +303,20 @@ def dashboard_send_reply_api(request):
         plain_text = f"""
 {reply_body}
 
----
+--------------------------------------------------
 In response to your inquiry:
 Subject: {msg.subject}
-Date: {msg.created_at.strftime('%Y-%m-%d')}
+Date:    {msg.created_at.strftime('%Y-%m-%d %H:%M:%S UTC')}
 Message:
 {msg.message}
+--------------------------------------------------
 
---
+Best regards,
 Venkatesh Babu
-Python Developer | AI & LLM Developer | Python Automation Engineer
+Python Developer | AI & LLM Specialist | Python Automation Engineer
 Madurai, Tamil Nadu, India
-https://venkatesh-snowy.vercel.app
+Phone: +91 9952142302
+Portfolio: https://venkatesh-snowy.vercel.app
         """.strip()
 
         # Send via Django Email Backend

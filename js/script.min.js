@@ -587,11 +587,91 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function triggerContactConfetti() {
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.id = 'contact-confetti-canvas';
+        canvas.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:999999;';
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const colors = ['#14b8a6', '#06b6d4', '#8b5cf6', '#10b981', '#f59e0b', '#ec4899', '#3b82f6'];
+        const particleCount = 75;
+        const originX = canvas.width / 2;
+        const originY = Math.min(canvas.height * 0.75, canvas.height - 120);
+
+        for (let i = 0; i < particleCount; i++) {
+            const angle = (Math.random() * 120 + 30) * (Math.PI / 180); // upward fan
+            const speed = Math.random() * 14 + 6;
+            particles.push({
+                x: originX + (Math.random() - 0.5) * 100,
+                y: originY,
+                vx: (Math.random() - 0.5) * 16,
+                vy: -Math.sin(angle) * speed,
+                size: Math.random() * 8 + 4,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                rotation: Math.random() * 360,
+                vRot: (Math.random() - 0.5) * 14,
+                alpha: 1,
+                decay: Math.random() * 0.01 + 0.008,
+                shape: Math.random() > 0.4 ? 'rect' : 'circle'
+            });
+        }
+
+        let frameCount = 0;
+        function renderParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            let alive = 0;
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.38; // gravity
+                p.rotation += p.vRot;
+                p.alpha -= p.decay;
+
+                if (p.alpha > 0) {
+                    alive++;
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.alpha);
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rotation * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+
+                    if (p.shape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.8);
+                    }
+                    ctx.restore();
+                }
+            });
+
+            if (alive > 0 && frameCount < 140) {
+                frameCount++;
+                requestAnimationFrame(renderParticles);
+            } else {
+                canvas.remove();
+            }
+        }
+        requestAnimationFrame(renderParticles);
+    } catch (err) {
+        console.warn('Confetti animation skipped:', err);
+    }
+}
+window.triggerContactConfetti = triggerContactConfetti;
+
 async function handleContactSubmit(event) {
     event.preventDefault();
     const form      = event.target;
     const status    = document.getElementById('form-status');
     const submitBtn = form.querySelector('button[type="submit"]');
+    const defaultBtnContent = `Send Message <i class="fas fa-paper-plane group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform text-[10px]" aria-hidden="true"></i>`;
 
     const name    = form.elements['name'] ? form.elements['name'].value.trim() : '';
     const email   = form.elements['email'] ? form.elements['email'].value.trim() : '';
@@ -600,19 +680,30 @@ async function handleContactSubmit(event) {
 
     if (!name || !email || !message) {
         if (status) {
-            status.innerHTML = '<i class="fas fa-exclamation-circle text-rose-400 mr-1.5"></i> Please fill in all required fields.';
-            status.className = "text-xs font-semibold text-rose-500 flex items-center";
+            status.innerHTML = `
+                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-semibold animate-bounce">
+                    <i class="fas fa-exclamation-circle text-rose-500 flex-shrink-0"></i>
+                    <span>Please fill in all required fields.</span>
+                </div>
+            `;
         }
         return;
     }
 
-    if (status) {
-        status.innerHTML = '<i class="fas fa-spinner fa-spin text-teal-400 mr-1.5"></i> Sending message via Gmail...';
-        status.className = "text-xs font-semibold text-teal-500 flex items-center";
-    }
+    // Button loading state with spinner and pulse
     if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+        submitBtn.classList.add('opacity-85', 'cursor-not-allowed', 'animate-pulse');
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i><span>Dispatching via Gmail...</span>`;
+    }
+
+    if (status) {
+        status.innerHTML = `
+            <div class="flex items-center gap-2 p-2 text-xs font-semibold text-teal-600 dark:text-teal-400">
+                <i class="fas fa-circle-notch fa-spin text-teal-500 mr-1.5"></i>
+                <span>Encrypting & sending message...</span>
+            </div>
+        `;
     }
 
     // Direct Django API submission (/api/contact/)
@@ -632,30 +723,65 @@ async function handleContactSubmit(event) {
         const data = await response.json();
 
         if (response.ok && data.success) {
-            if (status) {
-                status.innerHTML = '<i class="fas fa-check-circle text-emerald-400 mr-1.5"></i> ' + (data.message || 'Message sent! Check your email for auto-reply.');
-                status.className = "text-xs font-semibold text-emerald-500 dark:text-emerald-400 flex items-center";
-            }
-            form.reset();
+            // Trigger multi-color celebratory confetti burst!
+            triggerContactConfetti();
+
+            // Update submit button to success state
             if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                submitBtn.classList.remove('animate-pulse', 'bg-teal-600', 'hover:bg-teal-500');
+                submitBtn.classList.add('bg-emerald-600', 'text-white');
+                submitBtn.innerHTML = `<i class="fas fa-check-circle mr-2 text-sm"></i><span>Sent Successfully!</span>`;
             }
+
+            // Interactive animated success card
+            if (status) {
+                status.innerHTML = `
+                    <div class="flex items-center gap-3 p-3 rounded-xl bg-emerald-500/10 dark:bg-emerald-950/40 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 shadow-lg shadow-emerald-500/5 transition-all duration-300">
+                        <div class="w-7 h-7 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 animate-bounce">
+                            <svg class="w-4 h-4 text-emerald-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-bold text-xs text-slate-800 dark:text-slate-100">Message Delivered to Venkatesh!</div>
+                            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 opacity-90">An interactive confirmation was sent to <span class="underline font-mono">${email}</span>.</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            form.reset();
+
+            // Reset button and status after 8 seconds
             setTimeout(() => {
-                if (status && status.innerText.includes('sent')) {
-                    status.innerText = '';
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-85', 'cursor-not-allowed', 'bg-emerald-600');
+                    submitBtn.classList.add('bg-teal-600', 'hover:bg-teal-500');
+                    submitBtn.innerHTML = defaultBtnContent;
                 }
-            }, 7000);
+            }, 5000);
+
+            setTimeout(() => {
+                if (status && status.innerHTML.includes('Delivered')) {
+                    status.innerHTML = '';
+                }
+            }, 9000);
             return;
         } else if (response.status === 400 && data.errors) {
             const errorMsg = Object.values(data.errors).flat().join(', ') || data.error || 'Validation error.';
             if (status) {
-                status.innerHTML = '<i class="fas fa-exclamation-circle text-rose-400 mr-1.5"></i> ' + errorMsg;
-                status.className = "text-xs font-semibold text-rose-500 flex items-center";
+                status.innerHTML = `
+                    <div class="flex items-center gap-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-500 text-xs font-semibold">
+                        <i class="fas fa-exclamation-circle text-rose-400 mr-1.5 flex-shrink-0"></i>
+                        <span>${errorMsg}</span>
+                    </div>
+                `;
             }
             if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                submitBtn.classList.remove('opacity-85', 'cursor-not-allowed', 'animate-pulse');
+                submitBtn.innerHTML = defaultBtnContent;
             }
             return;
         } else {
@@ -664,15 +790,19 @@ async function handleContactSubmit(event) {
     } catch (apiErr) {
         console.warn("Direct contact API unavailable, opening mail client...", apiErr);
         if (status) {
-            status.innerHTML = '<i class="fas fa-envelope-open-text text-amber-400 mr-1.5"></i> Opening your email client to send directly...';
-            status.className = "text-xs font-semibold text-amber-500 flex items-center";
+            status.innerHTML = `
+                <div class="flex items-center gap-2 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-500 text-xs font-semibold">
+                    <i class="fas fa-envelope-open-text text-amber-400 mr-1.5 flex-shrink-0"></i>
+                    <span>Opening your email client to send directly...</span>
+                </div>
+            `;
         }
-        fallbackMailto(name, email, subject, message, form, status, submitBtn);
+        fallbackMailto(name, email, subject, message, form, status, submitBtn, defaultBtnContent);
     }
 }
 window.handleContactSubmit = handleContactSubmit;
 
-function fallbackMailto(name, email, subject, msg, form, status, submitBtn) {
+function fallbackMailto(name, email, subject, msg, form, status, submitBtn, defaultBtnContent) {
     const mailtoUrl = `mailto:babuvenkatesh093@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("Hello Venkatesh,\n\nName: " + name + "\nEmail: " + email + "\n\nMessage:\n" + msg)}`;
     
     setTimeout(() => {
@@ -684,7 +814,8 @@ function fallbackMailto(name, email, subject, msg, form, status, submitBtn) {
         form.reset();
         if (submitBtn) {
             submitBtn.disabled = false;
-            submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            submitBtn.classList.remove('opacity-85', 'cursor-not-allowed', 'animate-pulse');
+            if (defaultBtnContent) submitBtn.innerHTML = defaultBtnContent;
         }
         setTimeout(() => { if (status) status.innerText = ''; }, 6000);
     }, 600);

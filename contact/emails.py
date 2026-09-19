@@ -109,66 +109,359 @@ Reply directly to: {msg.email}
 
 
 def _send_visitor_autoreply(msg):
-    """Send an automatic acknowledgment reply to the visitor."""
+    """Send an interactive, animated luxury auto-reply to the visitor."""
     subject = f"Thank you for contacting Venkatesh Babu — Received: {msg.subject}"
     recipient = msg.email
 
+    # Safe snippet of message for code capsule
+    safe_message = msg.message.replace('"', '\\"')
+
     html_content = f"""
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
       <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="color-scheme" content="light dark">
+      <meta name="supported-color-schemes" content="light dark">
+      <title>Inquiry Received • Venkatesh Babu</title>
       <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; color: #334155; padding: 24px; margin: 0; }}
-        .container {{ max-width: 560px; margin: 0 auto; background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }}
-        .header {{ background: linear-gradient(135deg, #0d9488, #14b8a6, #8b5cf6); padding: 32px 24px; text-align: center; color: white; }}
-        .header h1 {{ margin: 0; font-size: 22px; font-weight: 800; }}
-        .header p {{ margin: 6px 0 0; opacity: 0.92; font-size: 13px; }}
-        .content {{ padding: 28px 24px; }}
-        p {{ margin: 0 0 16px; font-size: 14px; line-height: 1.6; color: #475569; }}
-        .highlight {{ color: #0d9488; font-weight: 600; }}
-        .summary-box {{ background: #f1f5f9; border-radius: 12px; padding: 16px; margin: 20px 0; border: 1px solid #e2e8f0; }}
-        .summary-title {{ font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; font-weight: 700; margin-bottom: 8px; }}
-        .summary-item {{ font-size: 13px; color: #1e293b; margin-bottom: 4px; }}
-        .signature {{ border-top: 1px solid #f1f5f9; padding-top: 20px; margin-top: 24px; }}
-        .signature-name {{ font-weight: 700; color: #0f172a; font-size: 15px; }}
-        .signature-title {{ font-size: 12px; color: #0d9488; margin-top: 2px; }}
-        .footer {{ padding: 16px 24px; background: #f8fafc; text-align: center; font-size: 11px; color: #94a3b8; border-top: 1px solid #e2e8f0; }}
-        .social-links a {{ color: #0d9488; text-decoration: none; margin: 0 8px; font-weight: 600; }}
+        :root {{
+          color-scheme: light dark;
+          supported-color-schemes: light dark;
+        }}
+        @keyframes shimmerGlow {{
+          0% {{ background-position: -200% 0; }}
+          100% {{ background-position: 200% 0; }}
+        }}
+        @keyframes pulseDot {{
+          0%, 100% {{ transform: scale(1); opacity: 1; }}
+          50% {{ transform: scale(1.2); opacity: 0.65; }}
+        }}
+        body {{
+          margin: 0;
+          padding: 24px 12px;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', Helvetica, Arial, sans-serif;
+          background-color: #f1f5f9;
+          color: #1e293b;
+          -webkit-font-smoothing: antialiased;
+        }}
+        .email-wrapper {{
+          max-width: 600px;
+          margin: 0 auto;
+          background-color: #ffffff;
+          border-radius: 20px;
+          border: 1px solid #e2e8f0;
+          overflow: hidden;
+          box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+        }}
+        .header-banner {{
+          background: linear-gradient(135deg, #0d9488 0%, #06b6d4 50%, #6366f1 100%);
+          padding: 36px 28px 30px;
+          text-align: center;
+          color: #ffffff;
+          position: relative;
+        }}
+        .avatar-ring {{
+          display: inline-block;
+          width: 58px;
+          height: 58px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #115e59, #14b8a6);
+          border: 3px solid rgba(255, 255, 255, 0.9);
+          line-height: 54px;
+          text-align: center;
+          font-size: 20px;
+          font-weight: 800;
+          color: #ffffff;
+          box-shadow: 0 8px 20px rgba(13, 148, 136, 0.4);
+          margin-bottom: 12px;
+        }}
+        .header-title {{
+          margin: 0;
+          font-size: 23px;
+          font-weight: 800;
+          letter-spacing: -0.4px;
+          color: #ffffff;
+        }}
+        .header-sub {{
+          margin: 6px 0 0;
+          font-size: 13px;
+          color: rgba(255, 255, 255, 0.92);
+          font-weight: 500;
+        }}
+        .content-area {{
+          padding: 30px 26px;
+        }}
+        .status-pill {{
+          display: inline-block;
+          padding: 6px 14px;
+          border-radius: 999px;
+          background-color: #ecfdf5;
+          border: 1px solid #a7f3d0;
+          font-size: 11px;
+          font-weight: 700;
+          color: #059669;
+          letter-spacing: 0.04em;
+          margin-bottom: 20px;
+        }}
+        .pulse-dot {{
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #10b981;
+          box-shadow: 0 0 8px #10b981;
+          margin-right: 6px;
+          vertical-align: middle;
+          animation: pulseDot 2s infinite ease-in-out;
+        }}
+        .text-lead {{
+          font-size: 15px;
+          line-height: 1.65;
+          color: #334155;
+          margin: 0 0 16px;
+        }}
+        .terminal-capsule {{
+          background-color: #0b0f19;
+          border-radius: 12px;
+          border: 1px solid #1e293b;
+          overflow: hidden;
+          margin: 24px 0;
+          box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+        }}
+        .terminal-bar {{
+          background-color: #111827;
+          padding: 8px 14px;
+          border-bottom: 1px solid #1f2937;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-size: 11px;
+          color: #94a3b8;
+          display: flex;
+          align-items: center;
+        }}
+        .term-dot {{
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          margin-right: 6px;
+          vertical-align: middle;
+        }}
+        .term-dot-red {{ background-color: #ef4444; }}
+        .term-dot-yellow {{ background-color: #f59e0b; }}
+        .term-dot-green {{ background-color: #10b981; }}
+        .terminal-body {{
+          padding: 14px 16px;
+          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+          font-size: 12px;
+          line-height: 1.6;
+          color: #cbd5e1;
+          overflow-x: auto;
+        }}
+        .line-num {{
+          color: #475569;
+          user-select: none;
+          margin-right: 12px;
+        }}
+        .kw {{ color: #ec4899; }}
+        .var {{ color: #38bdf8; }}
+        .str {{ color: #34d399; }}
+        .comment {{ color: #64748b; font-style: italic; }}
+        .action-card {{
+          display: block;
+          background-color: #f8fafc;
+          border: 1px solid #e2e8f0;
+          border-radius: 12px;
+          padding: 14px 16px;
+          text-decoration: none;
+          color: #1e293b;
+          font-size: 12px;
+          font-weight: 600;
+          transition: all 0.2s ease;
+        }}
+        .action-card:hover {{
+          background-color: #f1f5f9;
+          border-color: #cbd5e1;
+        }}
+        .signature-card {{
+          margin-top: 28px;
+          padding-top: 20px;
+          border-top: 1px solid #f1f5f9;
+        }}
+        .footer-note {{
+          padding: 18px 24px;
+          background-color: #f8fafc;
+          border-top: 1px solid #e2e8f0;
+          text-align: center;
+          font-size: 11px;
+          color: #94a3b8;
+          line-height: 1.6;
+        }}
+        .footer-links a {{
+          color: #0d9488;
+          text-decoration: none;
+          font-weight: 600;
+          margin: 0 6px;
+        }}
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {{
+          body {{
+            background-color: #040711 !important;
+            color: #e2e8f0 !important;
+          }}
+          .email-wrapper {{
+            background-color: #0b0f19 !important;
+            border-color: #1e293b !important;
+            box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.4) !important;
+          }}
+          .text-lead {{
+            color: #cbd5e1 !important;
+          }}
+          .status-pill {{
+            background-color: rgba(16, 185, 129, 0.12) !important;
+            border-color: rgba(16, 185, 129, 0.3) !important;
+            color: #34d399 !important;
+          }}
+          .action-card {{
+            background-color: #111827 !important;
+            border-color: #1f293d !important;
+            color: #f1f5f9 !important;
+          }}
+          .signature-card {{
+            border-top-color: #1e293b !important;
+          }}
+          .footer-note {{
+            background-color: #07090e !important;
+            border-top-color: #1e293b !important;
+            color: #64748b !important;
+          }}
+        }}
       </style>
     </head>
     <body>
-      <div class="container">
-        <div class="header">
-          <h1>Message Received!</h1>
-          <p>Thank you for reaching out</p>
+      <div class="email-wrapper">
+        
+        <!-- Header Banner with Glow Avatar -->
+        <div class="header-banner">
+          <div class="avatar-ring">VB</div>
+          <h1 class="header-title">Message Received</h1>
+          <p class="header-sub">Thank you for reaching out to Venkatesh Babu</p>
         </div>
-        <div class="content">
-          <p>Hi <strong>{msg.name}</strong>,</p>
-          <p>Thank you for getting in touch! I have received your message regarding <span class="highlight">"{msg.subject}"</span> and will review it promptly.</p>
-          <p>I typically respond to inquiries within <strong>24 hours</strong>. If your matter is urgent, you can also reach me directly at <a href="tel:+919952142302" style="color:#0d9488;">+91 9952142302</a>.</p>
+
+        <!-- Main Content Area -->
+        <div class="content-area">
           
-          <div class="summary-box">
-            <div class="summary-title">Summary of Your Message</div>
-            <div class="summary-item"><strong>Subject:</strong> {msg.subject}</div>
-            <div class="summary-item"><strong>Date:</strong> {msg.created_at.strftime('%B %d, %Y')}</div>
-            <div class="summary-item" style="margin-top: 8px; font-style: italic; color: #64748b;">"{msg.message[:200]}{'...' if len(msg.message) > 200 else ''}"</div>
+          <!-- Animated Status Pill -->
+          <div class="status-pill">
+            <span class="pulse-dot"></span>
+            <span>STATUS: QUEUED IN PRIORITY INBOX &bull; RESPONSE SLA: &lt; 24 HOURS</span>
           </div>
 
-          <div class="signature">
-            <div class="signature-name">Venkatesh Babu</div>
-            <div class="signature-title">Python Developer • AI & LLM Specialist • Automation Engineer</div>
-            <p style="font-size: 12px; color: #64748b; margin-top: 6px;">Madurai, Tamil Nadu, India</p>
+          <p class="text-lead">
+            Hi <strong>{msg.name}</strong>,
+          </p>
+          <p class="text-lead">
+            Thank you for getting in touch! I have successfully received your inquiry regarding <span style="color:#0d9488; font-weight:700;">"{msg.subject}"</span>.
+          </p>
+          <p class="text-lead" style="font-size:13.5px; color:#64748b;">
+            I personally review every project proposal and technical inquiry. You will receive a direct, detailed response within <strong>24 hours</strong>.
+          </p>
+
+          <!-- IDE Terminal Styled Inquiry Capsule -->
+          <div class="terminal-capsule">
+            <div class="terminal-bar">
+              <span class="term-dot term-dot-red"></span>
+              <span class="term-dot term-dot-yellow"></span>
+              <span class="term-dot term-dot-green"></span>
+              <span style="margin-left:6px; font-weight:600;">client_inquiry_transcript.py</span>
+            </div>
+            <div class="terminal-body">
+              <div><span class="line-num">01</span><span class="comment"># Submitted Inquiry Details</span></div>
+              <div><span class="line-num">02</span><span class="var">sender</span> = <span class="str">"{msg.name} &lt;{msg.email}&gt;"</span></div>
+              <div><span class="line-num">03</span><span class="var">subject</span> = <span class="str">"{msg.subject}"</span></div>
+              <div><span class="line-num">04</span><span class="var">received_at</span> = <span class="str">"{msg.created_at.strftime('%Y-%m-%d %H:%M:%S UTC')}"</span></div>
+              <div><span class="line-num">05</span></div>
+              <div><span class="line-num">06</span><span class="kw">def</span> <span class="var">inquiry_payload</span>():</div>
+              <div><span class="line-num">07</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span class="str">\"\"\"{safe_message}\"\"\"</span></div>
+            </div>
           </div>
+
+          <!-- Interactive Quick-Action Grid -->
+          <div style="margin: 24px 0 16px;">
+            <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:#94a3b8; margin-bottom:12px;">
+              Quick Actions &amp; Direct Channels
+            </div>
+            
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:separate; border-spacing:8px 8px; margin:0 -8px;">
+              <tr>
+                <td width="50%" valign="top">
+                  <a href="mailto:babuvenkatesh093@gmail.com?subject=Schedule%20Discussion%20with%20Venkatesh" class="action-card">
+                    <div style="color:#0d9488; font-size:14px; margin-bottom:4px;">⚡ Schedule 1:1 Discussion</div>
+                    <div style="font-size:11px; color:#64748b; font-weight:400;">Book an architecture or consultation call</div>
+                  </a>
+                </td>
+                <td width="50%" valign="top">
+                  <a href="https://wa.me/919952142302?text=Hello%20Venkatesh%2C%20following%20up%20on%20my%20portfolio%20inquiry" class="action-card">
+                    <div style="color:#10b981; font-size:14px; margin-bottom:4px;">💬 WhatsApp Direct Chat</div>
+                    <div style="font-size:11px; color:#64748b; font-weight:400;">Instant message at +91 99521 42302</div>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%" valign="top">
+                  <a href="https://github.com/venkatesh01-t" class="action-card">
+                    <div style="color:#6366f1; font-size:14px; margin-bottom:4px;">💻 Explore GitHub Repos</div>
+                    <div style="font-size:11px; color:#64748b; font-weight:400;">View 15+ open-source AI &amp; Python tools</div>
+                  </a>
+                </td>
+                <td width="50%" valign="top">
+                  <a href="https://venkatesh-snowy.vercel.app" class="action-card">
+                    <div style="color:#06b6d4; font-size:14px; margin-bottom:4px;">🚀 Live Portfolio</div>
+                    <div style="font-size:11px; color:#64748b; font-weight:400;">Case studies, certifications &amp; stack</div>
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <!-- Signature Block -->
+          <div class="signature-card">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="48" valign="top" style="padding-right:14px;">
+                  <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, #0d9488, #6366f1); line-height:44px; text-align:center; color:#ffffff; font-weight:800; font-size:14px;">VB</div>
+                </td>
+                <td valign="top">
+                  <div style="font-size:14px; font-weight:800; color:#0f172a;" class="text-lead">
+                    Venkatesh Babu <span style="display:inline-block; margin-left:4px; font-size:11px; color:#0d9488; font-weight:700;">✓ Verified</span>
+                  </div>
+                  <div style="font-size:12px; color:#0d9488; font-weight:600; margin-top:2px;">
+                    Python Developer • AI &amp; LLM Specialist • Automation Engineer
+                  </div>
+                  <div style="font-size:11px; color:#64748b; margin-top:4px;">
+                    Madurai, Tamil Nadu, India &bull; <a href="tel:+919952142302" style="color:#64748b; text-decoration:none;">+91 99521 42302</a>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+
         </div>
-        <div class="footer">
-          <div class="social-links">
-            <a href="https://venkatesh-snowy.vercel.app">Portfolio</a> •
-            <a href="https://github.com/venkatesh01-t">GitHub</a> •
+
+        <!-- Footer -->
+        <div class="footer-note">
+          <div class="footer-links">
+            <a href="https://venkatesh-snowy.vercel.app">Portfolio</a> &bull;
+            <a href="https://github.com/venkatesh01-t">GitHub</a> &bull;
             <a href="https://www.linkedin.com/in/venkatesh-babu-208891392">LinkedIn</a>
           </div>
-          <p style="margin-top: 8px; font-size: 10px;">This is an automated confirmation sent from Venkatesh Babu's portfolio contact system.</p>
+          <p style="margin: 8px 0 0; font-size: 10.5px;">
+            This automated confirmation was securely generated &amp; dispatched by Venkatesh Babu's portfolio contact system.
+          </p>
         </div>
+
       </div>
     </body>
     </html>
@@ -179,21 +472,30 @@ Hi {msg.name},
 
 Thank you for reaching out! I have received your message regarding "{msg.subject}".
 
-I typically review and reply to all technical inquiries and project proposals within 24 hours. If your message is urgent, feel free to call or WhatsApp me at +91 9952142302.
+I review every technical inquiry and proposal personally. You can expect a direct response within 24 hours.
 
-Summary of your message:
+--------------------------------------------------
+SUBMITTED INQUIRY TRANSCRIPT:
+--------------------------------------------------
+Sender:  {msg.name} <{msg.email}>
 Subject: {msg.subject}
-Date: {msg.created_at.strftime('%Y-%m-%d')}
-Message:
+Date:    {msg.created_at.strftime('%Y-%m-%d %H:%M:%S UTC')}
+
+Message Details:
 {msg.message}
+--------------------------------------------------
+
+DIRECT CONTACT & QUICK LINKS:
+- WhatsApp:  https://wa.me/919952142302
+- Portfolio: https://venkatesh-snowy.vercel.app
+- GitHub:    https://github.com/venkatesh01-t
+- LinkedIn:  https://www.linkedin.com/in/venkatesh-babu-208891392
+- Phone:     +91 9952142302
 
 Best regards,
 Venkatesh Babu
-Python Developer | AI & LLM Specialist | Automation Engineer
+Python Developer | AI & LLM Specialist | Python Automation Engineer
 Madurai, Tamil Nadu, India
-Portfolio: https://venkatesh-snowy.vercel.app
-GitHub: https://github.com/venkatesh01-t
-LinkedIn: https://www.linkedin.com/in/venkatesh-babu-208891392
     """.strip()
 
     try:
