@@ -12,7 +12,7 @@ with open('css/tw-input.css', 'w', encoding='utf-8') as f:
 print("Running Tailwind CSS compiler with full content scanning...")
 cmd = [
     'npx', '-y', 'tailwindcss@3',
-    '--content', 'index.html,404.html,sections/*.html,script.js,js/*.js',
+    '--content', 'index.html,404.html,templates/**/*.html,script.js,js/*.js,static/js/*.js',
     '-c', 'tailwind.config.js',
     '-i', 'css/tw-input.css',
     '-o', 'css/tailwind.gen.css',
