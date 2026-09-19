@@ -24,6 +24,10 @@ async function fetchMessages(keepSelectionId = null) {
     try {
         const url = `${API_MESSAGES_URL}?q=${encodeURIComponent(searchQuery)}&filter=${currentFilter}`;
         const res = await fetch(url);
+        if (res.status === 401 || (res.headers.get('content-type') && !res.headers.get('content-type').includes('json'))) {
+            window.location.href = '/dashboard/login/';
+            return;
+        }
         const data = await res.json();
 
         if (data.success) {
@@ -236,6 +240,10 @@ async function toggleStatus(id, action, refreshList = true) {
             },
             body: JSON.stringify({ id: id, action: action })
         });
+        if (res.status === 401 || (res.headers.get('content-type') && !res.headers.get('content-type').includes('json'))) {
+            window.location.href = '/dashboard/login/';
+            return;
+        }
         const data = await res.json();
 
         if (data.success) {
@@ -324,10 +332,22 @@ async function sendDirectReply() {
             },
             body: JSON.stringify({
                 message_id: activeMessage.id,
+                recipient_email: activeMessage.email,
+                recipient_name: activeMessage.name,
+                original_subject: activeMessage.subject,
+                original_message: activeMessage.message,
                 subject: subject,
                 reply_body: replyBody
             })
         });
+
+        if (res.status === 401 || (res.headers.get('content-type') && !res.headers.get('content-type').includes('json'))) {
+            statusMsg.className = "text-xs font-semibold text-rose-400";
+            statusMsg.innerText = "Session expired. Redirecting to login...";
+            showToast("Session expired. Please log in again.", false);
+            setTimeout(() => { window.location.href = '/dashboard/login/'; }, 1500);
+            return;
+        }
 
         const data = await res.json();
 
@@ -390,6 +410,11 @@ async function testSmtpConnection() {
     showToast('Testing Google SMTP connection...', true);
     try {
         const res = await fetch(API_SMTP_TEST_URL);
+        if (res.status === 401 || (res.headers.get('content-type') && !res.headers.get('content-type').includes('json'))) {
+            showToast('Session expired. Redirecting to login...', false);
+            setTimeout(() => { window.location.href = '/dashboard/login/'; }, 1500);
+            return;
+        }
         const data = await res.json();
         if (data.success) {
             showToast(data.message, true);
@@ -408,6 +433,9 @@ async function testSmtpConnection() {
 async function initAnalyticsCharts() {
     try {
         const res = await fetch(API_ANALYTICS_URL);
+        if (res.status === 401 || (res.headers.get('content-type') && !res.headers.get('content-type').includes('json'))) {
+            return;
+        }
         const data = await res.json();
 
         if (!data.success) return;

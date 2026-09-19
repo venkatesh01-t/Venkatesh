@@ -181,7 +181,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # EMAIL CONFIGURATION (Google Gmail SMTP)
 # ==============================================================================
 GMAIL_USER = os.getenv('GMAIL_USER', 'babuvenkatesh093@gmail.com')
-GMAIL_APP_PASSWORD = os.getenv('GMAIL_APP_PASSWORD', '').strip().replace(' ', '')
+GMAIL_APP_PASSWORD = os.getenv('GMAIL_APP_PASSWORD', 'rhnfnscdapsswctq').strip().replace(' ', '')
 
 if GMAIL_APP_PASSWORD:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -192,11 +192,25 @@ if GMAIL_APP_PASSWORD:
     EMAIL_HOST_PASSWORD = GMAIL_APP_PASSWORD
     DEFAULT_FROM_EMAIL = f"Venkatesh Babu <{GMAIL_USER}>"
 else:
-    # Console email backend for safe local testing until user inputs their Google App Password
+    # Console email backend for safe local testing
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = f"Venkatesh Babu <{GMAIL_USER}>"
 
 ADMIN_NOTIFICATION_EMAIL = os.getenv('ADMIN_NOTIFICATION_EMAIL', GMAIL_USER)
+
+# ==============================================================================
+# SESSION CONFIGURATION (Serverless Signed Cookie Sessions)
+# ==============================================================================
+# Ensures admin stays logged in across all serverless Vercel Lambda containers & refreshes
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_COOKIE_NAME = 'vb_portfolio_session'
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_SAVE_EVERY_REQUEST = True
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 # Auth URLs for Dashboard
 LOGIN_URL = '/dashboard/login/'

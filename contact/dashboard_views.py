@@ -11,7 +11,27 @@ from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
+from functools import wraps
 from .models import ContactMessage
+
+
+def staff_api_required(view_func):
+    """
+    Decorator for dashboard AJAX/JSON APIs.
+    If unauthenticated or not staff, returns JSON 401 instead of HTML 302 redirect.
+    Prevents 'JSON.parse: unexpected character' errors on client side.
+    """
+    @wraps(view_func)
+    def _wrapped_view(request, *args, **kwargs):
+        if not request.user.is_authenticated or not request.user.is_staff:
+            return JsonResponse({
+                'success': False,
+                'error': 'Session expired. Please log in again.',
+                'session_expired': True,
+                'redirect': '/dashboard/login/'
+            }, status=401)
+        return view_func(request, *args, **kwargs)
+    return _wrapped_view
 
 
 def dashboard_login(request):
@@ -28,6 +48,9 @@ def dashboard_login(request):
         if user is not None:
             if user.is_staff:
                 login(request, user)
+                # Keep admin logged in for 30 days across all serverless containers
+                request.session.set_expiry(60 * 60 * 24 * 30)
+                request.session.modified = True
                 next_url = request.GET.get('next') or request.POST.get('next') or 'dashboard'
                 return redirect(next_url)
             else:
@@ -75,7 +98,7 @@ def dashboard_home(request):
     return render(request, 'dashboard/dashboard.html', context)
 
 
-@staff_member_required(login_url='dashboard_login')
+@staff_api_required
 def dashboard_messages_api(request):
     """Returns filtered and searched messages in JSON format."""
     query = request.GET.get('q', '').strip()
@@ -124,7 +147,7 @@ def dashboard_messages_api(request):
 
 
 @require_POST
-@staff_member_required(login_url='dashboard_login')
+@staff_api_required
 def dashboard_toggle_status_api(request):
     """Toggles read, starred, or replied status, or deletes a message."""
     try:
@@ -161,7 +184,7 @@ def dashboard_toggle_status_api(request):
 
 
 @require_POST
-@staff_member_required(login_url='dashboard_login')
+@staff_api_required
 def dashboard_send_reply_api(request):
     """
     Sends a direct email reply to the visitor via Google SMTP
@@ -172,11 +195,32 @@ def dashboard_send_reply_api(request):
         msg_id = data.get('message_id')
         reply_subject = data.get('subject', '').strip()
         reply_body = data.get('reply_body', '').strip()
+        recipient_email = data.get('recipient_email', '').strip()
+        recipient_name = data.get('recipient_name', '').strip()
+        orig_subject = data.get('original_subject', '').strip()
+        orig_message = data.get('original_message', '').strip()
 
         if not reply_subject or not reply_body:
             return JsonResponse({'success': False, 'error': 'Subject and reply content cannot be empty.'}, status=400)
 
-        msg = ContactMessage.objects.get(id=msg_id)
+        msg = None
+        if msg_id:
+            try:
+                msg = ContactMessage.objects.get(id=msg_id)
+            except ContactMessage.DoesNotExist:
+                msg = None
+
+        if not msg:
+            target_email = recipient_email or data.get('email', '').strip()
+            if not target_email:
+                return JsonResponse({'success': False, 'error': 'Message not found and recipient email is missing.'}, status=404)
+            # Create a record in current container's local db
+            msg = ContactMessage.objects.create(
+                name=recipient_name or 'Visitor',
+                email=target_email,
+                subject=orig_subject or reply_subject,
+                message=orig_message or '(Inquiry received on alternate container)',
+            )
 
         # Build styled reply email
         html_content = f"""
@@ -349,7 +393,7 @@ Portfolio: https://venkatesh-snowy.vercel.app
         return JsonResponse({'success': False, 'error': f"Failed to send email: {str(e)}"}, status=500)
 
 
-@staff_member_required(login_url='dashboard_login')
+@staff_api_required
 def dashboard_analytics_api(request):
     """Provides 7-day message trajectory and topic distribution for Chart.js."""
     today = timezone.now().date()
@@ -438,7 +482,7 @@ def dashboard_export_csv(request):
     return response
 
 
-@staff_member_required(login_url='dashboard_login')
+@staff_api_required
 def dashboard_smtp_test_api(request):
     """Tests the active Google SMTP connection."""
     try:
