@@ -75,58 +75,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
+
+# ==============================================================================
+# DATABASE — Neon PostgreSQL (persistent across all environments)
+# ==============================================================================
 DATABASE_URL = os.getenv('DATABASE_URL') or os.getenv('POSTGRES_URL')
 
-if DATABASE_URL:
-    try:
-        import dj_database_url
-        DATABASES = {
-            'default': dj_database_url.config(
-                default=DATABASE_URL,
-                conn_max_age=600,
-                conn_health_checks=True,
-            )
-        }
-    except ImportError:
-        from urllib.parse import urlparse, unquote
-        parsed = urlparse(DATABASE_URL)
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql',
-                'NAME': parsed.path.lstrip('/'),
-                'USER': unquote(parsed.username or ''),
-                'PASSWORD': unquote(parsed.password or ''),
-                'HOST': parsed.hostname or '',
-                'PORT': parsed.port or '',
-            }
-        }
-else:
-    IS_SERVERLESS = bool(os.environ.get('VERCEL') or os.environ.get('AWS_LAMBDA_FUNCTION_NAME'))
-    if IS_SERVERLESS:
-        # Vercel/Lambda serverless: /var/task is read-only; /tmp is the writable storage volume
-        db_dir = Path('/tmp')
-        db_path = db_dir / 'db.sqlite3'
-        seed_db = BASE_DIR / 'seed_db.sqlite3'
+if not DATABASE_URL:
+    raise Exception(
+        "DATABASE_URL environment variable is not set. "
+        "Add your Neon PostgreSQL connection string to .env or Vercel environment variables."
+    )
 
-        # Seed the database on container cold start if /tmp/db.sqlite3 does not exist yet
-        if not db_path.exists():
-            import shutil
-            if seed_db.exists():
-                shutil.copyfile(seed_db, db_path)
-            else:
-                try:
-                    db_path.touch(exist_ok=True)
-                except Exception:
-                    pass
-    else:
-        db_path = BASE_DIR / 'db.sqlite3'
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
+}
 
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': db_path,
-        }
-    }
 
 
 # Password validation
