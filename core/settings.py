@@ -24,6 +24,7 @@ if 'testserver' not in ALLOWED_HOSTS:
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.vercel.app',
+    'https://venkatesh01-t.vercel.app',
     'https://venkatesh-snowy.vercel.app',
     'https://venkatesh-snowy-iota.vercel.app',
     'http://localhost:8000',

@@ -9,7 +9,8 @@
     <script>
         (function() {
             var host = window.location.hostname;
-            if (host.indexOf('github.io') !== -1 || host.indexOf('venkatesh01-t') !== -1) {
+            // Only redirect if visiting on GitHub Pages, never if already on Vercel or localhost
+            if (host.indexOf('github.io') !== -1 && host.indexOf('vercel.app') === -1) {
                 var newPath = window.location.pathname.replace(/^\/Venkatesh(\/|$)/i, '/');
                 var target = 'https://venkatesh01-t.vercel.app' + (newPath.startsWith('/') ? newPath : '/' + newPath) + window.location.search + window.location.hash;
                 window.location.replace(target);
