@@ -44,7 +44,7 @@ class ContactAPITest(TestCase):
         self.assertTrue(data['success'])
         self.assertIn('Rajesh', data['message'])
 
-        # Verify saved in SQLite database
+        # Verify saved in database
         msg = ContactMessage.objects.filter(email='rajesh@example.com').first()
         self.assertIsNotNone(msg)
         self.assertEqual(msg.name, 'Rajesh Kumar')

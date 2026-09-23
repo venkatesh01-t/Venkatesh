@@ -54,7 +54,7 @@ Contact: babuvenkatesh093@gmail.com | +91 9952142302
 ### Backend Engineering & Cloud
 - **Django**: Django 5.x, ORM, Model-View-Template architecture, class-based views, middleware, signals, admin customization.
 - **REST APIs**: Django REST Framework (DRF), FastAPI (Pydantic validation, OpenAPI documentation).
-- **Databases**: SQLite (local development and micro-services), PostgreSQL, MySQL, MongoDB.
+- **Databases**: PostgreSQL (Neon Serverless Cloud), MySQL, MongoDB.
 - **Security & Auth**: JWT, session authentication, CSRF tokens, HMAC-SHA256 signatures, environment variable isolation, Zero-Trust credentials.
 - **Email Engines**: Google Gmail SMTP TLS integration, background thread dispatchers, HTML email templates.
 

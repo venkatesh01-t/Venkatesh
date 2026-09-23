@@ -8,7 +8,9 @@ Thumbs.db
 
 # Python & Django
 .env
-db.sqlite3
+*.sqlite3
+*.sqlite
+*.db
 __pycache__/
 *.py[cod]
 *$py.class

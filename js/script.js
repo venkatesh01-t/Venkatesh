@@ -407,18 +407,29 @@ function lazyLoadChartJs() {
     }
     if (chartJsLoading) return;
     chartJsLoading = true;
+    const hasStaticPrefix = document.querySelector('script[src*="/static/"]') !== null;
+    const primarySrc = hasStaticPrefix ? "/static/js/vendor/chart.min.js" : "js/vendor/chart.min.js";
+    const altSrc = hasStaticPrefix ? "js/vendor/chart.min.js" : "/static/js/vendor/chart.min.js";
+
     const script = document.createElement('script');
-    script.src = "js/vendor/chart.min.js";
+    script.src = primarySrc;
     script.defer = true;
     script.onload = () => {
         renderRadarChart();
     };
     script.onerror = () => {
-        const fallback = document.createElement('script');
-        fallback.src = "https://cdn.jsdelivr.net/npm/chart.js";
-        fallback.defer = true;
-        fallback.onload = () => renderRadarChart();
-        document.body.appendChild(fallback);
+        const altScript = document.createElement('script');
+        altScript.src = altSrc;
+        altScript.defer = true;
+        altScript.onload = () => renderRadarChart();
+        altScript.onerror = () => {
+            const fallback = document.createElement('script');
+            fallback.src = "https://cdn.jsdelivr.net/npm/chart.js";
+            fallback.defer = true;
+            fallback.onload = () => renderRadarChart();
+            document.body.appendChild(fallback);
+        };
+        document.body.appendChild(altScript);
     };
     document.body.appendChild(script);
 }

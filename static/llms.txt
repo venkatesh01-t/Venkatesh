@@ -44,7 +44,7 @@
 
 - **AI-Powered Selenium & Playwright Automation Pipeline**: Automated multi-page web crawler and end-to-end regression testing suite with stealth browser fingerprinting and automated reporting.
 - **Gesture-Controlled Vision System**: Real-time human-computer interface built with Python, OpenCV, and MediaPipe mapping physical finger motions to system commands without touch.
-- **Full-Stack Django Portfolio & Telemetry Control Center**: Django 5-powered portfolio with SQLite persistence, live dual-channel Google SMTP notifications, Chart.js analytics telemetry, and direct client email response tooling.
+- **Full-Stack Django Portfolio & Telemetry Control Center**: Django 5-powered portfolio with Neon PostgreSQL persistence, live dual-channel Google SMTP notifications, Chart.js analytics telemetry, and direct client email response tooling.
 - **Enterprise Web Scraper & ETL Pipeline**: Resilient scraper parsing dynamic JavaScript SPAs and extracting normalized tabular datasets with error retries and automated exports.
 
 ## How to Engage & Collaborate

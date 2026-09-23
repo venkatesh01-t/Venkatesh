@@ -96,6 +96,37 @@ DATABASES = {
     )
 }
 
+# Resilient DNS Resolution Fallback for Local Development & Restricted Wi-Fi/ISPs
+# If local router DNS refuses or fails to resolve neon.tech, fallback via DNS-over-HTTPS
+def _resolve_host_ip_fallback(hostname):
+    if not hostname:
+        return None
+    import socket
+    try:
+        socket.getaddrinfo(hostname, 5432)
+        return None  # Native OS DNS succeeded
+    except Exception:
+        pass
+    try:
+        import urllib.request
+        import json
+        url = f"https://dns.google/resolve?name={hostname}&type=A"
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=3) as resp:
+            data = json.loads(resp.read().decode('utf-8'))
+            if 'Answer' in data:
+                for ans in data['Answer']:
+                    if ans.get('type') == 1:
+                        return ans.get('data')
+    except Exception:
+        pass
+    return None
+
+_fallback_ip = _resolve_host_ip_fallback(DATABASES['default'].get('HOST'))
+if _fallback_ip:
+    DATABASES['default'].setdefault('OPTIONS', {})['hostaddr'] = _fallback_ip
+
+
 
 
 # Password validation
