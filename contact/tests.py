@@ -162,7 +162,7 @@ class EmailNotificationTest(TestCase):
         self.assertIn("babuvenkatesh093@gmail.com", admin_email.to[0])
         self.assertEqual(len(admin_email.alternatives), 1)
         admin_html = admin_email.alternatives[0][0]
-        self.assertIn("https://venkatesh-snowy.vercel.app/static/1.png", admin_html)
+        self.assertIn("https://venkatesh01-t.vercel.app/static/1.png", admin_html)
         self.assertIn("auraSpin", admin_html)
         self.assertIn("Incoming Client Inquiry", admin_html)
         self.assertIn("Direct Email Reply", admin_html)
@@ -177,7 +177,7 @@ class EmailNotificationTest(TestCase):
         self.assertEqual(len(visitor_email.alternatives), 1)
         html_body, mime_type = visitor_email.alternatives[0]
         self.assertEqual(mime_type, "text/html")
-        self.assertIn("https://venkatesh-snowy.vercel.app/static/1.png", html_body)
+        self.assertIn("https://venkatesh01-t.vercel.app/static/1.png", html_body)
         self.assertIn("auraSpin", html_body)
         self.assertIn("radarPing", html_body)
         self.assertIn("cursor-blink", html_body)
@@ -391,7 +391,7 @@ class SEORoutesTest(TestCase):
         res = self.client.get(reverse('sitemap_xml'))
         self.assertEqual(res.status_code, 200)
         self.assertIn('application/xml', res['Content-Type'])
-        self.assertContains(res, 'https://venkatesh-snowy.vercel.app/')
+        self.assertContains(res, 'https://venkatesh01-t.vercel.app/')
 
     def test_llms_txt(self):
         res = self.client.get(reverse('llms_txt'))

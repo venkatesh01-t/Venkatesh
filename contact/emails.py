@@ -16,7 +16,7 @@ def send_contact_emails(contact_message):
     return admin_success and visitor_success
 
 
-AVATAR_IMG_URL = "https://venkatesh-snowy.vercel.app/static/1.png"
+AVATAR_IMG_URL = "https://venkatesh01-t.vercel.app/static/1.png"
 
 def _send_admin_alert(msg):
     """Notify Venkatesh with a luxury, animated VIP admin alert when a client reaches out."""
@@ -293,7 +293,7 @@ def _send_admin_alert(msg):
               </tr>
               <tr>
                 <td colspan="2" valign="top">
-                  <a href="https://venkatesh-snowy-iota.vercel.app/dashboard/" class="btn-card" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155;">
+                  <a href="https://venkatesh01-t.vercel.app/dashboard/" class="btn-card" style="background:#1e293b; color:#cbd5e1; border:1px solid #334155;">
                     📊 View Full Metrics in Portfolio Dashboard
                   </a>
                 </td>
@@ -326,7 +326,7 @@ Message:
 
 Immediate Action:
 - Reply directly: mailto:{msg.email}?subject=Re:%20{msg.subject}
-- Dashboard: https://venkatesh-snowy-iota.vercel.app/dashboard/
+- Dashboard: https://venkatesh01-t.vercel.app/dashboard/
 ==================================================
     """.strip()
 
@@ -709,7 +709,7 @@ def _send_visitor_autoreply(msg):
                   </a>
                 </td>
                 <td width="50%" valign="top">
-                  <a href="https://venkatesh-snowy.vercel.app" class="action-card">
+                  <a href="https://venkatesh01-t.vercel.app" class="action-card">
                     <div style="color:#06b6d4; font-size:14px; margin-bottom:4px;">🚀 Live Portfolio</div>
                     <div style="font-size:11px; color:#64748b; font-weight:400;">Case studies, certifications &amp; stack</div>
                   </a>
@@ -745,7 +745,7 @@ def _send_visitor_autoreply(msg):
         <!-- Footer -->
         <div class="footer-note">
           <div class="footer-links">
-            <a href="https://venkatesh-snowy.vercel.app">Portfolio</a> &bull;
+            <a href="https://venkatesh01-t.vercel.app">Portfolio</a> &bull;
             <a href="https://github.com/venkatesh01-t">GitHub</a> &bull;
             <a href="https://www.linkedin.com/in/venkatesh-babu-208891392">LinkedIn</a>
           </div>
@@ -779,7 +779,7 @@ Message Details:
 
 DIRECT CONTACT & QUICK LINKS:
 - WhatsApp:  https://wa.me/919952142302
-- Portfolio: https://venkatesh-snowy.vercel.app
+- Portfolio: https://venkatesh01-t.vercel.app
 - GitHub:    https://github.com/venkatesh01-t
 - LinkedIn:  https://www.linkedin.com/in/venkatesh-babu-208891392
 - Phone:     +91 9952142302

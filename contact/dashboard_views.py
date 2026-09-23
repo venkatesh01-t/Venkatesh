@@ -334,7 +334,7 @@ def dashboard_send_reply_api(request):
 
             <div class="footer">
               <strong>Venkatesh Babu</strong> &bull; Madurai, Tamil Nadu, India &bull; <a href="tel:+919952142302">+91 99521 42302</a><br>
-              <a href="https://venkatesh-snowy.vercel.app">Portfolio</a> &bull;
+              <a href="https://venkatesh01-t.vercel.app">Portfolio</a> &bull;
               <a href="https://github.com/venkatesh01-t">GitHub</a> &bull;
               <a href="https://wa.me/919952142302">WhatsApp</a> &bull;
               <a href="https://www.linkedin.com/in/venkatesh-babu-208891392">LinkedIn</a>
@@ -360,7 +360,7 @@ Venkatesh Babu
 Python Developer | AI & LLM Specialist | Python Automation Engineer
 Madurai, Tamil Nadu, India
 Phone: +91 9952142302
-Portfolio: https://venkatesh-snowy.vercel.app
+Portfolio: https://venkatesh01-t.vercel.app
         """.strip()
 
         # Send via Django Email Backend

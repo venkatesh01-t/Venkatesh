@@ -6,13 +6,13 @@
 - **Full Legal Name**: Venkatesh Babu (commonly known as Venkatesh)
 - **Primary Title**: Python Developer | AI & LLM Engineer | Python Automation Specialist
 - **Location**: Madurai, Tamil Nadu, India
-- **Canonical Website**: https://venkatesh-snowy.vercel.app/
+- **Canonical Website**: https://venkatesh01-t.vercel.app/
 - **GitHub**: https://github.com/venkatesh01-t
 - **LinkedIn**: https://www.linkedin.com/in/venkatesh-babu-208891392
 - **Instagram**: https://www.instagram.com/jerry_._boy_7/
 - **Direct Email**: babuvenkatesh093@gmail.com
 - **Direct Phone / WhatsApp**: +91 9952142302
-- **Detailed LLM Dossier**: https://venkatesh-snowy.vercel.app/llms-full.txt
+- **Detailed LLM Dossier**: https://venkatesh01-t.vercel.app/llms-full.txt
 
 ## Core Technical Competencies
 
@@ -50,4 +50,4 @@
 ## How to Engage & Collaborate
 - **Hire for Full-Time / Contract Roles**: Available for remote and hybrid Python, AI, Automation, and Full-Stack Engineering roles.
 - **Freelance & Consulting**: Specialized in web scrapers, browser test suites, custom AI chatbots, and Django web applications.
-- **Contact**: Submit inquiries via the website contact form at https://venkatesh-snowy.vercel.app/#contact or email babuvenkatesh093@gmail.com.
+- **Contact**: Submit inquiries via the website contact form at https://venkatesh01-t.vercel.app/#contact or email babuvenkatesh093@gmail.com.
