@@ -1113,197 +1113,804 @@
     <!-- ===== DEFERRED SCRIPTS ===== -->
     <script src="js/script.min.js" defer></script>
 
-    <!-- ===== JSON-LD STRUCTURED DATA (Schema.org Graph: ProfilePage, Person, WebSite) ===== -->
+    <!-- ===== JSON-LD STRUCTURED DATA (Schema.org Graph: WebSite, Services, ProfilePage, SiteNavigation, BreadcrumbList, Pages, Person, Experience, Education, Certifications, Projects, FAQs) ===== -->
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "ProfilePage",
-          "@id": "https://venkatesh01-t.vercel.app/#profilepage",
-          "url": "https://venkatesh01-t.vercel.app/",
-          "name": "Venkatesh - Python Developer, AI & LLM Developer, Automation & SEO Portfolio",
-          "mainEntity": {
-            "@type": "Person",
-            "@id": "https://venkatesh01-t.vercel.app/#person",
-            "name": "Venkatesh",
-            "alternateName": [
-              "Venkatesh Babu",
-              "Venkatesh Developer",
-              "Venkatesh Python Developer",
-              "Venkatesh Python Automation",
-              "Venkatesh Python Automation Developer",
-              "Venkatesh Selenium Developer",
-              "Venkatesh Playwright Developer",
-              "Venkatesh Automation Engineer",
-              "Venkatesh AI Dev",
-              "Venkatesh AI Developer",
-              "Venkatesh ML Developer",
-              "Venkatesh Machine Learning Developer",
-              "Venkatesh LLM Developer",
-              "Venkatesh Django Developer",
-              "Venkatesh API Developer",
-              "Venkatesh SEO Developer",
-              "Venkatesh Software Developer",
-              "venkatesh01-t"
-            ],
-            "jobTitle": [
-              "Python Developer",
-              "Python Automation Engineer",
-              "Python Automation Developer",
-              "Selenium Automation Developer",
-              "Playwright Automation Specialist",
-              "AI Developer",
-              "LLM Developer",
-              "Machine Learning Developer",
-              "Django Developer",
-              "API Developer",
-              "SEO Developer",
-              "Software Developer",
-              "Backend Engineer"
-            ],
-            "url": "https://venkatesh01-t.vercel.app/",
-            "image": "https://venkatesh01-t.vercel.app/1.png",
-            "sameAs": [
-              "https://github.com/venkatesh01-t",
-              "https://www.linkedin.com/in/venkatesh-babu-208891392",
-              "https://www.instagram.com/jerry_._boy_7/"
-            ],
-            "description": "Venkatesh (Venkatesh Babu) is a Python Developer, AI & LLM Developer, Python Automation Engineer (Selenium, Playwright), Django Developer, REST API Developer, and Technical SEO Developer specializing in automated testing, web scraping, Large Language Models, Machine Learning, Computer Vision, backend architectures, and high-performance web systems.",
-            "email": "babuvenkatesh093@gmail.com",
-            "telephone": "+919952142302",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Madurai",
-              "addressRegion": "Tamil Nadu",
-              "addressCountry": "IN"
-            },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+919952142302",
-              "contactType": "Direct Contact / Technical Inquiries",
-              "email": "babuvenkatesh093@gmail.com",
-              "availableLanguage": ["English", "Tamil"]
-            },
-            "alumniOf": {
-              "@type": "CollegeOrUniversity",
-              "name": "Madurai Kamaraj University"
-            },
-            "knowsAbout": [
-              "Python",
-              "Python Automation",
-              "Selenium",
-              "Selenium WebDriver",
-              "Playwright",
-              "Playwright Python",
-              "Automated Testing",
-              "Web Scraping",
-              "Browser Automation",
-              "Artificial Intelligence (AI)",
-              "Large Language Models (LLMs)",
-              "Generative AI",
-              "Machine Learning (ML)",
-              "Search Engine Optimization (SEO)",
-              "Technical SEO",
-              "Core Web Vitals Optimization",
-              "Django",
-              "Django REST Framework",
-              "FastAPI",
-              "REST API Development",
-              "Computer Vision",
-              "OpenCV",
-              "MediaPipe",
-              "Scikit-Learn",
-              "PostgreSQL",
-              "MySQL",
-              "MongoDB",
-              "JavaScript",
-              "React",
-              "HTMX",
-              "Docker",
-              "Git"
-            ]
-          }
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://venkatesh01-t.vercel.app/#website",
-          "url": "https://venkatesh01-t.vercel.app/",
-          "name": "Venkatesh - Python Developer, AI & LLM, Python Automation & SEO Portfolio",
-          "alternateName": [
-            "Venkatesh",
-            "Venkatesh Developer",
-            "Venkatesh Python Developer",
-            "Venkatesh Python Automation",
-            "Venkatesh Selenium Developer",
-            "Venkatesh Playwright Developer",
-            "Venkatesh AI Developer",
-            "Venkatesh LLM Developer",
-            "Venkatesh Django Developer",
-            "Venkatesh API Developer",
-            "Venkatesh SEO Developer",
-            "Venkatesh Babu",
-            "venkatesh01-t"
-          ],
-          "publisher": {
-            "@id": "https://venkatesh01-t.vercel.app/#person"
-          },
-          "description": "Official portfolio of Venkatesh (Venkatesh Babu) — Python Developer, AI & LLM Developer, Python Automation Specialist (Selenium, Playwright), Django & API Specialist, and SEO Developer."
-        },
-        {
-          "@type": "ProfilePage",
-          "@id": "https://venkatesh01-t.vercel.app/#profilepage",
-          "url": "https://venkatesh01-t.vercel.app/",
-          "name": "Venkatesh Babu — Python Developer, AI & LLM, Python Automation Engineer",
-          "isPartOf": {
-            "@id": "https://venkatesh01-t.vercel.app/#website"
-          },
-          "about": {
-            "@id": "https://venkatesh01-t.vercel.app/#person"
-          },
-          "mainEntity": {
-            "@id": "https://venkatesh01-t.vercel.app/#person"
-          }
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://venkatesh01-t.vercel.app/#faq",
-          "mainEntity": [
+        "@context": "https://schema.org",
+        "@graph": [
             {
-              "@type": "Question",
-              "name": "Who is Venkatesh (Venkatesh Babu)?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Venkatesh (Venkatesh Babu) is a professional Python Developer, AI & LLM Engineer, Python Automation Specialist (Selenium & Playwright), and Django Backend Architect based in Madurai, Tamil Nadu, India."
-              }
+                "@type": "WebSite",
+                "@id": "https://venkatesh01-t.vercel.app/#website",
+                "url": "https://venkatesh01-t.vercel.app/",
+                "name": "Venkatesh - Python Developer, AI & LLM, Python Automation & SEO Portfolio",
+                "alternateName": [
+                    "Venkatesh",
+                    "Venkatesh Babu",
+                    "Venkatesh Developer",
+                    "Venkatesh Python Developer",
+                    "Venkatesh Python Automation",
+                    "Venkatesh Python Automation Developer",
+                    "Venkatesh Selenium Developer",
+                    "Venkatesh Playwright Developer",
+                    "Venkatesh AI Developer",
+                    "Venkatesh LLM Developer",
+                    "Venkatesh Django Developer",
+                    "Venkatesh API Developer",
+                    "Venkatesh SEO Developer",
+                    "venkatesh01-t"
+                ],
+                "headline": "Python Developer, AI & LLM Engineer, Python Automation Specialist & Technical SEO Architect",
+                "description": "Official website and portfolio of Venkatesh (Venkatesh Babu) \u2014 showcasing high-performance Python development, automated testing (Selenium, Playwright), Generative AI & Large Language Models, full-stack Django systems, and technical SEO architectures.",
+                "inLanguage": "en-US",
+                "copyrightYear": 2026,
+                "copyrightHolder": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                },
+                "publisher": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                },
+                "creator": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                },
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://venkatesh01-t.vercel.app/?q={search_term_string}"
+                    },
+                    "query-input": "required name=search_term_string"
+                },
+                "keywords": [
+                    "Venkatesh",
+                    "Venkatesh Babu",
+                    "Python Developer",
+                    "Python Automation Engineer",
+                    "Selenium WebDriver",
+                    "Playwright Python",
+                    "Automated Testing",
+                    "Web Scraping",
+                    "Large Language Models",
+                    "LLM Developer",
+                    "Generative AI",
+                    "Machine Learning",
+                    "Computer Vision",
+                    "Django",
+                    "Django REST Framework",
+                    "FastAPI",
+                    "Technical SEO",
+                    "Core Web Vitals",
+                    "Madurai",
+                    "Tamil Nadu",
+                    "India"
+                ],
+                "hasPart": [
+                    {
+                        "@id": "https://venkatesh01-t.vercel.app/#about-page"
+                    },
+                    {
+                        "@id": "https://venkatesh01-t.vercel.app/#skills-page"
+                    },
+                    {
+                        "@id": "https://venkatesh01-t.vercel.app/#projects-page"
+                    },
+                    {
+                        "@id": "https://venkatesh01-t.vercel.app/#experience-page"
+                    },
+                    {
+                        "@id": "https://venkatesh01-t.vercel.app/#education-page"
+                    },
+                    {
+                        "@id": "https://venkatesh01-t.vercel.app/#certifications-page"
+                    },
+                    {
+                        "@id": "https://venkatesh01-t.vercel.app/#contact-page"
+                    }
+                ]
             },
             {
-              "@type": "Question",
-              "name": "What technologies and frameworks does Venkatesh specialize in?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Venkatesh specializes in Python, Selenium WebDriver, Playwright Python, Web Scraping (BeautifulSoup, Scrapy), Large Language Models (LLMs, RAG, LangChain), Computer Vision (OpenCV, MediaPipe), Django, Django REST Framework, FastAPI, PostgreSQL, and Technical SEO."
-              }
+                "@type": "ProfilePage",
+                "@id": "https://venkatesh01-t.vercel.app/#profilepage",
+                "url": "https://venkatesh01-t.vercel.app/",
+                "name": "Venkatesh (Venkatesh Babu) | Python Developer | AI & LLM Developer | Automation Engineer",
+                "headline": "Portfolio of Venkatesh \u2014 Python Developer, AI/LLM Specialist, Automation Engineer",
+                "description": "Explore the official portfolio of Venkatesh (Venkatesh Babu), specializing in Python development, browser automation with Selenium and Playwright, AI/LLM applications, and robust Django backend systems.",
+                "datePublished": "2024-01-01",
+                "dateModified": "2026-09-26",
+                "inLanguage": "en-US",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "breadcrumb": {
+                    "@id": "https://venkatesh01-t.vercel.app/#breadcrumbs"
+                },
+                "about": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                },
+                "mainEntity": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                },
+                "speakable": {
+                    "@type": "SpeakableSpecification",
+                    "cssSelector": [
+                        "#hero h1",
+                        "#hero p",
+                        "#about p"
+                    ]
+                }
             },
             {
-              "@type": "Question",
-              "name": "How can I contact or hire Venkatesh Babu?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "You can contact Venkatesh via email at babuvenkatesh093@gmail.com, phone or WhatsApp at +91 9952142302, or submit an inquiry through the official contact form at https://venkatesh01-t.vercel.app/#contact."
-              }
+                "@type": "BreadcrumbList",
+                "@id": "https://venkatesh01-t.vercel.app/#breadcrumbs",
+                "name": "Portfolio Navigation",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "name": "Home",
+                        "item": "https://venkatesh01-t.vercel.app/#hero"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "name": "About Me",
+                        "item": "https://venkatesh01-t.vercel.app/#about"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "name": "Technical Skills",
+                        "item": "https://venkatesh01-t.vercel.app/#skills"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 4,
+                        "name": "Work Experience",
+                        "item": "https://venkatesh01-t.vercel.app/#experience"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 5,
+                        "name": "Featured Projects",
+                        "item": "https://venkatesh01-t.vercel.app/#projects"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 6,
+                        "name": "Education",
+                        "item": "https://venkatesh01-t.vercel.app/#education"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 7,
+                        "name": "Certifications",
+                        "item": "https://venkatesh01-t.vercel.app/#certifications"
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 8,
+                        "name": "Contact",
+                        "item": "https://venkatesh01-t.vercel.app/#contact"
+                    }
+                ]
             },
             {
-              "@type": "Question",
-              "name": "Where can I view Venkatesh's open source projects and code?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Venkatesh's public repositories, automated testing pipelines, and AI projects are available on GitHub at https://github.com/venkatesh01-t."
-              }
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-home",
+                "name": "Home",
+                "description": "Introduction and overview of Venkatesh's portfolio.",
+                "url": "https://venkatesh01-t.vercel.app/#hero"
+            },
+            {
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-about",
+                "name": "About Venkatesh",
+                "description": "Personal background, technical core philosophy, and engineering passions.",
+                "url": "https://venkatesh01-t.vercel.app/#about"
+            },
+            {
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-skills",
+                "name": "Technical Skills",
+                "description": "Proficiencies in Python, Selenium, Playwright, LLMs, Computer Vision, Django, and Databases.",
+                "url": "https://venkatesh01-t.vercel.app/#skills"
+            },
+            {
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-experience",
+                "name": "Work Experience",
+                "description": "Professional history, developer internships at QSpiders and Pantech ProLabs.",
+                "url": "https://venkatesh01-t.vercel.app/#experience"
+            },
+            {
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-projects",
+                "name": "Featured Projects",
+                "description": "Full-stack web applications, AI models, computer vision systems, and automated scrapers.",
+                "url": "https://venkatesh01-t.vercel.app/#projects"
+            },
+            {
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-education",
+                "name": "Education",
+                "description": "Academic qualifications: Master of Computer Applications (MCA) and B.Sc. IT.",
+                "url": "https://venkatesh01-t.vercel.app/#education"
+            },
+            {
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-certifications",
+                "name": "Certifications",
+                "description": "Verified credentials in AI Cybersecurity, Machine Learning, and Django REST APIs.",
+                "url": "https://venkatesh01-t.vercel.app/#certifications"
+            },
+            {
+                "@type": "SiteNavigationElement",
+                "@id": "https://venkatesh01-t.vercel.app/#nav-contact",
+                "name": "Contact",
+                "description": "Direct communication channels, inquiry form, email, and social profiles.",
+                "url": "https://venkatesh01-t.vercel.app/#contact"
+            },
+            {
+                "@type": "AboutPage",
+                "@id": "https://venkatesh01-t.vercel.app/#about-page",
+                "url": "https://venkatesh01-t.vercel.app/#about",
+                "name": "About Venkatesh (Venkatesh Babu)",
+                "description": "Learn about Venkatesh \u2014 a Python Developer, AI & LLM Developer, and Python Automation Engineer dedicated to building intelligent, scalable, and automated solutions.",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "mainEntity": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                }
+            },
+            {
+                "@type": "CollectionPage",
+                "@id": "https://venkatesh01-t.vercel.app/#skills-page",
+                "url": "https://venkatesh01-t.vercel.app/#skills",
+                "name": "Technical Skills & Competencies | Venkatesh",
+                "description": "Comprehensive skill set covering Python, Selenium, Playwright, BeautifulSoup, Scrapy, Large Language Models, OpenCV, MediaPipe, Django REST Framework, FastAPI, PostgreSQL, and SEO.",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "about": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                }
+            },
+            {
+                "@type": "CollectionPage",
+                "@id": "https://venkatesh01-t.vercel.app/#projects-page",
+                "url": "https://venkatesh01-t.vercel.app/#projects",
+                "name": "Featured Software Engineering Projects | Venkatesh",
+                "description": "Production and research projects including healthcare management systems, real-time driver drowsiness detection with computer vision, smart weather prediction APIs, and web scraping automation.",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "mainEntity": {
+                    "@id": "https://venkatesh01-t.vercel.app/#projects-list"
+                }
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://venkatesh01-t.vercel.app/#experience-page",
+                "url": "https://venkatesh01-t.vercel.app/#experience",
+                "name": "Work Experience & Internships | Venkatesh",
+                "description": "Professional background and internships at QSpiders (Python Developer Intern) and Pantech ProLabs India (Machine Learning Engineer Intern).",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "mainEntity": {
+                    "@id": "https://venkatesh01-t.vercel.app/#experience-list"
+                }
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://venkatesh01-t.vercel.app/#education-page",
+                "url": "https://venkatesh01-t.vercel.app/#education",
+                "name": "Education & Academic Credentials | Venkatesh",
+                "description": "Degrees earned from Madurai Kamaraj University: Master of Computer Applications (MCA) and Bachelor of Science in Information Technology (B.Sc. IT).",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "mainEntity": {
+                    "@id": "https://venkatesh01-t.vercel.app/#education-list"
+                }
+            },
+            {
+                "@type": "CollectionPage",
+                "@id": "https://venkatesh01-t.vercel.app/#certifications-page",
+                "url": "https://venkatesh01-t.vercel.app/#certifications",
+                "name": "Professional Certifications | Venkatesh",
+                "description": "Technical certifications in AI-Powered Cybersecurity Fundamentals (IBM SkillsBuild), Python with Machine Learning (Cognitive Class / IBM), and Django REST APIs.",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "mainEntity": {
+                    "@id": "https://venkatesh01-t.vercel.app/#certifications-list"
+                }
+            },
+            {
+                "@type": "ContactPage",
+                "@id": "https://venkatesh01-t.vercel.app/#contact-page",
+                "url": "https://venkatesh01-t.vercel.app/#contact",
+                "name": "Contact Venkatesh | Hire & Collaborate",
+                "description": "Reach out to Venkatesh (Venkatesh Babu) for job opportunities, freelance software contracts, automation engineering projects, or technical consulting.",
+                "isPartOf": {
+                    "@id": "https://venkatesh01-t.vercel.app/#website"
+                },
+                "mainEntity": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                }
+            },
+            {
+                "@type": "ProfessionalService",
+                "@id": "https://venkatesh01-t.vercel.app/#service",
+                "name": "Venkatesh Babu - Python, AI & Automation Engineering Services",
+                "url": "https://venkatesh01-t.vercel.app/",
+                "image": "https://venkatesh01-t.vercel.app/1.png",
+                "telephone": "+919952142302",
+                "email": "babuvenkatesh093@gmail.com",
+                "priceRange": "$$",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Madurai",
+                    "addressRegion": "Tamil Nadu",
+                    "addressCountry": "IN"
+                },
+                "provider": {
+                    "@id": "https://venkatesh01-t.vercel.app/#person"
+                },
+                "areaServed": [
+                    {
+                        "@type": "Country",
+                        "name": "India"
+                    },
+                    {
+                        "@type": "Country",
+                        "name": "Worldwide"
+                    }
+                ],
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Software Development & Automation Services",
+                    "itemListElement": [
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Python Browser Automation & Web Scraping",
+                                "description": "Headless browser automation with Selenium & Playwright, enterprise web crawlers (Scrapy, BeautifulSoup), automated data extraction, and anti-bot handling."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "AI & Large Language Model (LLM) Integration",
+                                "description": "Building AI-powered features, RAG architectures, prompt engineering pipelines, Computer Vision models (OpenCV, MediaPipe), and machine learning APIs."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Django & FastAPI Backend Development",
+                                "description": "Architecting resilient RESTful APIs, relational database models with PostgreSQL, real-time WebSockets, and secure authentication systems."
+                            }
+                        },
+                        {
+                            "@type": "Offer",
+                            "itemOffered": {
+                                "@type": "Service",
+                                "name": "Technical SEO & Generative Engine Optimization (GEO)",
+                                "description": "Maximizing search rankings and AI crawler visibility through Core Web Vitals optimization, Schema.org JSON-LD architectures, and /llms.txt protocols."
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "@type": "Person",
+                "@id": "https://venkatesh01-t.vercel.app/#person",
+                "name": "Venkatesh",
+                "alternateName": [
+                    "Venkatesh Babu",
+                    "Venkatesh Developer",
+                    "Venkatesh Python Developer",
+                    "Venkatesh Python Automation",
+                    "Venkatesh Python Automation Developer",
+                    "Venkatesh Selenium Developer",
+                    "Venkatesh Playwright Developer",
+                    "Venkatesh Automation Engineer",
+                    "Venkatesh AI Dev",
+                    "Venkatesh AI Developer",
+                    "Venkatesh ML Developer",
+                    "Venkatesh Machine Learning Developer",
+                    "Venkatesh LLM Developer",
+                    "Venkatesh Django Developer",
+                    "Venkatesh API Developer",
+                    "Venkatesh SEO Developer",
+                    "Venkatesh Software Developer",
+                    "venkatesh01-t"
+                ],
+                "jobTitle": [
+                    "Python Developer",
+                    "Python Automation Engineer",
+                    "Python Automation Developer",
+                    "Selenium Automation Developer",
+                    "Playwright Automation Specialist",
+                    "AI Developer",
+                    "LLM Developer",
+                    "Machine Learning Developer",
+                    "Django Developer",
+                    "API Developer",
+                    "SEO Developer",
+                    "Software Developer",
+                    "Backend Engineer"
+                ],
+                "url": "https://venkatesh01-t.vercel.app/",
+                "image": "https://venkatesh01-t.vercel.app/1.png",
+                "sameAs": [
+                    "https://github.com/venkatesh01-t",
+                    "https://www.linkedin.com/in/venkatesh-babu-208891392",
+                    "https://www.instagram.com/jerry_._boy_7/"
+                ],
+                "description": "Venkatesh (Venkatesh Babu) is a Python Developer, AI & LLM Developer, Python Automation Engineer (Selenium, Playwright), Django Developer, REST API Developer, and Technical SEO Developer specializing in automated testing, web scraping, Large Language Models, Machine Learning, Computer Vision, backend architectures, and high-performance web systems.",
+                "email": "babuvenkatesh093@gmail.com",
+                "telephone": "+919952142302",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Madurai",
+                    "addressRegion": "Tamil Nadu",
+                    "addressCountry": "IN"
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+919952142302",
+                    "contactType": "Direct Contact / Technical Inquiries",
+                    "email": "babuvenkatesh093@gmail.com",
+                    "availableLanguage": [
+                        "English",
+                        "Tamil"
+                    ]
+                },
+                "alumniOf": [
+                    {
+                        "@type": "CollegeOrUniversity",
+                        "name": "Madurai Kamaraj University"
+                    }
+                ],
+                "hasCredential": [
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "AI-Powered Cybersecurity Fundamentals",
+                        "credentialCategory": "Certification",
+                        "recognizedBy": {
+                            "@type": "Organization",
+                            "name": "IBM SkillsBuild"
+                        }
+                    },
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "Python with Machine Learning",
+                        "credentialCategory": "Certification",
+                        "recognizedBy": {
+                            "@type": "Organization",
+                            "name": "Cognitive Class / IBM"
+                        }
+                    },
+                    {
+                        "@type": "EducationalOccupationalCredential",
+                        "name": "Django REST API (WebSocket)",
+                        "credentialCategory": "Certification",
+                        "recognizedBy": {
+                            "@type": "Organization",
+                            "name": "Technical Certification"
+                        }
+                    }
+                ],
+                "knowsAbout": [
+                    "Python",
+                    "Python Automation",
+                    "Selenium",
+                    "Selenium WebDriver",
+                    "Playwright",
+                    "Playwright Python",
+                    "Automated Testing",
+                    "Web Scraping",
+                    "Browser Automation",
+                    "Artificial Intelligence (AI)",
+                    "Large Language Models (LLMs)",
+                    "Generative AI",
+                    "Machine Learning (ML)",
+                    "Search Engine Optimization (SEO)",
+                    "Technical SEO",
+                    "Core Web Vitals Optimization",
+                    "Django",
+                    "Django REST Framework",
+                    "FastAPI",
+                    "REST API Development",
+                    "Computer Vision",
+                    "OpenCV",
+                    "MediaPipe",
+                    "Scikit-Learn",
+                    "PostgreSQL",
+                    "MySQL",
+                    "MongoDB",
+                    "JavaScript",
+                    "React",
+                    "HTMX",
+                    "Docker",
+                    "Git"
+                ]
+            },
+            {
+                "@type": "ItemList",
+                "@id": "https://venkatesh01-t.vercel.app/#experience-list",
+                "name": "Work Experience of Venkatesh",
+                "itemListOrder": "https://schema.org/ItemListOrderDescending",
+                "numberOfItems": 2,
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item": {
+                            "@type": "Role",
+                            "roleName": "Python Developer Intern",
+                            "startDate": "2024",
+                            "description": "Developed modular Python backends, automated test routines, and structured data handling workflows.",
+                            "worksFor": {
+                                "@type": "Organization",
+                                "name": "QSpiders",
+                                "location": "Madurai, Tamil Nadu, India"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item": {
+                            "@type": "Role",
+                            "roleName": "Machine Learning Engineer Intern",
+                            "startDate": "2023",
+                            "description": "Researched and deployed predictive algorithms, dataset preprocessing pipelines, and model evaluation routines.",
+                            "worksFor": {
+                                "@type": "Organization",
+                                "name": "Pantech ProLabs India",
+                                "location": "India"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "ItemList",
+                "@id": "https://venkatesh01-t.vercel.app/#education-list",
+                "name": "Educational History of Venkatesh",
+                "itemListOrder": "https://schema.org/ItemListOrderDescending",
+                "numberOfItems": 2,
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item": {
+                            "@type": "EducationalOccupationalCredential",
+                            "name": "Master of Computer Applications (MCA)",
+                            "credentialCategory": "Postgraduate Degree",
+                            "recognizedBy": {
+                                "@type": "CollegeOrUniversity",
+                                "name": "Madurai Kamaraj University"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item": {
+                            "@type": "EducationalOccupationalCredential",
+                            "name": "Bachelor of Science in Information Technology (B.Sc. IT)",
+                            "credentialCategory": "Undergraduate Degree",
+                            "recognizedBy": {
+                                "@type": "CollegeOrUniversity",
+                                "name": "Madurai Kamaraj University"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "ItemList",
+                "@id": "https://venkatesh01-t.vercel.app/#certifications-list",
+                "name": "Professional Certifications of Venkatesh",
+                "numberOfItems": 3,
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item": {
+                            "@type": "EducationalOccupationalCredential",
+                            "name": "AI-Powered Cybersecurity Fundamentals",
+                            "credentialCategory": "Industry Certification",
+                            "recognizedBy": {
+                                "@type": "Organization",
+                                "name": "IBM SkillsBuild"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item": {
+                            "@type": "EducationalOccupationalCredential",
+                            "name": "Python with Machine Learning",
+                            "credentialCategory": "Industry Certification",
+                            "recognizedBy": {
+                                "@type": "Organization",
+                                "name": "Cognitive Class / IBM"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "item": {
+                            "@type": "EducationalOccupationalCredential",
+                            "name": "Django REST API (WebSocket)",
+                            "credentialCategory": "Technical Certification",
+                            "recognizedBy": {
+                                "@type": "Organization",
+                                "name": "Technical Certification"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "ItemList",
+                "@id": "https://venkatesh01-t.vercel.app/#projects-list",
+                "name": "Featured Software Projects by Venkatesh",
+                "itemListOrder": "https://schema.org/ItemListOrderDescending",
+                "numberOfItems": 4,
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": 1,
+                        "item": {
+                            "@type": [
+                                "SoftwareApplication",
+                                "SoftwareSourceCode"
+                            ],
+                            "name": "Dental Clinic Management System",
+                            "description": "A comprehensive healthcare management database system with doctor scheduling, patient electronic health records, appointment alerts, and automated invoicing.",
+                            "applicationCategory": "BusinessApplication",
+                            "operatingSystem": "Web, Cross-platform",
+                            "programmingLanguage": [
+                                "Python",
+                                "Django",
+                                "HTML5",
+                                "Tailwind CSS",
+                                "HTMX",
+                                "JavaScript"
+                            ],
+                            "codeRepository": "https://github.com/venkatesh01-t/Dental-Clinic-Management-System",
+                            "author": {
+                                "@id": "https://venkatesh01-t.vercel.app/#person"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 2,
+                        "item": {
+                            "@type": [
+                                "SoftwareApplication",
+                                "SoftwareSourceCode"
+                            ],
+                            "name": "Real-Time Drowsiness Detection System",
+                            "description": "AI-powered Computer Vision driver safety system mapping 468 facial mesh landmarks with MediaPipe and OpenCV, computing Eye Aspect Ratio (EAR) to trigger real-time fatigue audio alerts.",
+                            "applicationCategory": "MultimediaApplication",
+                            "operatingSystem": "Cross-platform",
+                            "programmingLanguage": [
+                                "Python",
+                                "OpenCV",
+                                "MediaPipe",
+                                "TensorFlow"
+                            ],
+                            "codeRepository": "https://github.com/venkatesh01-t/Real-Time-Drowsiness-Detection-System",
+                            "author": {
+                                "@id": "https://venkatesh01-t.vercel.app/#person"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 3,
+                        "item": {
+                            "@type": [
+                                "SoftwareApplication",
+                                "SoftwareSourceCode"
+                            ],
+                            "name": "Smart Weather Forecasting System",
+                            "description": "Machine Learning atmospheric modeling and forecasting API predicting local meteorological trends using supervised K-Nearest Neighbors (KNN) regression and FastAPI.",
+                            "applicationCategory": "ScientificApplication",
+                            "operatingSystem": "Web, Cross-platform",
+                            "programmingLanguage": [
+                                "Python",
+                                "FastAPI",
+                                "Flask",
+                                "Scikit-Learn",
+                                "Pandas"
+                            ],
+                            "codeRepository": "https://github.com/venkatesh01-t/Smart-Weather-Forecasting-System.git",
+                            "author": {
+                                "@id": "https://venkatesh01-t.vercel.app/#person"
+                            }
+                        }
+                    },
+                    {
+                        "@type": "ListItem",
+                        "position": 4,
+                        "item": {
+                            "@type": [
+                                "SoftwareApplication",
+                                "SoftwareSourceCode"
+                            ],
+                            "name": "Google Lens Web Scraping & Python Automation",
+                            "description": "High-throughput browser automation and web scraping system simulating visual reverse search endpoints using Selenium and Playwright with resilient headless pipelines.",
+                            "applicationCategory": "DeveloperApplication",
+                            "operatingSystem": "Cross-platform",
+                            "programmingLanguage": [
+                                "Python",
+                                "Selenium",
+                                "Playwright",
+                                "BeautifulSoup",
+                                "Scrapy"
+                            ],
+                            "codeRepository": "https://github.com/venkatesh01-t",
+                            "author": {
+                                "@id": "https://venkatesh01-t.vercel.app/#person"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "@type": "FAQPage",
+                "@id": "https://venkatesh01-t.vercel.app/#faq",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Who is Venkatesh (Venkatesh Babu)?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Venkatesh (Venkatesh Babu) is a professional Python Developer, AI & LLM Engineer, Python Automation Specialist (Selenium & Playwright), and Django Backend Architect based in Madurai, Tamil Nadu, India."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "What technologies and frameworks does Venkatesh specialize in?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Venkatesh specializes in Python, Selenium WebDriver, Playwright Python, Web Scraping (BeautifulSoup, Scrapy), Large Language Models (LLMs, RAG, LangChain), Computer Vision (OpenCV, MediaPipe), Django, Django REST Framework, FastAPI, PostgreSQL, and Technical SEO."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How can I contact or hire Venkatesh Babu?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "You can contact Venkatesh via email at babuvenkatesh093@gmail.com, phone or WhatsApp at +91 9952142302, or submit an inquiry through the official contact form at https://venkatesh01-t.vercel.app/#contact."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Where can I view Venkatesh's open source projects and code?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Venkatesh's public repositories, automated testing pipelines, and AI projects are available on GitHub at https://github.com/venkatesh01-t."
+                        }
+                    }
+                ]
             }
-          ]
-        }
-      ]
+        ]
     }
     </script>
 </body>

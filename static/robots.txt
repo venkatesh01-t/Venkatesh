@@ -44,6 +44,5 @@ User-agent: meta-externalagent
 Allow: /
 Disallow: /dashboard/
 
-# Sitemap & LLM Indexing Protocols
 Sitemap: https://venkatesh01-t.vercel.app/sitemap.xml
-LLMs-Txt: https://venkatesh01-t.vercel.app/llms.txt
+# LLMs-Txt: https://venkatesh01-t.vercel.app/llms.txt
