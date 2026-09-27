@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Smart Dental Clinic Management System — Django Full-Stack Case Study | Venkatesh Babu{% endblock %}
+{% block description %}Case study: Smart Dental Clinic Management System built with Django, PostgreSQL, REST API, Tailwind CSS. Patient records, appointments, billing, and admin dashboard.{% endblock %}
+{% block keywords %}Django project, dental clinic management system, Django REST API, PostgreSQL, healthcare management, full-stack project{% endblock %}
+{% block canonical %}https://venkatesh01-t.vercel.app/projects/dental-clinic-system/{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_url %}https://venkatesh01-t.vercel.app/projects/dental-clinic-system/{% endblock %}
+{% block og_title %}Dental Clinic Management System | Django Case Study{% endblock %}
+{% block og_description %}Full-stack Django healthcare management application case study.{% endblock %}
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="mb-8"><ol class="flex items-center gap-2 text-xs text-slate-500"><li><a href="/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a></li><li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li><li><a href="/projects/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Projects</a></li><li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li><li class="text-slate-900 dark:text-white font-semibold">Dental Clinic System</li></ol></nav>
+{% endblock %}
+{% block content %}
+<article class="space-y-12 max-w-4xl mx-auto">
+    <section class="space-y-6 py-8">
+        <span class="px-2.5 py-1 bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20 rounded-md text-[10px] font-mono font-semibold">Full-Stack Django</span>
+        <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white">Smart Dental Clinic <span class="text-gradient">Management System</span></h1>
+        <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">A comprehensive <strong>Django full-stack web application</strong> designed to digitize dental clinic operations — from patient registration and appointment scheduling to treatment tracking, billing, and admin analytics. Deployed on <strong>Vercel</strong> with <strong>Neon PostgreSQL</strong>.</p>
+    </section>
+    <section class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 space-y-6">
+        <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white">Challenge</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Traditional dental clinics rely on paper records and manual appointment booking, leading to scheduling conflicts, lost patient data, and inefficient billing. The challenge was to build a modern, secure, and user-friendly digital system that could handle the complete patient lifecycle within a single platform.</p>
+    </section>
+    <section class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 space-y-6">
+        <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white">Solution</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2"><h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-user-injured text-green-500 mr-2" aria-hidden="true"></i>Patient Management</h3><p class="text-xs text-slate-500">CRUD operations for patient records with medical history, allergies, and treatment notes stored in PostgreSQL.</p></div>
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2"><h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-calendar-check text-blue-500 mr-2" aria-hidden="true"></i>Appointment Scheduling</h3><p class="text-xs text-slate-500">Calendar-based appointment booking with conflict detection, reminder notifications, and doctor availability slots.</p></div>
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2"><h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-file-invoice-dollar text-amber-500 mr-2" aria-hidden="true"></i>Billing & Invoicing</h3><p class="text-xs text-slate-500">Automated invoice generation, treatment cost tracking, payment status management, and financial reporting.</p></div>
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2"><h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-chart-pie text-purple-500 mr-2" aria-hidden="true"></i>Admin Dashboard</h3><p class="text-xs text-slate-500">Analytics dashboard with patient statistics, revenue charts, appointment trends, and staff management.</p></div>
+        </div>
+    </section>
+    <section class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 space-y-6">
+        <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white">Tech Stack</h2>
+        <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20 rounded-lg text-xs font-mono font-semibold">Django 5.x</span>
+            <span class="px-3 py-1.5 bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20 rounded-lg text-xs font-mono font-semibold">PostgreSQL</span>
+            <span class="px-3 py-1.5 bg-orange-500/10 text-orange-700 dark:text-orange-300 border border-orange-500/20 rounded-lg text-xs font-mono font-semibold">Django REST Framework</span>
+            <span class="px-3 py-1.5 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 rounded-lg text-xs font-mono font-semibold">Tailwind CSS</span>
+            <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono">WhiteNoise</span>
+            <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono">Vercel Serverless</span>
+            <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono">Neon DB</span>
+        </div>
+    </section>
+    <section class="flex flex-wrap gap-4 justify-center py-8">
+        <a href="https://github.com/venkatesh01-t" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold shadow-md hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2 text-sm"><i class="fab fa-github" aria-hidden="true"></i> View on GitHub</a>
+        <a href="/services/django-api-development/" class="px-6 py-3 rounded-full border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold hover:border-green-400 hover:scale-105 transition-all inline-flex items-center gap-2 text-sm"><i class="fas fa-server" aria-hidden="true"></i> Related Service</a>
+    </section>
+</article>
+{% endblock %}
+{% block jsonld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Smart Dental Clinic Management System","description":"Full-stack Django healthcare management application with patient records, appointment scheduling, billing, and admin dashboard.","url":"https://venkatesh01-t.vercel.app/projects/dental-clinic-system/","applicationCategory":"HealthcareApplication","operatingSystem":"Web","author":{"@type":"Person","name":"Venkatesh Babu","url":"https://venkatesh01-t.vercel.app/"},"programmingLanguage":"Python","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://venkatesh01-t.vercel.app/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://venkatesh01-t.vercel.app/projects/"},{"@type":"ListItem","position":3,"name":"Dental Clinic System"}]}]}
+</script>
+{% endblock %}

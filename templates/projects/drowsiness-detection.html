@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}Driver Drowsiness Detection System — Computer Vision & OpenCV Case Study | Venkatesh Babu{% endblock %}
+{% block description %}Case study: Real-time Driver Drowsiness & Fatigue Detection System built with Python, OpenCV, MediaPipe, and Scipy. Eye Aspect Ratio (EAR) tracking and instant acoustic alarms.{% endblock %}
+{% block keywords %}driver drowsiness detection, computer vision python, OpenCV project, MediaPipe face mesh, Eye Aspect Ratio, fatigue detection, AI safety system{% endblock %}
+{% block canonical %}https://venkatesh01-t.vercel.app/projects/drowsiness-detection/{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block og_url %}https://venkatesh01-t.vercel.app/projects/drowsiness-detection/{% endblock %}
+{% block og_title %}Driver Drowsiness Detection System | Computer Vision Case Study{% endblock %}
+{% block og_description %}Real-time driver fatigue monitoring system using OpenCV and MediaPipe facial landmark tracking.{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="mb-8">
+    <ol class="flex items-center gap-2 text-xs text-slate-500">
+        <li><a href="/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a></li>
+        <li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li>
+        <li><a href="/projects/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Projects</a></li>
+        <li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li>
+        <li class="text-slate-900 dark:text-white font-semibold">Drowsiness Detection</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<article class="space-y-12 max-w-4xl mx-auto">
+    <section class="space-y-6 py-8">
+        <span class="px-2.5 py-1 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-md text-[10px] font-mono font-semibold">AI &bull; Computer Vision</span>
+        <h1 class="text-3xl sm:text-4xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white">Real-Time Driver <span class="text-gradient">Drowsiness Detection</span></h1>
+        <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+            An advanced computer vision system designed to prevent road accidents caused by driver fatigue. Utilizing <strong>OpenCV</strong>, <strong>MediaPipe Face Mesh</strong>, and mathematical landmark calculation (<strong>Eye Aspect Ratio - EAR</strong>), it monitors eye closure duration and head nodding to trigger sub-second auditory safety alerts.
+        </p>
+    </section>
+
+    <!-- Key Metrics / Stats -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-card rounded-xl p-5 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-2xl font-display font-extrabold text-teal-600 dark:text-teal-400">98.5%</span>
+            <p class="text-xs text-slate-500">Detection Accuracy</p>
+        </div>
+        <div class="glass-card rounded-xl p-5 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-2xl font-display font-extrabold text-purple-600 dark:text-purple-400">&lt; 200ms</span>
+            <p class="text-xs text-slate-500">Alert Latency</p>
+        </div>
+        <div class="glass-card rounded-xl p-5 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-2xl font-display font-extrabold text-blue-600 dark:text-blue-400">30+ FPS</span>
+            <p class="text-xs text-slate-500">Real-Time Feed</p>
+        </div>
+        <div class="glass-card rounded-xl p-5 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-2xl font-display font-extrabold text-emerald-600 dark:text-emerald-400">468</span>
+            <p class="text-xs text-slate-500">Facial Landmarks</p>
+        </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 space-y-4">
+        <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white flex items-center gap-2">
+            <i class="fas fa-exclamation-triangle text-amber-500" aria-hidden="true"></i> The Challenge
+        </h2>
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Drowsy driving accounts for thousands of vehicular fatalities annually. Existing in-vehicle commercial detection hardware is expensive, proprietary, and often fails under fluctuating lighting conditions (night drives, direct sunlight) or when drivers wear spectacles. The objective was to build an ultra-lightweight, hardware-agnostic solution that operates reliably on consumer-grade webcams with zero GPU requirements.
+        </p>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 space-y-6">
+        <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white flex items-center gap-2">
+            <i class="fas fa-lightbulb text-teal-500" aria-hidden="true"></i> Architecture & Engineering Solution
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-eye text-purple-500 mr-2" aria-hidden="true"></i>Eye Aspect Ratio (EAR) Algorithm</h3>
+                <p class="text-xs text-slate-500">Calculates Euclidean distances between vertical and horizontal eye landmark coordinates. If EAR drops below a calibrated threshold for more than 20 consecutive frames, drowsiness is flagged.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-smile text-cyan-500 mr-2" aria-hidden="true"></i>Yawn & Mouth Aspect Ratio (MAR)</h3>
+                <p class="text-xs text-slate-500">Tracks mouth opening ratio over time to detect frequent yawning patterns as an early warning precursor before micro-sleep episodes occur.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-bell text-rose-500 mr-2" aria-hidden="true"></i>Multi-Level Audio & Visual Alerting</h3>
+                <p class="text-xs text-slate-500">Fires high-decibel audio frequencies through Pygame audio hooks alongside bold red on-screen warning bounding boxes to snap driver attention back to the road.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-white/50 dark:bg-slate-900/50 border border-slate-200/30 dark:border-slate-800/30 space-y-2">
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white"><i class="fas fa-bolt text-amber-500 mr-2" aria-hidden="true"></i>Low-Compute CPU Optimization</h3>
+                <p class="text-xs text-slate-500">Optimized landmark extraction pipeline using lightweight MediaPipe pipelines to sustain a fluid 30+ FPS video pipeline on basic standard laptop hardware.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 space-y-6">
+        <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white">Tech Stack</h2>
+        <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">Python 3.11</span>
+            <span class="px-3 py-1.5 bg-blue-500/10 text-blue-700 dark:text-blue-300 border border-blue-500/20 rounded-lg text-xs font-mono font-semibold">OpenCV (cv2)</span>
+            <span class="px-3 py-1.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-lg text-xs font-mono font-semibold">MediaPipe</span>
+            <span class="px-3 py-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-lg text-xs font-mono font-semibold">NumPy &amp; SciPy</span>
+            <span class="px-3 py-1.5 bg-rose-500/10 text-rose-700 dark:text-rose-300 border border-rose-500/20 rounded-lg text-xs font-mono font-semibold">Pygame (Audio)</span>
+            <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono">Dlib (Benchmark)</span>
+        </div>
+    </section>
+
+    <!-- Actions / Links -->
+    <section class="flex flex-wrap gap-4 justify-center py-8">
+        <a href="https://github.com/venkatesh01-t" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold shadow-md hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2 text-sm">
+            <i class="fab fa-github" aria-hidden="true"></i> View Code on GitHub
+        </a>
+        <a href="/services/ai-llm-development/" class="px-6 py-3 rounded-full border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold hover:border-purple-400 hover:scale-105 transition-all inline-flex items-center gap-2 text-sm">
+            <i class="fas fa-brain" aria-hidden="true"></i> AI &amp; LLM Services
+        </a>
+    </section>
+</article>
+{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Driver Drowsiness Detection System",
+      "description": "Real-time driver fatigue monitoring system using OpenCV, MediaPipe face mesh, and Eye Aspect Ratio (EAR) metric calculations.",
+      "url": "https://venkatesh01-t.vercel.app/projects/drowsiness-detection/",
+      "applicationCategory": "SafetyApplication",
+      "operatingSystem": "Cross-platform",
+      "author": {
+        "@type": "Person",
+        "name": "Venkatesh Babu",
+        "url": "https://venkatesh01-t.vercel.app/"
+      },
+      "programmingLanguage": "Python"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://venkatesh01-t.vercel.app/"},
+        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "https://venkatesh01-t.vercel.app/projects/"},
+        {"@type": "ListItem", "position": 3, "name": "Driver Drowsiness Detection"}
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}

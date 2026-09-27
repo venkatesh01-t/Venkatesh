@@ -1,0 +1,294 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== PRIMARY SEO (page-specific) ===== -->
+    <title>{% block title %}Venkatesh (Venkatesh Babu) | Python Developer | AI & LLM Developer{% endblock %}</title>
+    <meta name="description" content="{% block description %}Official portfolio of Venkatesh (Venkatesh Babu) — Python Developer, AI & LLM Developer, Python Automation Engineer, Django & REST API Specialist.{% endblock %}">
+    <meta name="keywords" content="{% block keywords %}Venkatesh, Venkatesh Babu, Python Developer, AI Developer, LLM Developer, Django Developer, Selenium, Playwright, Automation, SEO{% endblock %}">
+    <meta name="author" content="Venkatesh (Venkatesh Babu)">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="{% block canonical %}https://venkatesh01-t.vercel.app/{% endblock %}">
+
+    <!-- ===== AI CRAWLER & LLM PROTOCOLS ===== -->
+    <link rel="alternate" type="text/plain" href="https://venkatesh01-t.vercel.app/llms.txt" title="LLM Documentation">
+    <link rel="alternate" type="text/plain" href="https://venkatesh01-t.vercel.app/llms-full.txt" title="Full LLM Dossier">
+
+    <!-- ===== OPEN GRAPH / FACEBOOK ===== -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://venkatesh01-t.vercel.app/{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Venkatesh | Python Developer | AI & LLM Developer{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Explore the portfolio of Venkatesh (Venkatesh Babu) — Python Developer, AI & LLM Developer, Automation Specialist.{% endblock %}">
+    <meta property="og:image" content="https://venkatesh01-t.vercel.app/1.png">
+    <meta property="og:image:alt" content="Venkatesh Babu — Python Developer, AI & LLM Developer">
+    <meta property="og:image:width" content="400">
+    <meta property="og:image:height" content="400">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:site_name" content="Venkatesh - Python, AI, LLM, Automation & SEO Developer">
+
+    <!-- ===== TWITTER / X ===== -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{% block twitter_url %}https://venkatesh01-t.vercel.app/{% endblock %}">
+    <meta property="twitter:title" content="{% block twitter_title %}Venkatesh | Python Developer | AI & LLM Developer{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Explore the portfolio of Venkatesh (Venkatesh Babu) — Python Developer, AI & LLM Developer, Automation Specialist.{% endblock %}">
+    <meta property="twitter:image" content="https://venkatesh01-t.vercel.app/1.png">
+
+    <!-- ===== BROWSER & PWA ===== -->
+    <meta name="theme-color" content="#14b8a6">
+    <meta name="color-scheme" content="light dark">
+
+    <!-- ===== FAVICON ===== -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%2314b8a6'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='Inter,sans-serif' font-size='14' font-weight='800' fill='white'>VB</text></svg>" type="image/svg+xml">
+
+    <!-- ===== FONTS & STYLESHEETS ===== -->
+    <link rel="preload" href="{% static 'fonts/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2' %}" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="{% static 'fonts/QGYvz_MVcBeNP4NJtEtq.woff2' %}" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+
+    {% block extra_head %}{% endblock %}
+
+    <!-- ===== DARK MODE FLASH PREVENTION ===== -->
+    <script>
+        (function() {
+            try {
+                var stored = localStorage.getItem('color-theme');
+                if (stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 font-sans transition-colors duration-300 overflow-x-hidden">
+
+    <!-- SCROLL PROGRESS BAR -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-slate-200 dark:bg-slate-800 z-[60]">
+        <div class="h-full bg-gradient-to-r from-teal-500 via-cyan-400 to-purple-600 w-0 transition-all duration-100" id="scroll-progress"></div>
+    </div>
+
+    <!-- NAVIGATION HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="glass-nav rounded-full px-4 py-2 sm:px-6 flex justify-between items-center shadow-md">
+                <!-- Logo -->
+                <a href="/" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-teal-500 shadow-sm bg-slate-100 flex-shrink-0">
+                        <picture>
+                            <source srcset="{% static '1.avif' %}" type="image/avif">
+                            <source srcset="{% static '1.webp' %}" type="image/webp">
+                            <img src="{% static '1.png' %}" alt="Venkatesh Babu" class="w-full h-full object-cover" width="40" height="40" decoding="async">
+                        </picture>
+                    </div>
+                    <div class="leading-tight hidden sm:block">
+                        <span class="text-sm font-display font-bold text-slate-950 dark:text-white">Venkatesh Babu</span>
+                        <p class="text-[10px] font-semibold text-teal-600 dark:text-teal-400 uppercase tracking-wide">Python &bull; AI/LLM &bull; Automation &bull; SEO</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-1 bg-slate-100/50 dark:bg-slate-900/50 p-1 rounded-full border border-slate-200/50 dark:border-slate-800/50">
+                    <a href="/" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a>
+                    <a href="/about/" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">About</a>
+                    <a href="/services/" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Services</a>
+                    <a href="/projects/" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Projects</a>
+                    <a href="/blog/" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Blog</a>
+                    <a href="/#contact" class="px-4 py-1.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Contact</a>
+                </nav>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center gap-2">
+                    <!-- Dark Mode Toggle -->
+                    <button id="sub-theme-toggle" onclick="toggleDarkMode()" class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-all" aria-label="Toggle dark mode">
+                        <i class="fas fa-moon dark:hidden" aria-hidden="true"></i>
+                        <i class="fas fa-sun hidden dark:inline" aria-hidden="true"></i>
+                    </button>
+                    <!-- CTA -->
+                    <a href="/#contact" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold shadow-md shadow-teal-500/20 transition-all hover:scale-105 active:scale-95">
+                        <i class="fas fa-paper-plane" aria-hidden="true"></i> Hire Me
+                    </a>
+                    <!-- Mobile Menu Toggle -->
+                    <button id="sub-mobile-toggle" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400" aria-label="Open mobile menu" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="sub-mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-950/95 backdrop-blur-lg border-b border-slate-200 dark:border-slate-800 shadow-lg">
+            <nav class="max-w-7xl mx-auto px-6 py-4 flex flex-col gap-1">
+                <a href="/" class="px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-teal-500/10 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a>
+                <a href="/about/" class="px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-teal-500/10 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">About</a>
+                <a href="/services/" class="px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-teal-500/10 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Services</a>
+                <a href="/projects/" class="px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-teal-500/10 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Projects</a>
+                <a href="/blog/" class="px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-teal-500/10 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Blog</a>
+                <a href="/#contact" class="px-4 py-3 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-teal-500/10 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16">
+        <!-- Breadcrumb Navigation -->
+        {% block breadcrumb %}{% endblock %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="relative bg-slate-950 text-slate-400 border-t border-slate-800/80 pt-16 pb-12 mt-28 overflow-hidden z-10">
+        <div class="absolute top-0 left-1/4 w-96 h-32 bg-teal-500/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div class="absolute top-0 right-1/4 w-96 h-32 bg-purple-600/10 rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div class="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-teal-500 via-purple-500 to-transparent opacity-75"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+                <!-- Column 1: Brand -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-teal-500 shadow-md shadow-teal-500/20 bg-slate-900 flex-shrink-0">
+                            <picture>
+                                <source srcset="{% static '1.avif' %}" type="image/avif">
+                                <source srcset="{% static '1.webp' %}" type="image/webp">
+                                <img src="{% static '1.png' %}" alt="Venkatesh Babu" class="w-full h-full object-cover" width="44" height="44" loading="lazy">
+                            </picture>
+                        </div>
+                        <div>
+                            <span class="text-base font-display font-bold text-white block leading-tight">Venkatesh Babu</span>
+                            <span class="text-[11px] font-mono text-teal-400 font-semibold uppercase tracking-wider">Python &bull; AI/LLM &bull; Automation &bull; SEO</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Passionate software developer specializing in <strong class="text-slate-200">Python Automation (Selenium &amp; Playwright)</strong>, Large Language Models (LLMs), AI/ML, robust backend APIs, and Technical SEO.
+                    </p>
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-mono">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        Available for Opportunities
+                    </div>
+                </div>
+
+                <!-- Column 2: Pages -->
+                <div class="space-y-4">
+                    <h3 class="text-xs font-mono font-bold text-white uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span> Pages
+                    </h3>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Home</a></li>
+                        <li><a href="/about/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> About Me</a></li>
+                        <li><a href="/services/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Services</a></li>
+                        <li><a href="/projects/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Projects</a></li>
+                        <li><a href="/blog/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Blog</a></li>
+                        <li><a href="/#contact" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Services -->
+                <div class="space-y-4">
+                    <h3 class="text-xs font-mono font-bold text-white uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span> Services
+                    </h3>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="/services/python-automation/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Python Automation</a></li>
+                        <li><a href="/services/ai-llm-development/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> AI & LLM Development</a></li>
+                        <li><a href="/services/django-api-development/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Django & API Dev</a></li>
+                        <li><a href="/services/web-scraping/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Web Scraping</a></li>
+                        <li><a href="/services/technical-seo/" class="hover:text-teal-400 transition-colors flex items-center gap-2 group"><i class="fas fa-chevron-right text-[9px] text-teal-500/60 group-hover:translate-x-1 transition-transform" aria-hidden="true"></i> Technical SEO</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Connect -->
+                <div class="space-y-4">
+                    <h3 class="text-xs font-mono font-bold text-white uppercase tracking-widest flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> Connect
+                    </h3>
+                    <div class="space-y-2 text-xs">
+                        <a href="mailto:babuvenkatesh093@gmail.com" class="flex items-center gap-2.5 text-slate-400 hover:text-teal-400 transition-colors truncate block">
+                            <i class="fas fa-envelope text-teal-500 w-4" aria-hidden="true"></i>
+                            <span class="truncate">babuvenkatesh093@gmail.com</span>
+                        </a>
+                        <a href="tel:+919952142302" class="flex items-center gap-2.5 text-slate-400 hover:text-teal-400 transition-colors">
+                            <i class="fas fa-phone text-teal-500 w-4" aria-hidden="true"></i>
+                            <span>+91 99521 42302</span>
+                        </a>
+                        <div class="flex items-center gap-2.5 text-slate-400">
+                            <i class="fas fa-map-marker-alt text-teal-500 w-4" aria-hidden="true"></i>
+                            <span>Madurai, Tamil Nadu, India</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 pt-2">
+                        <a href="https://github.com/venkatesh01-t" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:border-teal-500/50 hover:bg-teal-500/10 hover:scale-110 transition-all shadow-sm" aria-label="GitHub Profile"><i class="fab fa-github" aria-hidden="true"></i></a>
+                        <a href="https://www.linkedin.com/in/venkatesh-babu-208891392" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-blue-400 hover:border-blue-500/50 hover:bg-blue-500/10 hover:scale-110 transition-all shadow-sm" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/jerry_._boy_7/" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-pink-400 hover:border-pink-500/50 hover:bg-pink-500/10 hover:scale-110 transition-all shadow-sm" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="mailto:babuvenkatesh093@gmail.com" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:text-teal-400 hover:border-teal-500/50 hover:bg-teal-500/10 hover:scale-110 transition-all shadow-sm" aria-label="Email"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+                        <a href="{% static 'resume.pdf' %}" download="Venkatesh_Babu_Resume.pdf" class="w-9 h-9 rounded-xl bg-teal-600/20 border border-teal-500/40 flex items-center justify-center text-teal-400 hover:text-white hover:bg-teal-600 hover:scale-110 transition-all shadow-sm" title="Download Resume" aria-label="Download Resume"><i class="fas fa-download" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                <div class="flex items-center gap-2 text-slate-500 text-center sm:text-left">
+                    <span>&copy; <span id="current-year">2026</span> <strong class="text-slate-300">Venkatesh Babu</strong>. All Rights Reserved.</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-[11px] font-mono text-slate-500 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-teal-500"></span> Engineered for High Performance
+                    </span>
+                    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="w-8 h-8 rounded-full bg-slate-900 border border-slate-800 text-slate-400 hover:text-teal-400 hover:border-teal-500/50 flex items-center justify-center transition-all hover:-translate-y-0.5" title="Back to Top" aria-label="Scroll back to top">
+                        <i class="fas fa-arrow-up text-xs" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING BACK TO TOP BUTTON -->
+    <button id="backToTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-slate-900/90 text-teal-400 border border-teal-500/40 shadow-xl shadow-teal-500/10 backdrop-blur-md flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-teal-600 hover:text-white hover:border-teal-400 opacity-0 translate-y-6 pointer-events-none group active:scale-95" aria-label="Scroll back to top">
+        <i class="fas fa-arrow-up text-sm transition-transform duration-300 group-hover:-translate-y-0.5"></i>
+    </button>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="{% static 'js/script.min.js' %}" defer></script>
+    <script>
+        // Mobile menu toggle for subpages
+        function toggleMobileMenu() {
+            var menu = document.getElementById('sub-mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        // Dark mode toggle for subpages
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            var isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+        }
+        // Scroll progress bar
+        window.addEventListener('scroll', function() {
+            var scrollTop = window.scrollY;
+            var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            var scrollPercent = (scrollTop / docHeight) * 100;
+            var bar = document.getElementById('scroll-progress');
+            if (bar) bar.style.width = scrollPercent + '%';
+            // Back to top button
+            var btn = document.getElementById('backToTopBtn');
+            if (btn) {
+                if (scrollTop > 400) {
+                    btn.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+                    btn.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                } else {
+                    btn.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+                    btn.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+                }
+            }
+        });
+    </script>
+
+    <!-- Page-specific JSON-LD -->
+    {% block jsonld %}{% endblock %}
+</body>
+</html>

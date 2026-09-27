@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}Technical Blog & Engineering Guides | Venkatesh Babu — Python, AI, Automation & SEO{% endblock %}
+{% block description %}Deep-dive technical tutorials, architectural guides, and benchmarks on Python automation (Selenium & Playwright), AI/LLM development, Django APIs, and Technical SEO by Venkatesh Babu.{% endblock %}
+{% block keywords %}Python blog, Selenium tutorials, Playwright Python guide, RAG pipeline architecture, Django REST framework, Technical SEO engineering, Venkatesh Babu blog{% endblock %}
+{% block canonical %}https://venkatesh01-t.vercel.app/blog/{% endblock %}
+{% block og_type %}website{% endblock %}
+{% block og_url %}https://venkatesh01-t.vercel.app/blog/{% endblock %}
+{% block og_title %}Technical Blog & Engineering Guides | Venkatesh Babu{% endblock %}
+{% block og_description %}Practical software engineering guides covering Python automation, AI/LLMs, Django, and Technical SEO.{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="mb-8">
+    <ol class="flex items-center gap-2 text-xs text-slate-500">
+        <li><a href="/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a></li>
+        <li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li>
+        <li class="text-slate-900 dark:text-white font-semibold">Blog</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-12">
+    <!-- Header -->
+    <section class="space-y-4 max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 text-xs font-mono font-semibold">
+            <i class="fas fa-book-open" aria-hidden="true"></i> Engineering Insights &amp; Guides
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white">
+            Practical Guides for <span class="text-gradient">Modern Developers</span>
+        </h1>
+        <p class="text-base text-slate-600 dark:text-slate-400 leading-relaxed">
+            In-depth tutorials, architectural benchmarks, and real-world implementation guides covering <strong>Python automation, browser orchestration, AI &amp; LLM architectures, and high-performance backend systems</strong>.
+        </p>
+    </section>
+
+    <!-- Articles Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Article 1: Selenium Automation 2026 -->
+        <article class="glass-card rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 hover:border-teal-500/50 transition-all duration-300 flex flex-col group hover:-translate-y-1 hover:shadow-xl">
+            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span class="px-2.5 py-1 rounded-md bg-teal-500/10 text-teal-600 dark:text-teal-400 font-mono font-semibold text-[10px]">Python &bull; Automation</span>
+                        <time datetime="2026-09-25">Sep 25, 2026</time>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-display font-bold text-slate-950 dark:text-white group-hover:text-teal-500 transition-colors">
+                        <a href="/blog/python-automation-selenium-2026/">How to Build a Resilient Python Automation Pipeline with Selenium in 2026</a>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        A complete blueprint for architecting mission-critical Selenium browser bots that survive dynamic DOM changes, evade anti-bot detection, and execute headless in cloud CI/CD containers.
+                    </p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-slate-200/50 dark:border-slate-800/50 text-xs">
+                    <span class="text-slate-500"><i class="fas fa-clock mr-1" aria-hidden="true"></i> 8 min read</span>
+                    <a href="/blog/python-automation-selenium-2026/" class="font-bold text-teal-600 dark:text-teal-400 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                        Read Article <i class="fas fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+
+        <!-- Article 2: Playwright vs Selenium -->
+        <article class="glass-card rounded-2xl overflow-hidden border border-slate-200/50 dark:border-slate-800/50 hover:border-purple-500/50 transition-all duration-300 flex flex-col group hover:-translate-y-1 hover:shadow-xl">
+            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span class="px-2.5 py-1 rounded-md bg-purple-500/10 text-purple-600 dark:text-purple-400 font-mono font-semibold text-[10px]">Benchmark &bull; Testing</span>
+                        <time datetime="2026-09-20">Sep 20, 2026</time>
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-display font-bold text-slate-950 dark:text-white group-hover:text-purple-500 transition-colors">
+                        <a href="/blog/playwright-vs-selenium-python/">Playwright vs Selenium in 2026: The Ultimate Python Automation Benchmark</a>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        An unbiased, data-driven comparison of execution speeds, auto-waiting mechanisms, async concurrency, memory footprint, and bot-evasion resilience across Chromium and Firefox.
+                    </p>
+                </div>
+                <div class="flex items-center justify-between pt-4 border-t border-slate-200/50 dark:border-slate-800/50 text-xs">
+                    <span class="text-slate-500"><i class="fas fa-clock mr-1" aria-hidden="true"></i> 10 min read</span>
+                    <a href="/blog/playwright-vs-selenium-python/" class="font-bold text-purple-600 dark:text-purple-400 flex items-center gap-1.5 group-hover:translate-x-1 transition-transform">
+                        Read Article <i class="fas fa-arrow-right text-[10px]" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Newsletter / Subscribe CTA -->
+    <section class="glass-card rounded-3xl p-8 sm:p-12 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-6">
+        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-950 dark:text-white">
+            Need Custom Python, AI or Automation Development?
+        </h2>
+        <p class="text-sm text-slate-500 max-w-xl mx-auto">
+            I help businesses, agencies, and founders automate manual operational overhead, build scalable web apps, and integrate state-of-the-art LLMs.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/#contact" class="px-8 py-3 rounded-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm shadow-xl shadow-teal-500/20 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i> Hire Venkatesh
+            </a>
+            <a href="/services/" class="px-8 py-3 rounded-full border border-slate-300 dark:border-slate-700 hover:border-teal-500 text-slate-700 dark:text-slate-300 font-bold text-sm hover:scale-105 transition-all inline-flex items-center gap-2">
+                <i class="fas fa-cogs" aria-hidden="true"></i> View All Services
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://venkatesh01-t.vercel.app/blog/#blog",
+      "url": "https://venkatesh01-t.vercel.app/blog/",
+      "name": "Venkatesh Babu Technical Engineering Blog",
+      "description": "Practical guides and benchmarks on Python automation, AI/LLMs, Django, and Technical SEO.",
+      "publisher": {
+        "@type": "Person",
+        "name": "Venkatesh Babu",
+        "url": "https://venkatesh01-t.vercel.app/"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://venkatesh01-t.vercel.app/"},
+        {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://venkatesh01-t.vercel.app/blog/"}
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}

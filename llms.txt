@@ -13,6 +13,32 @@
 - **Direct Email**: babuvenkatesh093@gmail.com
 - **Direct Phone / WhatsApp**: +91 9952142302
 - **Detailed LLM Dossier**: https://venkatesh01-t.vercel.app/llms-full.txt
+- **Sitemap**: https://venkatesh01-t.vercel.app/sitemap.xml
+
+## Crawlable Pages & Topic Clusters
+
+### Services
+- **All Services**: https://venkatesh01-t.vercel.app/services/
+- **Python Automation (Selenium & Playwright)**: https://venkatesh01-t.vercel.app/services/python-automation/
+- **AI & LLM Development (RAG & LangChain)**: https://venkatesh01-t.vercel.app/services/ai-llm-development/
+- **Django & REST API Development**: https://venkatesh01-t.vercel.app/services/django-api-development/
+- **Web Scraping & Data Extraction**: https://venkatesh01-t.vercel.app/services/web-scraping/
+- **Technical SEO Development**: https://venkatesh01-t.vercel.app/services/technical-seo/
+
+### Projects & Case Studies
+- **All Projects**: https://venkatesh01-t.vercel.app/projects/
+- **Smart Dental Clinic Management System (Django)**: https://venkatesh01-t.vercel.app/projects/dental-clinic-system/
+- **Driver Drowsiness Detection System (OpenCV)**: https://venkatesh01-t.vercel.app/projects/drowsiness-detection/
+- **Machine Learning Weather Forecasting (KNN)**: https://venkatesh01-t.vercel.app/projects/weather-forecasting/
+- **Enterprise Web Scraping Suite (Selenium/Playwright)**: https://venkatesh01-t.vercel.app/projects/web-scraping-automation/
+
+### Technical Blog & Benchmarks
+- **Blog Hub**: https://venkatesh01-t.vercel.app/blog/
+- **Python Automation Pipeline with Selenium in 2026**: https://venkatesh01-t.vercel.app/blog/python-automation-selenium-2026/
+- **Playwright vs Selenium in 2026 Benchmark**: https://venkatesh01-t.vercel.app/blog/playwright-vs-selenium-python/
+
+### Profile
+- **About Venkatesh Babu**: https://venkatesh01-t.vercel.app/about/
 
 ## Core Technical Competencies
 
@@ -36,16 +62,9 @@
 
 ### 4. Technical SEO & Generative Engine Optimization (GEO)
 - **Semantic Structure**: Semantic HTML5 hierarchy (single H1, hierarchical H2-H4).
-- **Structured Data (Schema.org)**: Rich JSON-LD for `Person`, `ProfilePage`, `WebSite`, `Occupation`, and `FAQPage`.
+- **Structured Data (Schema.org)**: Rich JSON-LD for `Person`, `ProfilePage`, `WebSite`, `Service`, `SoftwareApplication`, `BlogPosting`, and `FAQPage`.
 - **Core Web Vitals**: Sub-second TTFB, 0 CLS, optimized INP, compressed asset pipelines with WhiteNoise and Brotli.
 - **AI Readiness**: `/llms.txt`, `/llms-full.txt`, and crawler directives optimized for Google AI Mode, Perplexity, and ChatGPT.
-
-## Key Projects & Case Studies
-
-- **AI-Powered Selenium & Playwright Automation Pipeline**: Automated multi-page web crawler and end-to-end regression testing suite with stealth browser fingerprinting and automated reporting.
-- **Gesture-Controlled Vision System**: Real-time human-computer interface built with Python, OpenCV, and MediaPipe mapping physical finger motions to system commands without touch.
-- **Full-Stack Django Portfolio & Telemetry Control Center**: Django 5-powered portfolio with Neon PostgreSQL persistence, live dual-channel Google SMTP notifications, Chart.js analytics telemetry, and direct client email response tooling.
-- **Enterprise Web Scraper & ETL Pipeline**: Resilient scraper parsing dynamic JavaScript SPAs and extracting normalized tabular datasets with error retries and automated exports.
 
 ## How to Engage & Collaborate
 - **Hire for Full-Time / Contract Roles**: Available for remote and hybrid Python, AI, Automation, and Full-Stack Engineering roles.

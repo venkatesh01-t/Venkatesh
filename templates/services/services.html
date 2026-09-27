@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Services | Venkatesh Babu — Python Developer, AI/LLM, Automation & SEO Expert{% endblock %}
+{% block description %}Explore professional services by Venkatesh Babu: Python Automation (Selenium & Playwright), AI & LLM Development, Django REST API, Web Scraping, and Technical SEO.{% endblock %}
+{% block keywords %}Venkatesh services, Python automation services, AI LLM developer, Django developer, web scraping, SEO developer, hire Python developer{% endblock %}
+{% block canonical %}https://venkatesh01-t.vercel.app/services/{% endblock %}
+{% block og_url %}https://venkatesh01-t.vercel.app/services/{% endblock %}
+{% block og_title %}Services | Venkatesh Babu — Python, AI & Automation Expert{% endblock %}
+{% block og_description %}Professional Python Automation, AI/LLM, Django API, Web Scraping, and Technical SEO services by Venkatesh Babu.{% endblock %}
+{% block twitter_url %}https://venkatesh01-t.vercel.app/services/{% endblock %}
+{% block twitter_title %}Services | Venkatesh Babu{% endblock %}
+{% block twitter_description %}Professional Python Automation, AI/LLM, Django API, Web Scraping, and Technical SEO services.{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="mb-8">
+    <ol class="flex items-center gap-2 text-xs text-slate-500">
+        <li><a href="/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a></li>
+        <li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li>
+        <li class="text-slate-900 dark:text-white font-semibold">Services</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-20">
+    <!-- Hero -->
+    <section class="text-center max-w-3xl mx-auto space-y-6 py-12">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-semibold tracking-wider uppercase">
+            <i class="fas fa-briefcase" aria-hidden="true"></i> Professional Services
+        </div>
+        <h1 class="text-4xl sm:text-5xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white">
+            Expert <span class="text-gradient">Development Services</span>
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            I offer end-to-end development services specializing in <strong class="text-slate-900 dark:text-white">Python Automation, AI &amp; LLM Integration, Django REST APIs, Web Scraping,</strong> and <strong class="text-slate-900 dark:text-white">Technical SEO</strong>. Every project is engineered for performance, scalability, and real business impact.
+        </p>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Service Card 1: Python Automation -->
+        <a href="/services/python-automation/" class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-teal-500/10 transition-all duration-300 group block">
+            <div class="w-14 h-14 rounded-2xl bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-robot" aria-hidden="true"></i>
+            </div>
+            <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white mb-3">Python Automation</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">End-to-end browser automation, workflow scripting, and E2E testing using <strong>Selenium WebDriver</strong> and <strong>Playwright Python</strong>. Automate repetitive tasks, data entry, form filling, and complex multi-step workflows.</p>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-md text-[10px] font-mono">Selenium</span>
+                <span class="px-2 py-0.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-md text-[10px] font-mono">Playwright</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">PyAutoGUI</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">CI/CD</span>
+            </div>
+            <div class="mt-6 text-xs font-semibold text-teal-600 dark:text-teal-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                Learn More <i class="fas fa-arrow-right text-[10px]" aria-hidden="true"></i>
+            </div>
+        </a>
+
+        <!-- Service Card 2: AI & LLM -->
+        <a href="/services/ai-llm-development/" class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 group block">
+            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-brain" aria-hidden="true"></i>
+            </div>
+            <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white mb-3">AI &amp; LLM Development</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">Custom AI chatbots, RAG pipelines, prompt engineering, and Large Language Model integrations using <strong>LangChain, OpenAI, Gemini,</strong> and vector databases for intelligent automation.</p>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-md text-[10px] font-mono">LangChain</span>
+                <span class="px-2 py-0.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-md text-[10px] font-mono">RAG</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">OpenAI</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">ChromaDB</span>
+            </div>
+            <div class="mt-6 text-xs font-semibold text-purple-600 dark:text-purple-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                Learn More <i class="fas fa-arrow-right text-[10px]" aria-hidden="true"></i>
+            </div>
+        </a>
+
+        <!-- Service Card 3: Django API -->
+        <a href="/services/django-api-development/" class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300 group block">
+            <div class="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-600 dark:text-green-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-server" aria-hidden="true"></i>
+            </div>
+            <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white mb-3">Django &amp; API Development</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">Full-stack web applications and RESTful APIs using <strong>Django, Django REST Framework, FastAPI,</strong> and PostgreSQL. Secure authentication, serverless deployment, and scalable architecture.</p>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20 rounded-md text-[10px] font-mono">Django</span>
+                <span class="px-2 py-0.5 bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20 rounded-md text-[10px] font-mono">FastAPI</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">PostgreSQL</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">REST API</span>
+            </div>
+            <div class="mt-6 text-xs font-semibold text-green-600 dark:text-green-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                Learn More <i class="fas fa-arrow-right text-[10px]" aria-hidden="true"></i>
+            </div>
+        </a>
+
+        <!-- Service Card 4: Web Scraping -->
+        <a href="/services/web-scraping/" class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300 group block">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-600 dark:text-amber-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-spider" aria-hidden="true"></i>
+            </div>
+            <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white mb-3">Web Scraping &amp; Data Extraction</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">Enterprise-grade data extraction from any website using <strong>BeautifulSoup, Scrapy, Selenium,</strong> and Playwright. Anti-bot bypass, CAPTCHA solving, structured data export, and ETL pipelines.</p>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-md text-[10px] font-mono">BeautifulSoup</span>
+                <span class="px-2 py-0.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-md text-[10px] font-mono">Scrapy</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Selenium</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">ETL</span>
+            </div>
+            <div class="mt-6 text-xs font-semibold text-amber-600 dark:text-amber-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                Learn More <i class="fas fa-arrow-right text-[10px]" aria-hidden="true"></i>
+            </div>
+        </a>
+
+        <!-- Service Card 5: Technical SEO -->
+        <a href="/services/technical-seo/" class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 group block">
+            <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                <i class="fas fa-chart-line" aria-hidden="true"></i>
+            </div>
+            <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white mb-3">Technical SEO Development</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">Data-driven SEO engineering: <strong>JSON-LD structured data, Core Web Vitals,</strong> sitemap generation, GEO (AI search optimization), and performance audits to dominate search rankings.</p>
+            <div class="flex flex-wrap gap-1.5">
+                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 rounded-md text-[10px] font-mono">JSON-LD</span>
+                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 rounded-md text-[10px] font-mono">Web Vitals</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">GEO</span>
+                <span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-md text-[10px] font-mono">Schema.org</span>
+            </div>
+            <div class="mt-6 text-xs font-semibold text-cyan-600 dark:text-cyan-400 flex items-center gap-1 group-hover:gap-2 transition-all">
+                Learn More <i class="fas fa-arrow-right text-[10px]" aria-hidden="true"></i>
+            </div>
+        </a>
+
+        <!-- CTA Card -->
+        <div class="glass-card rounded-2xl p-8 border border-teal-500/30 dark:border-teal-500/20 bg-gradient-to-br from-teal-500/5 to-purple-500/5 flex flex-col justify-center items-center text-center space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-teal-500/20 flex items-center justify-center text-teal-600 dark:text-teal-400 text-2xl">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </div>
+            <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white">Have a Project in Mind?</h2>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Let's discuss your requirements and build something extraordinary together.</p>
+            <a href="/#contact" class="px-6 py-3 rounded-full bg-teal-600 hover:bg-teal-500 text-white font-semibold shadow-lg shadow-teal-500/20 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2 text-sm">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i> Get In Touch
+            </a>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="space-y-8">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+            <span class="text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-widest">How I Work</span>
+            <h2 class="text-3xl font-display font-bold text-slate-950 dark:text-white">My Development Process</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            <div class="text-center space-y-3 p-6">
+                <div class="w-12 h-12 rounded-full bg-teal-500/10 flex items-center justify-center text-teal-600 dark:text-teal-400 text-lg font-display font-bold mx-auto">1</div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Discovery</h3>
+                <p class="text-xs text-slate-500">Understanding your requirements, goals, and technical constraints through detailed consultation.</p>
+            </div>
+            <div class="text-center space-y-3 p-6">
+                <div class="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 text-lg font-display font-bold mx-auto">2</div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Architecture</h3>
+                <p class="text-xs text-slate-500">Designing scalable system architecture, data models, and API contracts before writing code.</p>
+            </div>
+            <div class="text-center space-y-3 p-6">
+                <div class="w-12 h-12 rounded-full bg-cyan-500/10 flex items-center justify-center text-cyan-600 dark:text-cyan-400 text-lg font-display font-bold mx-auto">3</div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Development</h3>
+                <p class="text-xs text-slate-500">Building with clean code, version control, automated tests, and continuous integration.</p>
+            </div>
+            <div class="text-center space-y-3 p-6">
+                <div class="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 dark:text-green-400 text-lg font-display font-bold mx-auto">4</div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Delivery</h3>
+                <p class="text-xs text-slate-500">Production deployment with documentation, monitoring, and post-launch support.</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Professional Development Services by Venkatesh Babu",
+    "description": "Expert Python Automation, AI/LLM, Django API, Web Scraping, and Technical SEO development services.",
+    "url": "https://venkatesh01-t.vercel.app/services/",
+    "numberOfItems": 5,
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+                "@type": "Service",
+                "name": "Python Automation (Selenium & Playwright)",
+                "url": "https://venkatesh01-t.vercel.app/services/python-automation/",
+                "description": "End-to-end browser automation, workflow scripting, and E2E testing using Selenium WebDriver and Playwright Python.",
+                "provider": {"@type": "Person", "name": "Venkatesh Babu", "url": "https://venkatesh01-t.vercel.app/"}
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+                "@type": "Service",
+                "name": "AI & LLM Development",
+                "url": "https://venkatesh01-t.vercel.app/services/ai-llm-development/",
+                "description": "Custom AI chatbots, RAG pipelines, prompt engineering, and Large Language Model integrations.",
+                "provider": {"@type": "Person", "name": "Venkatesh Babu", "url": "https://venkatesh01-t.vercel.app/"}
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+                "@type": "Service",
+                "name": "Django & API Development",
+                "url": "https://venkatesh01-t.vercel.app/services/django-api-development/",
+                "description": "Full-stack web applications and RESTful APIs using Django, Django REST Framework, FastAPI, and PostgreSQL.",
+                "provider": {"@type": "Person", "name": "Venkatesh Babu", "url": "https://venkatesh01-t.vercel.app/"}
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 4,
+            "item": {
+                "@type": "Service",
+                "name": "Web Scraping & Data Extraction",
+                "url": "https://venkatesh01-t.vercel.app/services/web-scraping/",
+                "description": "Enterprise-grade data extraction using BeautifulSoup, Scrapy, Selenium, and Playwright.",
+                "provider": {"@type": "Person", "name": "Venkatesh Babu", "url": "https://venkatesh01-t.vercel.app/"}
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 5,
+            "item": {
+                "@type": "Service",
+                "name": "Technical SEO Development",
+                "url": "https://venkatesh01-t.vercel.app/services/technical-seo/",
+                "description": "JSON-LD structured data, Core Web Vitals optimization, GEO protocols, and performance audits.",
+                "provider": {"@type": "Person", "name": "Venkatesh Babu", "url": "https://venkatesh01-t.vercel.app/"}
+            }
+        }
+    ]
+}
+</script>
+{% endblock %}

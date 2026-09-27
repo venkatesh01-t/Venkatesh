@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Venkatesh Babu | Python Developer, AI Engineer & Automation Specialist{% endblock %}
+{% block description %}Learn about Venkatesh Babu — an India-based Python Developer, AI & LLM Engineer, Browser Automation Specialist (Selenium, Playwright), and Technical SEO Architect.{% endblock %}
+{% block keywords %}About Venkatesh Babu, Python Developer Madurai, AI LLM Engineer India, Selenium Playwright Specialist, Django Developer Bio, hire Python developer{% endblock %}
+{% block canonical %}https://venkatesh01-t.vercel.app/about/{% endblock %}
+{% block og_type %}profile{% endblock %}
+{% block og_url %}https://venkatesh01-t.vercel.app/about/{% endblock %}
+{% block og_title %}About Venkatesh Babu — Full-Stack Python & AI Specialist{% endblock %}
+{% block og_description %}Get to know Venkatesh Babu: background, technical competencies, engineering philosophy, and project portfolio.{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="mb-8">
+    <ol class="flex items-center gap-2 text-xs text-slate-500">
+        <li><a href="/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a></li>
+        <li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li>
+        <li class="text-slate-900 dark:text-white font-semibold">About Me</li>
+    </ol>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="space-y-16 max-w-5xl mx-auto">
+    <!-- Hero / Profile Intro -->
+    <section class="glass-card rounded-3xl p-8 sm:p-12 border border-slate-200/50 dark:border-slate-800/50 relative overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <!-- Profile Photo -->
+            <div class="md:col-span-4 flex justify-center">
+                <div class="relative group">
+                    <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden border-4 border-teal-500 shadow-2xl shadow-teal-500/20 bg-slate-900">
+                        <picture>
+                            <source srcset="{% static '1.avif' %}" type="image/avif">
+                            <source srcset="{% static '1.webp' %}" type="image/webp">
+                            <img src="{% static '1.png' %}" alt="Venkatesh Babu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" width="224" height="224">
+                        </picture>
+                    </div>
+                    <div class="absolute -bottom-3 -right-3 px-3 py-1.5 rounded-xl bg-slate-900 border border-teal-500/40 text-teal-400 text-xs font-mono font-bold shadow-lg flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Open to Work
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bio Text -->
+            <div class="md:col-span-8 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 text-xs font-mono font-semibold">
+                    <i class="fas fa-code" aria-hidden="true"></i> Software Engineer &bull; AI Builder
+                </div>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-extrabold text-slate-950 dark:text-white tracking-tight">
+                    Hi, I'm <span class="text-gradient">Venkatesh Babu</span>
+                </h1>
+                <p class="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                    A passionate <strong>Python Developer</strong> and <strong>AI/LLM Engineer</strong> based in Madurai, Tamil Nadu, India. I specialize in architecting production-ready web backends with <strong>Django &amp; FastAPI</strong>, building intelligent AI agents via <strong>LangChain, RAG &amp; Vector Databases</strong>, and automating mission-critical browser workflows using <strong>Selenium and Playwright</strong>.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="/#contact" class="px-5 py-2.5 rounded-full bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold shadow-lg shadow-teal-500/20 transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-2">
+                        <i class="fas fa-paper-plane" aria-hidden="true"></i> Get in Touch
+                    </a>
+                    <a href="{% static 'resume.pdf' %}" download="Venkatesh_Babu_Resume.pdf" class="px-5 py-2.5 rounded-full border border-slate-300 dark:border-slate-700 hover:border-teal-500 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all hover:scale-105 inline-flex items-center gap-2">
+                        <i class="fas fa-download" aria-hidden="true"></i> Download Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Statistics -->
+    <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-3xl font-display font-extrabold text-teal-600 dark:text-teal-400">10+</span>
+            <p class="text-xs text-slate-500">Core Technologies</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-3xl font-display font-extrabold text-purple-600 dark:text-purple-400">4+</span>
+            <p class="text-xs text-slate-500">Flagship Projects</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-3xl font-display font-extrabold text-blue-600 dark:text-blue-400">100%</span>
+            <p class="text-xs text-slate-500">Commitment to Quality</p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-1">
+            <span class="text-3xl font-display font-extrabold text-amber-600 dark:text-amber-400">24/7</span>
+            <p class="text-xs text-slate-500">Continuous Learning</p>
+        </div>
+    </section>
+
+    <!-- Engineering Philosophy / E-E-A-T Pillars -->
+    <section class="space-y-6">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl sm:text-3xl font-display font-bold text-slate-950 dark:text-white">Engineering Philosophy &amp; Core Standards</h2>
+            <p class="text-xs text-slate-500 max-w-xl mx-auto">Every project is built according to production-grade engineering principles, performance metrics, and clean code standards.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-500">
+                    <i class="fas fa-microchip text-lg" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">Clean &amp; Maintainable Code</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Adherence to PEP 8, SOLID architectural design, strict type annotations, and automated linting. Code written today is designed to be easily maintained years later.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500">
+                    <i class="fas fa-bolt text-lg" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">Performance-First Thinking</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Every database query is analyzed for N+1 hazards. Every automation job features exponential retry strategies. Web pages are optimized for sub-second Core Web Vitals.</p>
+            </div>
+            <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+                    <i class="fas fa-search text-lg" aria-hidden="true"></i>
+                </div>
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">Technical SEO &amp; GEO Mastery</h3>
+                <p class="text-xs text-slate-500 leading-relaxed">Deep structured data implementation with complete JSON-LD schemas, LLM ingestion standards (/llms.txt), and mobile-responsive layout architectures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Tech Stack Badges -->
+    <section class="glass-card rounded-2xl p-8 border border-slate-200/50 dark:border-slate-800/50 space-y-6">
+        <h2 class="text-xl font-display font-bold text-slate-950 dark:text-white">Technical Competencies Matrix</h2>
+        <div class="space-y-4">
+            <div>
+                <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider block mb-2">Backend &amp; Languages</span>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">Python 3.11/3.12</span>
+                    <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">Django 5.x</span>
+                    <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">Django REST Framework</span>
+                    <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">FastAPI</span>
+                    <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">PostgreSQL (Neon)</span>
+                    <span class="px-3 py-1.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg text-xs font-mono font-semibold text-slate-700 dark:text-slate-300">SQLite</span>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider block mb-2">AI, LLM &amp; Computer Vision</span>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">LangChain</span>
+                    <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">RAG Architecture</span>
+                    <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">OpenAI &amp; Gemini APIs</span>
+                    <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">ChromaDB Vector Store</span>
+                    <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">OpenCV (cv2)</span>
+                    <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">MediaPipe Face Mesh</span>
+                    <span class="px-3 py-1.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-lg text-xs font-mono font-semibold">Scikit-Learn</span>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider block mb-2">Automation, Scraping &amp; Testing</span>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-lg text-xs font-mono font-semibold">Selenium WebDriver</span>
+                    <span class="px-3 py-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-lg text-xs font-mono font-semibold">Playwright Python</span>
+                    <span class="px-3 py-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-lg text-xs font-mono font-semibold">BeautifulSoup4</span>
+                    <span class="px-3 py-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-lg text-xs font-mono font-semibold">Scrapy</span>
+                    <span class="px-3 py-1.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-lg text-xs font-mono font-semibold">Proxy &amp; Headless Pipelines</span>
+                </div>
+            </div>
+            <div>
+                <span class="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider block mb-2">Frontend &amp; Deployment</span>
+                <div class="flex flex-wrap gap-2">
+                    <span class="px-3 py-1.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-lg text-xs font-mono font-semibold">Tailwind CSS</span>
+                    <span class="px-3 py-1.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-lg text-xs font-mono font-semibold">HTML5 &amp; Vanilla JavaScript</span>
+                    <span class="px-3 py-1.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-lg text-xs font-mono font-semibold">Vercel Serverless</span>
+                    <span class="px-3 py-1.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-lg text-xs font-mono font-semibold">WhiteNoise</span>
+                    <span class="px-3 py-1.5 bg-teal-500/10 text-teal-700 dark:text-teal-300 border border-teal-500/20 rounded-lg text-xs font-mono font-semibold">Git / GitHub Actions</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education & Location -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-500">
+                    <i class="fas fa-graduation-cap text-lg" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">Education &amp; Academic Background</h3>
+                    <p class="text-xs text-slate-500">Computer Science &amp; Engineering Foundation</p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Strong theoretical and practical background in computer science, data structures, algorithms, object-oriented programming, relational database management, and computer networks.
+            </p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 border border-slate-200/50 dark:border-slate-800/50 space-y-3">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500">
+                    <i class="fas fa-map-marked-alt text-lg" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">Location &amp; Remote Availability</h3>
+                    <p class="text-xs text-slate-500">Madurai, Tamil Nadu, India (UTC +05:30)</p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 leading-relaxed">
+                Available for full-time roles, contracts, and freelance projects globally with high overlap across Americas, European, and Asia-Pacific working hours.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="glass-card rounded-3xl p-8 sm:p-12 border border-slate-200/50 dark:border-slate-800/50 text-center space-y-6">
+        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-950 dark:text-white">
+            Let's Collaborate On Your Next Project
+        </h2>
+        <p class="text-sm text-slate-500 max-w-xl mx-auto">
+            Whether you need a high-scale web scraping system, an intelligent AI-driven chatbot, a custom Django SaaS application, or technical SEO optimization.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/#contact" class="px-8 py-3 rounded-full bg-teal-600 hover:bg-teal-500 text-white font-bold text-sm shadow-xl shadow-teal-500/20 hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2">
+                <i class="fas fa-paper-plane" aria-hidden="true"></i> Send Me a Message
+            </a>
+            <a href="/services/" class="px-8 py-3 rounded-full border border-slate-300 dark:border-slate-700 hover:border-teal-500 text-slate-700 dark:text-slate-300 font-bold text-sm hover:scale-105 transition-all inline-flex items-center gap-2">
+                <i class="fas fa-briefcase" aria-hidden="true"></i> Explore Services
+            </a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block jsonld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://venkatesh01-t.vercel.app/about/#profilepage",
+      "url": "https://venkatesh01-t.vercel.app/about/",
+      "name": "About Venkatesh Babu | Python Developer, AI Engineer & Automation Specialist",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "https://venkatesh01-t.vercel.app/#website",
+        "name": "Venkatesh Babu Portfolio",
+        "url": "https://venkatesh01-t.vercel.app/"
+      },
+      "about": {
+        "@type": "Person",
+        "@id": "https://venkatesh01-t.vercel.app/#person",
+        "name": "Venkatesh Babu",
+        "alternateName": ["Venkatesh", "Venkatesh B"],
+        "jobTitle": "Python Developer & AI Engineer",
+        "url": "https://venkatesh01-t.vercel.app/",
+        "sameAs": [
+          "https://github.com/venkatesh01-t",
+          "https://www.linkedin.com/in/venkatesh-babu-208891392",
+          "https://www.instagram.com/jerry_._boy_7/"
+        ],
+        "knowsAbout": [
+          "Python",
+          "Django",
+          "FastAPI",
+          "Selenium WebDriver",
+          "Playwright Python",
+          "Artificial Intelligence",
+          "Large Language Models",
+          "RAG Pipelines",
+          "Computer Vision",
+          "OpenCV",
+          "Technical SEO",
+          "Web Scraping"
+        ],
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Madurai, Tamil Nadu, India"
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://venkatesh01-t.vercel.app/"},
+        {"@type": "ListItem", "position": 2, "name": "About", "item": "https://venkatesh01-t.vercel.app/about/"}
+      ]
+    }
+  ]
+}
+</script>
+{% endblock %}

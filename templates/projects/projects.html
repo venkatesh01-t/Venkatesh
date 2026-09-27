@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Projects & Case Studies | Venkatesh Babu — Python, AI, Django Portfolio{% endblock %}
+{% block description %}Explore Venkatesh Babu's project portfolio: Dental Clinic Management System (Django), Drowsiness Detection (OpenCV), Weather Forecasting (ML), and Web Scraping Automation (Selenium).{% endblock %}
+{% block keywords %}Venkatesh projects, Python projects, Django projects, AI projects, OpenCV project, machine learning project, portfolio case studies{% endblock %}
+{% block canonical %}https://venkatesh01-t.vercel.app/projects/{% endblock %}
+{% block og_url %}https://venkatesh01-t.vercel.app/projects/{% endblock %}
+{% block og_title %}Projects & Case Studies | Venkatesh Babu{% endblock %}
+{% block og_description %}Python, AI, Django, and automation project case studies by Venkatesh Babu.{% endblock %}
+{% block twitter_url %}https://venkatesh01-t.vercel.app/projects/{% endblock %}
+{% block twitter_title %}Projects | Venkatesh Babu{% endblock %}
+{% block twitter_description %}Python, AI, Django, and automation project portfolio.{% endblock %}
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="mb-8"><ol class="flex items-center gap-2 text-xs text-slate-500"><li><a href="/" class="hover:text-teal-600 dark:hover:text-teal-400 transition-colors">Home</a></li><li><i class="fas fa-chevron-right text-[8px]" aria-hidden="true"></i></li><li class="text-slate-900 dark:text-white font-semibold">Projects</li></ol></nav>
+{% endblock %}
+{% block content %}
+<div class="space-y-16">
+    <section class="text-center max-w-3xl mx-auto space-y-6 py-8">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-700 dark:text-teal-300 text-xs font-semibold tracking-wider uppercase"><i class="fas fa-folder-open" aria-hidden="true"></i> Portfolio</div>
+        <h1 class="text-4xl sm:text-5xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white">Featured <span class="text-gradient">Projects</span></h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">A showcase of full-stack implementations, AI applications, and automation pipelines — each demonstrating real-world problem-solving with Python, Django, and machine learning.</p>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Project 1 -->
+        <a href="/projects/dental-clinic-system/" class="glass-card rounded-2xl border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group block overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-green-500/20 to-teal-500/20 flex items-center justify-center"><i class="fas fa-hospital text-5xl text-green-500/40" aria-hidden="true"></i></div>
+            <div class="p-6 space-y-3">
+                <span class="px-2 py-0.5 bg-green-500/10 text-green-700 dark:text-green-300 border border-green-500/20 rounded-md text-[10px] font-mono">Full-Stack Django</span>
+                <h2 class="text-lg font-display font-bold text-slate-950 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">Smart Dental Clinic Management System</h2>
+                <p class="text-xs text-slate-600 dark:text-slate-400">Full-stack Django application with patient records, appointment scheduling, treatment tracking, billing, and admin dashboard — deployed on Vercel with Neon PostgreSQL.</p>
+                <div class="flex flex-wrap gap-1.5 pt-2"><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Django</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">PostgreSQL</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">REST API</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Tailwind CSS</span></div>
+            </div>
+        </a>
+        <!-- Project 2 -->
+        <a href="/projects/drowsiness-detection/" class="glass-card rounded-2xl border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group block overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center"><i class="fas fa-eye text-5xl text-purple-500/40" aria-hidden="true"></i></div>
+            <div class="p-6 space-y-3">
+                <span class="px-2 py-0.5 bg-purple-500/10 text-purple-700 dark:text-purple-300 border border-purple-500/20 rounded-md text-[10px] font-mono">Computer Vision / AI</span>
+                <h2 class="text-lg font-display font-bold text-slate-950 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">Real-Time Drowsiness Detection System</h2>
+                <p class="text-xs text-slate-600 dark:text-slate-400">OpenCV + MediaPipe system tracking 468 facial landmarks to compute Eye Aspect Ratio (EAR) with &lt;50ms latency for driver safety monitoring.</p>
+                <div class="flex flex-wrap gap-1.5 pt-2"><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">OpenCV</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">MediaPipe</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Python</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Tkinter</span></div>
+            </div>
+        </a>
+        <!-- Project 3 -->
+        <a href="/projects/weather-forecasting/" class="glass-card rounded-2xl border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group block overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center"><i class="fas fa-cloud-sun text-5xl text-cyan-500/40" aria-hidden="true"></i></div>
+            <div class="p-6 space-y-3">
+                <span class="px-2 py-0.5 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 rounded-md text-[10px] font-mono">Machine Learning</span>
+                <h2 class="text-lg font-display font-bold text-slate-950 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">Intelligent Weather Forecasting Application</h2>
+                <p class="text-xs text-slate-600 dark:text-slate-400">ML-powered weather prediction using KNN classification on meteorological datasets with real-time API integration and a responsive FastAPI dashboard.</p>
+                <div class="flex flex-wrap gap-1.5 pt-2"><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Scikit-Learn</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">FastAPI</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">KNN</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Pandas</span></div>
+            </div>
+        </a>
+        <!-- Project 4 -->
+        <a href="/projects/web-scraping-automation/" class="glass-card rounded-2xl border border-slate-200/50 dark:border-slate-800/50 hover:-translate-y-2 hover:shadow-xl transition-all duration-300 group block overflow-hidden">
+            <div class="h-48 bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center"><i class="fas fa-spider text-5xl text-amber-500/40" aria-hidden="true"></i></div>
+            <div class="p-6 space-y-3">
+                <span class="px-2 py-0.5 bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 rounded-md text-[10px] font-mono">Automation</span>
+                <h2 class="text-lg font-display font-bold text-slate-950 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">Automated Web Scraping Pipeline</h2>
+                <p class="text-xs text-slate-600 dark:text-slate-400">Selenium + BeautifulSoup pipeline for extracting product data from e-commerce sites with rotating proxies, stealth browsing, and structured CSV export.</p>
+                <div class="flex flex-wrap gap-1.5 pt-2"><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Selenium</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">BeautifulSoup</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">Playwright</span><span class="px-2 py-0.5 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded text-[10px] font-mono">CSV/JSON</span></div>
+            </div>
+        </a>
+    </section>
+</div>
+{% endblock %}
+{% block jsonld %}
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","name":"Projects & Case Studies by Venkatesh Babu","description":"Python, AI, Django, and automation project portfolio.","url":"https://venkatesh01-t.vercel.app/projects/","author":{"@type":"Person","name":"Venkatesh Babu","url":"https://venkatesh01-t.vercel.app/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://venkatesh01-t.vercel.app/"},{"@type":"ListItem","position":2,"name":"Projects"}]}]}
+</script>
+{% endblock %}

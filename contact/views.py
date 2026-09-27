@@ -22,6 +22,71 @@ def index_view(request):
     return render(request, 'index.html')
 
 
+def about_view(request):
+    """Renders the comprehensive About Me page."""
+    return render(request, 'about.html')
+
+
+def services_hub_view(request):
+    """Renders the Services hub page."""
+    return render(request, 'services/services.html')
+
+
+def service_python_automation_view(request):
+    return render(request, 'services/python-automation.html')
+
+
+def service_ai_llm_view(request):
+    return render(request, 'services/ai-llm-development.html')
+
+
+def service_django_api_view(request):
+    return render(request, 'services/django-api-development.html')
+
+
+def service_web_scraping_view(request):
+    return render(request, 'services/web-scraping.html')
+
+
+def service_technical_seo_view(request):
+    return render(request, 'services/technical-seo.html')
+
+
+def projects_hub_view(request):
+    """Renders the Projects hub page."""
+    return render(request, 'projects/projects.html')
+
+
+def project_dental_clinic_view(request):
+    return render(request, 'projects/dental-clinic-system.html')
+
+
+def project_drowsiness_detection_view(request):
+    return render(request, 'projects/drowsiness-detection.html')
+
+
+def project_weather_forecasting_view(request):
+    return render(request, 'projects/weather-forecasting.html')
+
+
+def project_web_scraping_view(request):
+    return render(request, 'projects/web-scraping-automation.html')
+
+
+def blog_hub_view(request):
+    """Renders the Blog hub page."""
+    return render(request, 'blog/blog.html')
+
+
+def blog_selenium_2026_view(request):
+    return render(request, 'blog/python-automation-selenium-2026.html')
+
+
+def blog_playwright_vs_selenium_view(request):
+    return render(request, 'blog/playwright-vs-selenium-python.html')
+
+
+
 def serve_seo_file(filename, content_type):
     file_path = os.path.join(settings.BASE_DIR, filename)
     if os.path.exists(file_path):
